@@ -6,10 +6,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.view.AttController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.LoginView.LoginController">
    <children>
       <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="130.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="100.0">
          <children>
@@ -22,9 +23,9 @@
             </HBox>
             <HBox prefHeight="86.0" prefWidth="120.0">
                <children>
-                  <Button mnemonicParsing="false" text="Log in" />
+                  <Button mnemonicParsing="false" onAction="#btnLogin" text="Log in" />
                   <ImageView fitHeight="4.0" fitWidth="4.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button mnemonicParsing="false" text="Cancel" />
+                  <Button mnemonicParsing="false" onAction="#btnClose" text="Cancel" />
                </children>
             </HBox>
          </children>
@@ -34,11 +35,16 @@
             <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <CheckBox mnemonicParsing="false" />
+                  <CheckBox fx:id="cboxRememberMe" mnemonicParsing="false" />
                   <Label text="Remember me" />
                </children>
             </HBox>
          </children>
       </VBox>
+      <BorderPane layoutX="316.0" layoutY="76.0" prefHeight="249.0" prefWidth="287.0" AnchorPane.leftAnchor="316.0">
+         <center>
+            <ImageView fx:id="imgCompanyLogo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>
