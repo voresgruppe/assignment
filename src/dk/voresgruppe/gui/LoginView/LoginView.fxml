@@ -33,7 +33,7 @@
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="138.0">
          <children>
-            <ImageView fx:id="imgPwIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgPwIcon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <CheckBox fx:id="cboxRememberMe" mnemonicParsing="false">

@@ -1,13 +1,18 @@
 package dk.voresgruppe.gui.LoginView;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class LoginController {
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class LoginController implements Initializable {
     public TextField UserID;
     public PasswordField PassID;
     
@@ -15,10 +20,12 @@ public class LoginController {
     public ImageView imgCompanyLogo;
     public ImageView imgPwIcon;
 
-    public void initialize(){
-        //imgPwIcon = new ImageView(new Image(getClass().getResourceAsStream("pw_eye_visibility_off.png"))); ???
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        File file = new File("image/pw_eye_visibility.png");
+        Image image = new Image(file.toURI().toString());
+        imgPwIcon.setImage(image);  //not working
     }
-
 
     public void btnLogin(ActionEvent actionEvent) {
     }
@@ -26,4 +33,6 @@ public class LoginController {
     public void btnClose(ActionEvent actionEvent) {
         System.exit(1);
     }
+
+
 }
