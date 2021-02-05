@@ -29,10 +29,16 @@ public class AttendanceViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        File file = new File("image/ProfilePic.png");
+        addProfilePic("image/ProfilePic.png");
+
+
+    }
+
+    private void addProfilePic(String path) {
+        File file = new File(path);
         Image pic = new Image(String.valueOf(file));
         imgProfilePic.setImage(pic);
-
+        
     }
 
     public void handleRegisterAttendance(ActionEvent actionEvent) {
