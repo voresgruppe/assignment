@@ -9,6 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,10 +23,8 @@ public class AttendanceViewController implements Initializable {
     public TextField txtFieldAbsencePercentage;
 @FXML
     public TextField txtFieldAbsenceDays;
-    @FXML
-    public BorderPane bpProfilePic;
-
-
+@FXML
+    public ImageView imgProfilePic;
 
 
     public void handleRegisterAttendance(ActionEvent actionEvent) {
@@ -37,11 +37,12 @@ public class AttendanceViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         File file = new File("image/ProfilePic.png");
+        Image pic = new Image(String.valueOf(file));
+        imgProfilePic.setImage(pic);
 
-        Image pic = new Image(file.toURI().toString());
-        ImageView pb = new ImageView(pic);
 
-        bpProfilePic.setCenter(pb);
+
     }
 }
