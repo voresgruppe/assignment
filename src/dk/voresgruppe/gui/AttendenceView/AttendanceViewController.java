@@ -26,6 +26,14 @@ public class AttendanceViewController implements Initializable {
 @FXML
     public ImageView imgProfilePic;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        File file = new File("image/ProfilePic.png");
+        Image pic = new Image(String.valueOf(file));
+        imgProfilePic.setImage(pic);
+
+    }
 
     public void handleRegisterAttendance(ActionEvent actionEvent) {
     }
@@ -35,14 +43,5 @@ public class AttendanceViewController implements Initializable {
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        File file = new File("image/ProfilePic.png");
-        Image pic = new Image(String.valueOf(file));
-        imgProfilePic.setImage(pic);
-
-
-
-    }
 }
