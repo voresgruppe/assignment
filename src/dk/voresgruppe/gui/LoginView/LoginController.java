@@ -24,6 +24,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         File file = new File("image/pw_eye_visibility.png");
         Image image = new Image(file.toURI().toString());
+        //imgPwIcon = new ImageView("image/pw_eye_visibility.png");
         imgPwIcon.setImage(image);  //not working
     }
 
