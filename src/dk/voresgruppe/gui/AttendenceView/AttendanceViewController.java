@@ -38,7 +38,7 @@ public class AttendanceViewController implements Initializable {
         File file = new File(path);
         Image pic = new Image(String.valueOf(file));
         imgProfilePic.setImage(pic);
-        
+
     }
 
     public void handleRegisterAttendance(ActionEvent actionEvent) {
