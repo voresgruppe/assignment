@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AttendenceView.AttendenceViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AttendenceView.AttendanceViewController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -22,7 +22,7 @@
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
                         </BorderPane>
-                        <Button mnemonicParsing="false" onAction="#handleRegisterAttendence" prefHeight="35.0" prefWidth="280.0" text="Registrer fremmøde">
+                        <Button mnemonicParsing="false" onAction="#handleRegisterAttendance" prefHeight="35.0" prefWidth="280.0" text="Registrer fremmøde">
                            <VBox.margin>
                               <Insets bottom="5.0" left="10.0" right="10.0" />
                            </VBox.margin>
@@ -51,7 +51,7 @@
                                     <Insets left="10.0" right="23.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="txtFieldAbsensePercentage" prefHeight="25.0" prefWidth="25.0" />
+                              <TextField fx:id="txtFieldAbsencePercentage" prefHeight="25.0" prefWidth="25.0" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="5.0" />
