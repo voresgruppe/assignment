@@ -1,4 +1,4 @@
-package dk.voresgruppe.gui.LoginView;
+package dk.voresgruppe.gui;
 
 
 import javafx.event.ActionEvent;

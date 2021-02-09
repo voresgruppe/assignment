@@ -1,4 +1,4 @@
-package dk.voresgruppe.gui.LoginView.AttendenceView;
+package dk.voresgruppe.gui.AttendenceView;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
