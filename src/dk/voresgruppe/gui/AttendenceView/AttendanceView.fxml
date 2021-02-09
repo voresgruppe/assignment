@@ -73,7 +73,7 @@
                                     <Insets right="315.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button mnemonicParsing="false" onAction="#handleLogOut" prefHeight="34.0" prefWidth="98.0" text="Log ud" />
+                              <Button fx:id="btnLogUd" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="34.0" prefWidth="98.0" text="Log ud" />
                            </children>
                         </HBox>
                      </children>
