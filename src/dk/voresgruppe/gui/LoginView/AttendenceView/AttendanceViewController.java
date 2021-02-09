@@ -1,4 +1,4 @@
-package dk.voresgruppe.gui.AttendenceView;
+package dk.voresgruppe.gui.LoginView.AttendenceView;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,8 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
