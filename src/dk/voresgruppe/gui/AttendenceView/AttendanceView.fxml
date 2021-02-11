@@ -18,9 +18,17 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="300.0">
                      <children>
+                        <Label fx:id="lblGreeting" alignment="CENTER" prefHeight="30.0" prefWidth="290.0" text="Godmorgen">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
                         <ImageView fx:id="imgProfilePic" fitHeight="260.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
                            <VBox.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                              <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
                            </VBox.margin>
                         </ImageView>
                         <Button mnemonicParsing="false" onAction="#handleRegisterAttendance" prefHeight="35.0" prefWidth="280.0" text="Registrer fremmøde">

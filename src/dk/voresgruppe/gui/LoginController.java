@@ -4,6 +4,7 @@ package dk.voresgruppe.gui;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.bll.StudentManager;
+import dk.voresgruppe.gui.AttendenceView.AttendanceViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -52,6 +53,8 @@ public class LoginController implements Initializable {
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(getClass().getResource("AttendenceView/AttendanceView.fxml"));
                         Parent mainLayout = loader.load();
+                        AttendanceViewController cvc = loader.getController();
+                        cvc.setLoggedStudent(currentStudent);
                         Stage stage = new Stage();
                         stage.setScene(new Scene(mainLayout));
                         stage.show();
