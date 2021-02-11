@@ -38,6 +38,8 @@ public class LoginController implements Initializable {
         for(Student currentStudent : sMan.getAllStudents()) {
             System.out.println(currentStudent);
         }
+        UserID.setText("jane1988");
+        PassID.setText("jane1988");
     }
 
     public void btnLogin(ActionEvent actionEvent) {
