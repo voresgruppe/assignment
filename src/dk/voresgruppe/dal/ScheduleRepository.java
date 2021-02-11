@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScheduleRepositroy {
+public class ScheduleRepository {
     File file = new File("assignment/data/MockSchedule Ervhervsøkonom 1.semester");
 
     public List<Module> loadModules() {
