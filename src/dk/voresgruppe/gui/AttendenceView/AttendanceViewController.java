@@ -46,9 +46,13 @@ public class AttendanceViewController implements Initializable {
     }
 
     public void handleLogOut(ActionEvent actionEvent) {
-        //Stage stage = (Stage) btnLogUd.getScene().getWindow();
-        //stage.close();
+
+        Stage stage = (Stage) btnLogUd.getScene().getWindow();
+        stage.close();
+
     }
+
+
 
 
 
