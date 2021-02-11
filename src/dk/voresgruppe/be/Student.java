@@ -1,7 +1,6 @@
 package dk.voresgruppe.be;
 
 import java.util.Date;
-import java.util.List;
 
 public class Student {
 
@@ -10,9 +9,6 @@ public class Student {
     private String currentCourse;
     private User studentLogin;
     private String birthday;
-
-    private List<Schedule> toShowUp;
-    private List<Schedule> showedUp;
 
     public Student(String firstName, String lastName, String birthday, String currentCourse, User studentLogin) {
         this.firstName = firstName;
@@ -48,30 +44,6 @@ public class Student {
 
     public User getStudentLogin() {
         return studentLogin;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-
-    public List<Schedule> getToShowUp() {
-        return toShowUp;
-    }
-
-    public void setToShowUp(List<Schedule> toShowUp) {
-        this.toShowUp = toShowUp;
-    }
-
-    public List<Schedule> getShowedUp() {
-        return showedUp;
-    }
-
-    public void setShowedUp(List<Schedule> showedUp) {
-        this.showedUp = showedUp;
     }
 
     public void setStudentLogin(User studentLogin) {

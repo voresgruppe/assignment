@@ -1,1 +1,1 @@
-Jane,Jørgensen,1/1/1988,Erhvervsøkonom 1.semester,jane1988,jane1988
+Jane,Jørgensen,1/1/1988,Erhvervsøkonom,jane1988,jane1988

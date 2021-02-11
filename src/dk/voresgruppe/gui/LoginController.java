@@ -44,6 +44,7 @@ public class LoginController implements Initializable {
     }
 
     public void btnLogin(ActionEvent actionEvent) {
+
         if(!UserID.getText().isEmpty() && !PassID.getText().isEmpty()) {
             User tempUser = new User(UserID.getText(), PassID.getText());
             for (Student currentStudent : sMan.getAllStudents() ) {
