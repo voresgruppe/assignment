@@ -28,13 +28,4 @@ public class Schedule {
     public void setModules(List<Module> modules) {
         this.modules = modules;
     }
-
-    @Override
-    public String toString() {
-        String returnString = date + " ";
-        for(Module currentModule : modules) {
-            returnString += currentModule +",";
-        }
-        return returnString;
-    }
 }

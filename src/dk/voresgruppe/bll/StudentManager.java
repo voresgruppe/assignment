@@ -1,7 +1,12 @@
 package dk.voresgruppe.bll;
 
 import dk.voresgruppe.be.*;
+<<<<<<< HEAD
 import dk.voresgruppe.dal.ScheduleRepository;
+=======
+import dk.voresgruppe.be.Module;
+import dk.voresgruppe.dal.ScheduleRepositroy;
+>>>>>>> parent of f0b2a9d (h)
 import dk.voresgruppe.dal.StudentRepository;
 
 
