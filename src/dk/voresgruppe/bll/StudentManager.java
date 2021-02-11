@@ -6,6 +6,7 @@ import dk.voresgruppe.dal.ScheduleRepositroy;
 import dk.voresgruppe.dal.StudentRepository;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentManager {
@@ -16,7 +17,7 @@ public class StudentManager {
     public StudentManager() {
         this.allStudents = this.sRepo.loadStudents();
         for(Student currentStudent: allStudents) {
-            List<Schedule> schedules = null;
+            List<Schedule> schedules = new ArrayList<>();
             for(int i = 1; i<3; i++){
                 Date date = new Date(i, 1, 2021);
                 schedules.add(scheduleRepo.schedule(date));
