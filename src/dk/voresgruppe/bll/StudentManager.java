@@ -1,7 +1,6 @@
 package dk.voresgruppe.bll;
 
 import dk.voresgruppe.be.*;
-import dk.voresgruppe.be.Module;
 import dk.voresgruppe.dal.ScheduleRepositroy;
 import dk.voresgruppe.dal.StudentRepository;
 
