@@ -40,7 +40,7 @@ public class LoginController implements Initializable {
     StudentManager sMan = new StudentManager();
     public TextField UserID;
     public PasswordField PassID;
-    
+
     public CheckBox cboxRememberMe;
     public ImageView imgCompanyLogo;
     public ImageView imgPwIcon;
@@ -52,6 +52,11 @@ public class LoginController implements Initializable {
         File file = new File("image/pw_eye_visibility.png");
         Image image = new Image(String.valueOf(file));
         imgPwIcon.setImage(image);
+
+        File logo = new File("image/logo.png");
+        Image image1 = new Image(String.valueOf(logo));
+        imgCompanyLogo.setImage(image1);
+
         for(Student currentStudent : sMan.getAllStudents()) {
             System.out.println(currentStudent);
         }
