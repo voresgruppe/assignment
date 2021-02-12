@@ -36,12 +36,27 @@ public class LoginController implements Initializable {
         File file = new File("image/pw_eye_visibility.png");
         Image image = new Image(String.valueOf(file));
         imgPwIcon.setImage(image);
+        imgCompanyLogo.setImage(image);
+        addcplogo("image/logo.png");
+
+
+
         for(Student currentStudent : sMan.getAllStudents()) {
             System.out.println(currentStudent);
         }
         UserID.setText("jane1988");
         PassID.setText("jane1988");
+
+
+
     }
+    //Sets company logo in imageview img-company-logo
+      private void addcplogo(String s) {
+        File logo = new File(s);
+        Image img = new Image(String.valueOf(logo));
+        imgCompanyLogo.setImage(img);
+    }
+
 
     public void btnLogin(ActionEvent actionEvent) {
         if(!UserID.getText().isEmpty() && !PassID.getText().isEmpty()) {

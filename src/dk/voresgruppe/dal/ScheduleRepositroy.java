@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleRepositroy {
-    File file = new File("assignment/data/MockSchedule Ervhervsøkonom 1.semester");
+    File file = new File("data/MockSchedule Ervhervsøkonom 1.semester");
 
     public List<Module> loadModules() {
         List<Module> allModules = new ArrayList<>();
