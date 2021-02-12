@@ -84,6 +84,7 @@ public class LoginController implements Initializable {
                         //((Stage) (imgCompanyLogo.getScene().getWindow())).hide();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        
                     }
                 }
             }
