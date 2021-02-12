@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.LoginController">
@@ -20,7 +21,20 @@
             <ImageView fitHeight="4.0" fitWidth="4.0" pickOnBounds="true" preserveRatio="true" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <PasswordField fx:id="PassID" promptText="Password" />
+                  <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane fx:id="borderPaneTxtField" prefHeight="200.0" prefWidth="200.0">
+                           <top>
+                              <TextField fx:id="txtPassShown" BorderPane.alignment="CENTER" />
+                           </top>
+                        </BorderPane>
+                        <BorderPane fx:id="borderPanePassField" prefHeight="200.0" prefWidth="200.0">
+                           <top>
+                              <PasswordField fx:id="PassID" promptText="Password" BorderPane.alignment="CENTER" />
+                           </top>
+                        </BorderPane>
+                     </children>
+                  </StackPane>
                </children>
             </HBox>
             <HBox prefHeight="86.0" prefWidth="120.0">
@@ -34,7 +48,7 @@
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="130.0">
          <children>
-            <ImageView fx:id="imgPwIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgPwIcon" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#showPass" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../resources/image/pw_eye_visibility.png" />
                </image></ImageView>
