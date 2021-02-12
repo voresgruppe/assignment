@@ -105,6 +105,7 @@ public class LoginController implements Initializable {
             hidePass = false;
             borderPaneTxtField.setVisible(true);
             borderPanePassField.setVisible(false);
+            txtPassShown.requestFocus();
         }else {
             File file = new File("image/pw_eye_visibility.png");
             Image image = new Image(String.valueOf(file));
@@ -112,6 +113,7 @@ public class LoginController implements Initializable {
             hidePass = true;
             borderPaneTxtField.setVisible(false);
             borderPanePassField.setVisible(true);
+            PassID.requestFocus();
         }
 
     }
