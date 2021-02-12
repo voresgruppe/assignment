@@ -96,22 +96,22 @@ public class LoginController implements Initializable {
 
 
     public void showPass(MouseEvent mouseEvent) {
-        ObservableList<Node> workingCollection = FXCollections.observableArrayList(stackPane.getChildren());
+
 
         if (hidePass){
             File file = new File("image/pw_eye_visibility_off.png");
             Image image = new Image(String.valueOf(file));
             imgPwIcon.setImage(image);
             hidePass = false;
-            Collections.swap(workingCollection, 0, 1);
-            stackPane.getChildren().setAll(workingCollection);
+            borderPaneTxtField.setVisible(true);
+            borderPanePassField.setVisible(false);
         }else {
             File file = new File("image/pw_eye_visibility.png");
             Image image = new Image(String.valueOf(file));
             imgPwIcon.setImage(image);
             hidePass = true;
-            Collections.swap(workingCollection, 1, 0);
-            stackPane.getChildren().setAll(workingCollection);
+            borderPaneTxtField.setVisible(false);
+            borderPanePassField.setVisible(true);
         }
 
     }
