@@ -107,6 +107,7 @@ public class LoginController implements Initializable {
             borderPanePassField.setVisible(false);
             txtPassShown.requestFocus();
             txtPassShown.deselect();
+            txtPassShown.end();
         }else {
             File file = new File("image/pw_eye_visibility.png");
             Image image = new Image(String.valueOf(file));
@@ -116,6 +117,7 @@ public class LoginController implements Initializable {
             borderPanePassField.setVisible(true);
             PassID.requestFocus();
             PassID.deselect();
+            PassID.end();
         }
 
     }
