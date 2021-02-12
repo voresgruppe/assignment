@@ -15,7 +15,7 @@ public class StudentRepository {
 
     public List<Student> loadStudents() {
         List<Student> allStudents = new ArrayList<>();
-        File file = new File("data/MockStudentData.txt");
+        File file = new File("assignment/resources/data/MockStudentData.txt");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
