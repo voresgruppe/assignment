@@ -1,6 +1,7 @@
 package dk.voresgruppe.gui.AttendenceView;
 
 import dk.voresgruppe.be.Date;
+import dk.voresgruppe.be.Schedule;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.bll.StudentManager;
 import dk.voresgruppe.util.UserError;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -26,6 +28,7 @@ import java.util.ResourceBundle;
 
 public class AttendanceViewController implements Initializable {
     public Label lblGreeting;
+    public ImageView giraf;
     private Student loggedStudent;
     private StudentManager sMan;
     private Utils utils = new Utils();
@@ -47,6 +50,9 @@ public class AttendanceViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addProfilePic("image/ProfilePic.png");
+        File file = new File("image/Giraf.PNG");
+        Image pic = new Image(String.valueOf(file));
+        giraf.setImage(pic);
     }
 
     public Student getLoggedStudent() {
@@ -58,17 +64,36 @@ public class AttendanceViewController implements Initializable {
         lblGreeting.setText(setLblGreeting());
         txtFieldAbsencePercentage.setText(loggedStudent.getAbsencePercentage() + "%");
         txtFieldAbsenceDays.setText(String.valueOf(loggedStudent.getAbsenceDays()));
+        bpAbsenceChart.setCenter(attendanceChart());
     }
 
-    /*
+
     public LineChart attendanceChart() {
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("dato");
+        final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
+        lineChart.setTitle("Fravær");
 
+
+        //defining a series
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Fraværs Procent");
+        //populating the series with data
+        int i= 0;
+        int x =1;
+        for(Date currentDate: loggedStudent.getToShowUp()) {
+            if(loggedStudent.getShowedUp().contains(currentDate)) {
+                i++;
+            }
+            double y = (x-i)/x*100;
+            series.getData().add(new XYChart.Data(x, y));
+            x++;
+        }
+        lineChart.getData().add(series);
+       return lineChart;
     }
 
-     */
+
 
     public String setLblGreeting () {
         String label = "";

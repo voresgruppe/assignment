@@ -28,7 +28,7 @@ public class Student {
         this.studentLogin = studentLogin;
         this.birthday = birthday;
     }
-    public List<Date> datesToShowUp() {
+    private List<Date> datesToShowUp() {
         List<Date> datesToShowUp = new ArrayList<>();
         int d = 1;
         int m = 8;
@@ -98,9 +98,23 @@ public class Student {
         return weekSchedule.get(weekday);
     }
 
+    public List<Date> getToShowUp() {
+        return toShowUp;
+    }
 
+    public void setToShowUp(List<Date> toShowUp) {
+        this.toShowUp = toShowUp;
+    }
 
-   public void addToShowedUp (Date date) {
+    public List<Date> getShowedUp() {
+        return showedUp;
+    }
+
+    public void setShowedUp(List<Date> showedUp) {
+        this.showedUp = showedUp;
+    }
+
+    public void addToShowedUp (Date date) {
         showedUp.add(date);
     }
 
@@ -116,6 +130,7 @@ public class Student {
             return toShowUp.size() - showedUp.size() / toShowUp.size() * 100;
         }
     }
+
 
     public int getAbsenceDays() {
         if(showedUp.isEmpty()) {
