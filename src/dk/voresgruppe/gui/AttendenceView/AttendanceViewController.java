@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
@@ -100,10 +101,17 @@ public class AttendanceViewController implements Initializable {
     }
 
     public void handleRegisterAttendance(ActionEvent actionEvent) {
-        if(loggedStudent.getScheduleFromDate(utils.getCurrentDate()) != null)
-        loggedStudent.addToShowedUp(loggedStudent.getScheduleFromDate(utils.getCurrentDate()));
+        if(utils.getWeekDayFromDate(utils.getCurrentDate()) < 6)
+        loggedStudent.addToShowedUp(new Date(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
         else {
-            UserError.showError("Attendance not Registered", "Check your schedule you have no classes today");
+            String header = "dude gå hjem det ";
+            if(utils.getWeekDayFromDate(utils.getCurrentDate()) == 6) {
+                header+="Lørdag";
+            }
+            if(utils.getWeekDayFromDate(utils.getCurrentDate()) == 7) {
+                header+="Søndag";
+            }
+            UserError.showError("Fremmøde ikke registreret", header);
         }
     }
 

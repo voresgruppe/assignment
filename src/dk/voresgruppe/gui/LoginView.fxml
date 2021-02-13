@@ -50,7 +50,7 @@
          <children>
             <ImageView fx:id="imgPwIcon" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#showPass" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../resources/image/pw_eye_visibility.png" />
+                  <Image url="/image/pw_eye_visibility.png" />
                </image></ImageView>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
