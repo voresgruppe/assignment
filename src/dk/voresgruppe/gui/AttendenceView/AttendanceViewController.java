@@ -62,7 +62,7 @@ public class AttendanceViewController implements Initializable {
             label += "Goddag ";
         }
         else if(LocalTime.now().getHour() >16 ) {
-            label += "GodAften ";
+            label += "Godaften ";
         }
 
         return label + loggedStudent.getFirstName();
