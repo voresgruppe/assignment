@@ -28,4 +28,15 @@ public class Schedule {
     public void setModules(List<Module> modules) {
         this.modules = modules;
     }
+
+    @Override
+    public String toString() {
+        String result = date.toString();
+        if(!modules.isEmpty()) {
+            for (Module currentModule : modules) {
+                result += " " +  currentModule;
+            }
+        }
+        return result;
+    }
 }

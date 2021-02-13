@@ -1,6 +1,6 @@
 package dk.voresgruppe.be;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Student {
@@ -11,8 +11,8 @@ public class Student {
     private User studentLogin;
     private String birthday;
 
-    private List<Schedule> toShowUp;
-    private List<Schedule> showedUp;
+    private List<Schedule> toShowUp = new ArrayList<>();
+    private List<Schedule> showedUp = new ArrayList<>();
 
     public Student(String firstName, String lastName, String birthday, String currentCourse, User studentLogin) {
         this.firstName = firstName;
@@ -66,6 +66,19 @@ public class Student {
         this.toShowUp = toShowUp;
     }
 
+    public void addToToShowUp (Schedule schedule) {
+        toShowUp.add(schedule);
+    }
+
+    public Schedule getScheduleFromDate (Date date) {
+        for (Schedule currentSchedule : toShowUp) {
+            if (currentSchedule.getDate().equals(date)) {
+                return currentSchedule;
+            }
+        }
+        return null;
+    }
+
     public List<Schedule> getShowedUp() {
         return showedUp;
     }
@@ -74,8 +87,30 @@ public class Student {
         this.showedUp = showedUp;
     }
 
+    public void addToShowedUp (Schedule schedule) {
+        showedUp.add(schedule);
+    }
+
     public void setStudentLogin(User studentLogin) {
         this.studentLogin = studentLogin;
+    }
+
+    public int getAbsencePercentage() {
+        if(showedUp.isEmpty()) {
+            return 100;
+        }
+        else {
+            return toShowUp.size() - showedUp.size() / toShowUp.size() * 100;
+        }
+    }
+
+    public int getAbsenceDays() {
+        if(showedUp.isEmpty()) {
+            return toShowUp.size();
+        }
+        else {
+            return toShowUp.size() - showedUp.size();
+        }
     }
 
     @Override

@@ -1,7 +1,9 @@
 package dk.voresgruppe.dal;
 
+import com.sun.webkit.network.Util;
 import dk.voresgruppe.be.*;
 import dk.voresgruppe.be.Module;
+import dk.voresgruppe.util.Utils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleRepositroy {
+
+    private Utils utils =new Utils();
+
     File file = new File("assignment/resources/data/MockSchedule Ervhervsøkonom 1.semester");
 
     public List<Module> loadModules() {
@@ -20,7 +25,7 @@ public class ScheduleRepositroy {
 
             while ((line = reader.readLine()) != null) {
                 Module module = stringLineToModule(line);
-                allModules .add(module);
+                allModules.add(module);
 
             }
         } catch (IOException e) {
@@ -35,9 +40,9 @@ public class ScheduleRepositroy {
         String dateToSplit = arrModule[0];
         String[] daySplits = dateToSplit.split("/");
 
-        int day = Integer.valueOf(daySplits[0]);
-        int month = Integer.valueOf(daySplits[0]);
-        int year = Integer.valueOf(daySplits[2]);
+        int day = Integer.parseInt(daySplits[0]);
+        int month = Integer.parseInt(daySplits[1]);
+        int year = Integer.parseInt(daySplits[2]);
         Date date = new Date(day, month, year);
 
         String moduleToSplit = arrModule[1];
@@ -59,7 +64,7 @@ public class ScheduleRepositroy {
         List<Module> forSchedule = new ArrayList<>();
 
         for (Module currentModule: allModules) {
-            if (currentModule.getDate().equals(date)) {
+            if (utils.checkIfDatesMatch(currentModule.getDate(), date)) {
                 forSchedule.add(currentModule);
             }
         }

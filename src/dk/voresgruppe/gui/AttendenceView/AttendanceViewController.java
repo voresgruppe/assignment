@@ -1,10 +1,15 @@
 package dk.voresgruppe.gui.AttendenceView;
 
+import dk.voresgruppe.be.Date;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.bll.StudentManager;
+import dk.voresgruppe.util.UserError;
+import dk.voresgruppe.util.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -22,6 +27,8 @@ public class AttendanceViewController implements Initializable {
     public Label lblGreeting;
     private Student loggedStudent;
     private StudentManager sMan;
+    private Utils utils = new Utils();
+    private UserError userError = new UserError();
 
 @FXML
     public BorderPane bpAbsenceChart;
@@ -38,10 +45,7 @@ public class AttendanceViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         addProfilePic("image/ProfilePic.png");
-
-
     }
 
     public Student getLoggedStudent() {
@@ -51,7 +55,19 @@ public class AttendanceViewController implements Initializable {
     public void setLoggedStudent(Student loggedStudent) {
         this.loggedStudent = loggedStudent;
         lblGreeting.setText(setLblGreeting());
+        txtFieldAbsencePercentage.setText(loggedStudent.getAbsencePercentage() + "%");
+        txtFieldAbsenceDays.setText(String.valueOf(loggedStudent.getAbsenceDays()));
     }
+
+    /*
+    public LineChart attendanceChart() {
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("dato");
+
+    }
+
+     */
 
     public String setLblGreeting () {
         String label = "";
@@ -84,6 +100,11 @@ public class AttendanceViewController implements Initializable {
     }
 
     public void handleRegisterAttendance(ActionEvent actionEvent) {
+        if(loggedStudent.getScheduleFromDate(utils.getCurrentDate()) != null)
+        loggedStudent.addToShowedUp(loggedStudent.getScheduleFromDate(utils.getCurrentDate()));
+        else {
+            UserError.showError("Attendance not Registered", "Check your schedule you have no classes today");
+        }
     }
 
     public void handleLogOut(ActionEvent actionEvent) {

@@ -18,7 +18,7 @@ public class StudentManager {
         this.allStudents = this.sRepo.loadStudents();
         for(Student currentStudent: allStudents) {
             List<Schedule> schedules = new ArrayList<>();
-            for(int i = 1; i<3; i++){
+            for(int i = 1; i<=3; i++){
                 Date date = new Date(i, 1, 2021);
                 schedules.add(scheduleRepo.schedule(date));
             }
