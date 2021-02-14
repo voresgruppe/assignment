@@ -7,6 +7,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 public class Student {
 
@@ -17,7 +18,7 @@ public class Student {
     private String birthday;
 
     private List<Date> toShowUp = datesToShowUp();
-    private List<Date> showedUp = new ArrayList<>();
+    private List<Date> showedUp = datesShowedUp();
     private List<Schedule> weekSchedule = new ArrayList<>();
     private Utils utils = new Utils();
 
@@ -54,6 +55,16 @@ public class Student {
             }
         }
         return datesToShowUp;
+    }
+
+    //only for the purposes of mockdata
+    private List<Date> datesShowedUp() {
+        List<Date> datesShowedUp = datesToShowUp();
+        Random random = new Random();
+        for(int i=3; i<datesShowedUp.size(); i+= random.nextInt(8 - 1 +1)){
+            datesShowedUp.remove(i);
+        }
+        return datesShowedUp;
     }
 
     public String getFirstName() {
@@ -127,7 +138,7 @@ public class Student {
             return 100;
         }
         else {
-            return toShowUp.size() - showedUp.size() / toShowUp.size() * 100;
+            return (int) (toShowUp.size() - showedUp.size() / (double) toShowUp.size() * 100);
         }
     }
 

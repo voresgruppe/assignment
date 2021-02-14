@@ -69,10 +69,10 @@ public class AttendanceViewController implements Initializable {
 
 
     public LineChart attendanceChart() {
-        final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
+        final NumberAxis xAxis = new NumberAxis(1, loggedStudent.getToShowUp().size(), 10);
+        final NumberAxis yAxis = new NumberAxis(0, 100, 5);
         final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
-        lineChart.setTitle("Fravær");
+        //lineChart.setTitle("Fravær");
 
 
         //defining a series
@@ -80,16 +80,19 @@ public class AttendanceViewController implements Initializable {
         series.setName("Fraværs Procent");
         //populating the series with data
         int i= 0;
-        int x =1;
+        int x =0;
         for(Date currentDate: loggedStudent.getToShowUp()) {
-            if(loggedStudent.getShowedUp().contains(currentDate)) {
-                i++;
+            for(Date currentShowDate: loggedStudent.getShowedUp()) {
+                if (utils.checkIfDatesMatch(currentDate, currentShowDate)) {
+                    i++;
+                }
             }
-            double y = (x-i)/x*100;
-            series.getData().add(new XYChart.Data(x, y));
             x++;
+            double y = (x - i) /(double) x * 100;
+            series.getData().add(new XYChart.Data(x, y));
         }
         lineChart.getData().add(series);
+        lineChart.setCreateSymbols(false);
        return lineChart;
     }
 

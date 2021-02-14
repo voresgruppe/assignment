@@ -18,6 +18,8 @@ public class StudentManager {
             List<Schedule> schedules = scheduleRepo.weekSchedules();
             currentStudent.setWeekSchedule(schedules);
         }
+
+
     }
 
     public List<Student> getAllStudents() {
