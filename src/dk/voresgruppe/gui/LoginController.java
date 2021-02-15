@@ -165,7 +165,7 @@ public class LoginController implements Initializable {
             if(!saveFile.exists()) saveFile.createNewFile();  //if the file !exist create a new one
 
             BufferedWriter bw = new BufferedWriter(new FileWriter(saveFile.getAbsolutePath()));
-            bw.write(cboxRememberMe.isSelected() + "");
+            bw.write(cboxRememberMe.isSelected() + "");  //write if the checkbox is selected or not
             bw.newLine(); //leave a new line
             bw.write(UserID.getText()); //write the name
             bw.newLine(); //leave a new Line
@@ -183,9 +183,9 @@ public class LoginController implements Initializable {
                 if(saveFile.exists()){    //if this file exists
 
                     Scanner scan = new Scanner(saveFile);   //Use Scanner to read the File
-                    if(scan.nextBoolean() == true) {
-                        cboxRememberMe.setSelected(true);
-                        scan.nextLine();
+                    if(scan.nextBoolean()) {  //check if the checkbox was on
+                        cboxRememberMe.setSelected(true); //set the checkbox on
+                        scan.nextLine();  //go to next line in txt file
                         UserID.setText(scan.nextLine());  //append the text to name field
                         PassID.setText(scan.nextLine()); //append the text to password field
                     }
