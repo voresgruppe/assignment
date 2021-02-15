@@ -15,7 +15,7 @@ public class ScheduleRepository {
 
     private Utils utils =new Utils();
 
-    File file = new File("assignment/resources/data/MockSchedule Erhvervsøkonom 1.semester 2");
+    File file = new File("resources/data/MockSchedule Erhvervsøkonom 1.semester 2");
 
     public List<Module> loadModules() {
         List<Module> allModules = new ArrayList<>();

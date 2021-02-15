@@ -7,18 +7,18 @@ import dk.voresgruppe.bll.StudentManager;
 import dk.voresgruppe.gui.AttendenceView.AttendanceViewController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -26,11 +26,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
-import java.util.Collections;
+
+
+
+
+
+
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class LoginController implements Initializable {
     public BorderPane borderPaneTxtField;
@@ -46,6 +51,9 @@ public class LoginController implements Initializable {
     public ImageView imgPwIcon;
 
     private boolean hidePass;
+
+    //This will be the file where the username and password will be saved
+    File file = new File(System.getProperty("user.home")+"/Desktop/save.txt");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -66,6 +74,7 @@ public class LoginController implements Initializable {
         hidePass = true;
         addListener();
 
+        //updateLoginFields();
 
     }
 
@@ -147,4 +156,44 @@ public class LoginController implements Initializable {
         }
     }
 
+
+    public void handleRememberMeCbox(ActionEvent actionEvent) {
+            saveLoginInfo();
+    }
+
+    public void saveLoginInfo(){
+        try {
+            if(!file.exists()) file.createNewFile();  //if the file !exist create a new one
+
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsolutePath()));
+            //bw.write(cboxRememberMe.isSelected());
+            bw.newLine(); //leave a new line
+            bw.write(UserID.getText()); //write the name
+            bw.newLine(); //leave a new Line
+            bw.write(PassID.getText()); //write the password
+
+
+            bw.close(); //close the BufferdWriter
+
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    public void updateLoginFields(){
+        try {
+
+                if(file.exists()){    //if this file exists
+
+                    Scanner scan = new Scanner(file);   //Use Scanner to read the File
+                    if(true) {
+                        cboxRememberMe.setSelected(true);
+
+                        UserID.setText(scan.nextLine());  //append the text to name field
+                        PassID.setText(scan.nextLine()); //append the text to password field
+                    }
+                    scan.close();
+                }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

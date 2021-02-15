@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -41,20 +40,18 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#btnLogin" style="-fx-border-color: green;" text="Log in" />
                   <ImageView fitHeight="4.0" fitWidth="4.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button mnemonicParsing="false" onAction="#btnClose" style="-fx-border-color: red;" text="Cancel" />
+                  <Button mnemonicParsing="false" onAction="#btnClose" style="-fx-border-color: #ff0000;" text="Cancel" />
                </children>
             </HBox>
          </children>
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="130.0">
          <children>
-            <ImageView fx:id="imgPwIcon" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#showPass" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="/image/pw_eye_visibility.png" />
-               </image></ImageView>
+            <ImageView fx:id="imgPwIcon" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#showPass" pickOnBounds="true" preserveRatio="true" />
+               
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <CheckBox fx:id="cboxRememberMe" mnemonicParsing="false">
+                  <CheckBox fx:id="cboxRememberMe" mnemonicParsing="false" onAction="#handleRememberMeCbox">
                      <graphic>
                         <ImageView fitHeight="4.0" fitWidth="4.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic></CheckBox>
