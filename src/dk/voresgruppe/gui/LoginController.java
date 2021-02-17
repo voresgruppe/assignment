@@ -55,9 +55,10 @@ public class LoginController implements Initializable {
     public ImageView imgPwIcon;
 
     private boolean hidePass;
+    private boolean rememberMe = false;
 
     //This will be the file where the username and password will be saved
-    File saveFile = new File(System.getProperty("user.home")+"/Desktop/save.txt");
+    File saveFile = new File("resources/data/RememberMe");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,6 +88,9 @@ public class LoginController implements Initializable {
 
 
     public void btnLogin(ActionEvent actionEvent) {
+        if(rememberMe) {
+            saveLoginInfo();
+        }
         if(!UserID.getText().isEmpty() && !PassID.getText().isEmpty()) {
             User tempUser = new User(UserID.getText(), PassID.getText());
             for (Student currentStudent : sMan.getAllStudents() ) {
@@ -182,12 +186,12 @@ public class LoginController implements Initializable {
 
 
     public void handleRememberMeCbox(ActionEvent actionEvent) {
-            saveLoginInfo();
+            rememberMe = true;
     }
 
     public void saveLoginInfo(){
         try {
-            if(!saveFile.exists()) saveFile.createNewFile();  //if the file !exist create a new one
+            if(!saveFile.exists()) {saveFile.createNewFile();}  //if the file !exist create a new one
 
             BufferedWriter bw = new BufferedWriter(new FileWriter(saveFile.getAbsolutePath()));
             bw.write(cboxRememberMe.isSelected() + "");  //write if the checkbox is selected or not
