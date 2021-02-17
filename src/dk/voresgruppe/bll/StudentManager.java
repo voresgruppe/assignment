@@ -3,6 +3,7 @@ package dk.voresgruppe.bll;
 import dk.voresgruppe.be.*;
 import dk.voresgruppe.dal.ScheduleRepository;
 import dk.voresgruppe.dal.StudentRepository;
+import javafx.collections.ObservableList;
 
 
 import java.util.List;
