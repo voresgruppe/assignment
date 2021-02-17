@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AttendenceView.TeacherViewController">
+   <children>
+      <TableView fx:id="TableView" layoutX="200.0" layoutY="87.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="elevID" prefWidth="100.5999755859375" text="elev" />
+          <TableColumn fx:id="fraværID" prefWidth="99.4000244140625" text="fravær" />
+        </columns>
+      </TableView>
+      <TextField layoutX="200.0" layoutY="41.0" onAction="#StudentName" promptText="Name" />
+      <Label layoutX="200.0" layoutY="24.0" text="Søg på elev" />
+      <Button fx:id="logud_teacher" layoutX="503.0" layoutY="339.0" mnemonicParsing="false" onAction="#Teacher_Close" text="Close" />
+   </children>
+</AnchorPane>

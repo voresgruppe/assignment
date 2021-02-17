@@ -5,6 +5,7 @@ import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.bll.StudentManager;
 import dk.voresgruppe.gui.AttendenceView.AttendanceViewController;
+import dk.voresgruppe.gui.AttendenceView.TeacherViewController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
@@ -194,5 +195,17 @@ public class LoginController implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void Teacher_btn(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("AttendenceView/teacherView.fxml"));
+        Parent mainLayout = loader.load();
+        TeacherViewController teacherViewController = loader.getController();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(mainLayout));
+        stage.show();
+
+
     }
 }
