@@ -54,7 +54,7 @@ public class LoginController implements Initializable {
     private boolean hidePass;
 
     //This will be the file where the username and password will be saved
-    File file = new File(System.getProperty("user.home")+"/Desktop/save.txt");
+    File saveFile = new File(System.getProperty("user.home")+"/Desktop/save.txt");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -69,13 +69,12 @@ public class LoginController implements Initializable {
         for(Student currentStudent : sMan.getAllStudents()) {
             System.out.println(currentStudent);
         }
-        UserID.setText("jane1988");
-        PassID.setText("jane1988");
 
         hidePass = true;
         addListener();
 
-        //updateLoginFields();
+
+        updateLoginFields();
 
     }
 
@@ -164,10 +163,10 @@ public class LoginController implements Initializable {
 
     public void saveLoginInfo(){
         try {
-            if(!file.exists()) file.createNewFile();  //if the file !exist create a new one
+            if(!saveFile.exists()) saveFile.createNewFile();  //if the file !exist create a new one
 
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsolutePath()));
-            //bw.write(cboxRememberMe.isSelected());
+            BufferedWriter bw = new BufferedWriter(new FileWriter(saveFile.getAbsolutePath()));
+            bw.write(cboxRememberMe.isSelected() + "");
             bw.newLine(); //leave a new line
             bw.write(UserID.getText()); //write the name
             bw.newLine(); //leave a new Line
@@ -182,12 +181,12 @@ public class LoginController implements Initializable {
     public void updateLoginFields(){
         try {
 
-                if(file.exists()){    //if this file exists
+                if(saveFile.exists()){    //if this file exists
 
-                    Scanner scan = new Scanner(file);   //Use Scanner to read the File
-                    if(true) {
+                    Scanner scan = new Scanner(saveFile);   //Use Scanner to read the File
+                    if(scan.nextBoolean() == true) {
                         cboxRememberMe.setSelected(true);
-
+                        scan.nextLine();
                         UserID.setText(scan.nextLine());  //append the text to name field
                         PassID.setText(scan.nextLine()); //append the text to password field
                     }
