@@ -2,10 +2,12 @@ package dk.voresgruppe.gui;
 
 
 import dk.voresgruppe.be.Student;
+import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.bll.StudentManager;
+import dk.voresgruppe.bll.TeacherManager;
 import dk.voresgruppe.gui.AttendenceView.AttendanceViewController;
-import dk.voresgruppe.gui.AttendenceView.TeacherViewController;
+import dk.voresgruppe.gui.TeacherView.TeacherViewController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
@@ -44,6 +46,7 @@ public class LoginController implements Initializable {
     public StackPane stackPane;
     public TextField txtPassShown;
     StudentManager sMan = new StudentManager();
+    TeacherManager tMan = new TeacherManager();
     public TextField UserID;
     public PasswordField PassID;
 
@@ -69,6 +72,9 @@ public class LoginController implements Initializable {
         for(Student currentStudent : sMan.getAllStudents()) {
             System.out.println(currentStudent);
         }
+        for(Teacher currentTeacher : tMan.getAllTeachers()){
+            System.out.println(currentTeacher);
+        }
 
         hidePass = true;
         addListener();
@@ -90,8 +96,28 @@ public class LoginController implements Initializable {
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(getClass().getResource("AttendenceView/AttendanceView.fxml"));
                         Parent mainLayout = loader.load();
-                        AttendanceViewController cvc = loader.getController();
-                        cvc.setLoggedStudent(currentStudent);
+                        AttendanceViewController avc = loader.getController();
+                        avc.setLoggedStudent(currentStudent);
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(mainLayout));
+                        stage.show();
+                        //((Stage) (imgCompanyLogo.getScene().getWindow())).hide();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
+                }
+            }
+
+            for(Teacher currentTeacher : tMan.getAllTeachers()){
+                User currentUser = currentTeacher.getTeacherLoginLogin();
+                if(tempUser.getUserName().matches(currentUser.getUserName()) && tempUser.getPassword().matches(currentUser.getPassword())){
+                    try {
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("TeacherView/teacherView.fxml"));
+                        Parent mainLayout = loader.load();
+                        TeacherViewController tvc = loader.getController();
+                        tvc.setLoggedStudent(currentTeacher);
                         Stage stage = new Stage();
                         stage.setScene(new Scene(mainLayout));
                         stage.show();
@@ -111,8 +137,6 @@ public class LoginController implements Initializable {
 
 
     public void showPass(MouseEvent mouseEvent) {
-
-
         if (hidePass){
             File file = new File("image/pw_eye_visibility_off.png");
             Image image = new Image(String.valueOf(file));
@@ -199,9 +223,10 @@ public class LoginController implements Initializable {
 
     public void Teacher_btn(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("AttendenceView/teacherView.fxml"));
+        loader.setLocation(getClass().getResource("TeacherView/teacherView.fxml"));
         Parent mainLayout = loader.load();
-        TeacherViewController teacherViewController = loader.getController();
+        TeacherViewController tvc = loader.getController();
+
         Stage stage = new Stage();
         stage.setScene(new Scene(mainLayout));
         stage.show();
