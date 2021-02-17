@@ -7,8 +7,8 @@
    <children>
       <TableView fx:id="TableView" layoutX="200.0" layoutY="87.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="elevID" prefWidth="100.5999755859375" text="elev" />
-          <TableColumn fx:id="fraværID" prefWidth="99.4000244140625" text="fravær" />
+          <TableColumn fx:id="StudentName" prefWidth="100.5999755859375" text="elev" />
+          <TableColumn fx:id="absencePercentage" prefWidth="99.4000244140625" text="fravær" />
         </columns>
       </TableView>
       <TextField layoutX="200.0" layoutY="41.0" onAction="#StudentName" promptText="Name" />

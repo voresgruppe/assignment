@@ -1,29 +1,31 @@
 package dk.voresgruppe.gui.TeacherView;
 
-import dk.voresgruppe.be.Date;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.bll.StudentManager;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 
 public class TeacherViewController {
     public Button logud_teacher;
     private Teacher loggedTeacher;
-    public StudentManager studentManager;
-    public TableView<Student> tableView;
+    public StudentManager sMan;
+    @FXML
+    public TableView<Student> tableView = new TableView<>();
+    @FXML
     private ObservableList<Student> observableListStudents;
     @FXML
-    public TableColumn<Student,String> elevID;
+    public TableColumn<Student, String> StudentName;
     @FXML
-    public TableColumn<Student,String> fraværID;
-
+    public TableColumn<Student, Double> absencePercentage;
 
 
     public void StudentName(ActionEvent event) {
@@ -36,24 +38,33 @@ public class TeacherViewController {
         stage.close();
     }
 
+    public StudentManager getStudentManager() {
+        return sMan;
+    }
 
-    public void initialize(){
-/* jeg kunne ikke åbne teacherView uden at udkommentere det her
-      studentManager = new StudentManager();
+    public void setStudentManager(StudentManager studentManager) {
+        this.sMan = studentManager;
+        setStudentTableView();
+    }
 
-      tableView.setItems(observableListStudents);
-
-      elevID.cellValueFactoryProperty().setValue(elevID.getCellValueFactory());
-      fraværID.cellValueFactoryProperty().setValue(elevID.getCellValueFactory());
-
-
-
- */
-
+    public void initialize() {
 
     }
 
     public void setLoggedStudent(Teacher loggedTeacher) {
         this.loggedTeacher = loggedTeacher;
+    }
+
+    public void setStudentTableView() {
+        observableListStudents = FXCollections.observableArrayList();
+        for(Student currentStudent: sMan.getAllStudents()){
+            currentStudent.getFullName();
+            currentStudent.getAbsencePercentage();
+        }
+        observableListStudents.addAll(sMan.getAllStudents());
+        tableView.setItems(observableListStudents);
+
+        StudentName.setCellValueFactory(new PropertyValueFactory<Student, String>("fullName"));
+        absencePercentage.setCellValueFactory(new PropertyValueFactory<Student, Double>("absencePercentage"));
     }
 }

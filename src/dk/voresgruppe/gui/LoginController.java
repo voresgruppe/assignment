@@ -230,6 +230,7 @@ public class LoginController implements Initializable {
         loader.setLocation(getClass().getResource("TeacherView/teacherView.fxml"));
         Parent mainLayout = loader.load();
         TeacherViewController tvc = loader.getController();
+        tvc.setStudentManager(this.sMan);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(mainLayout));

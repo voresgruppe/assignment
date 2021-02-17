@@ -13,6 +13,7 @@ public class Student {
 
     private String firstName;
     private String lastName;
+    private String fullName;
     private String currentCourse;
     private User studentLogin;
     private String birthday;
@@ -21,6 +22,7 @@ public class Student {
     private List<Date> showedUp = datesShowedUp();
     private List<Schedule> weekSchedule = new ArrayList<>();
     private Utils utils = new Utils();
+    private Double absencePercentage;
 
     public Student(String firstName, String lastName, String birthday, String currentCourse, User studentLogin) {
         this.firstName = firstName;
@@ -133,7 +135,12 @@ public class Student {
         this.studentLogin = studentLogin;
     }
 
-    public int getAbsencePercentage() {
+    public double getAbsencePercentage() {
+        absencePercentage = calcAbsencePercentage();
+        return absencePercentage;
+    }
+
+    public double calcAbsencePercentage(){
         if(showedUp.isEmpty()) {
             return 100;
         }
@@ -158,6 +165,11 @@ public class Student {
 
     public void setWeekSchedule(List<Schedule> weekSchedule) {
         this.weekSchedule = weekSchedule;
+    }
+
+    public String getFullName(){
+        fullName = firstName + " " + lastName;
+        return fullName;
     }
 
     @Override
