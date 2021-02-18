@@ -55,10 +55,11 @@ public class LoginController implements Initializable {
     public ImageView imgPwIcon;
 
     private boolean hidePass;
-    private boolean rememberMe = false;
+    
 
     //This will be the file where the username and password will be saved
     File saveFile = new File("resources/data/RememberMe");
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -88,7 +89,7 @@ public class LoginController implements Initializable {
 
 
     public void btnLogin(ActionEvent actionEvent) {
-        if(rememberMe) {
+        if(cboxRememberMe.isSelected()) {
             saveLoginInfo();
         }
         if(!UserID.getText().isEmpty() && !PassID.getText().isEmpty()) {
@@ -105,7 +106,6 @@ public class LoginController implements Initializable {
                         Stage stage = new Stage();
                         stage.setScene(new Scene(mainLayout));
                         stage.show();
-                        //((Stage) (imgCompanyLogo.getScene().getWindow())).hide();
                     } catch (IOException e) {
                         e.printStackTrace();
 
@@ -125,7 +125,6 @@ public class LoginController implements Initializable {
                         Stage stage = new Stage();
                         stage.setScene(new Scene(mainLayout));
                         stage.show();
-                        //((Stage) (imgCompanyLogo.getScene().getWindow())).hide();
                     } catch (IOException e) {
                         e.printStackTrace();
 
@@ -170,6 +169,9 @@ public class LoginController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
                 PassID.setText(newValue);
+                if(cboxRememberMe.isSelected()){
+                    saveLoginInfo();
+                }
             }
         });
 
@@ -177,6 +179,18 @@ public class LoginController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
                 txtPassShown.setText(newValue);
+                if(cboxRememberMe.isSelected()){
+                    saveLoginInfo();
+                }
+            }
+        });
+
+        UserID.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(cboxRememberMe.isSelected()){
+                    saveLoginInfo();
+                }
             }
         });
         if(!PassID.getText().isEmpty()){
@@ -186,7 +200,7 @@ public class LoginController implements Initializable {
 
 
     public void handleRememberMeCbox(ActionEvent actionEvent) {
-            rememberMe = true;
+            saveLoginInfo();
     }
 
     public void saveLoginInfo(){
@@ -196,10 +210,18 @@ public class LoginController implements Initializable {
             BufferedWriter bw = new BufferedWriter(new FileWriter(saveFile.getAbsolutePath()));
             bw.write(cboxRememberMe.isSelected() + "");  //write if the checkbox is selected or not
             bw.newLine(); //leave a new line
-            bw.write(UserID.getText()); //write the name
-            bw.newLine(); //leave a new Line
-            bw.write(PassID.getText()); //write the password
-
+            if(!UserID.getText().isEmpty()) {
+                bw.write(UserID.getText()); //write the name
+                bw.newLine(); //leave a new Line
+            }else {     //if the UserID field is empty, write this random string in the txt file
+                bw.write("dd+VXnaYQm^C\\Eb-7h6>Yb4KmE_9gZb~!-%8PDQH#s");
+                bw.newLine();
+            }
+            if(!PassID.getText().isEmpty()){
+                bw.write(PassID.getText()); //write the password
+            }else {     //if the PassID field is empty, write this random string in the txt file
+                bw.write("pHYRj&U.)Np*2W<M7`]u*]`.+Gfsgk%DX8U6&Wzgy>");
+            }
 
             bw.close(); //close the BufferdWriter
 
@@ -213,10 +235,16 @@ public class LoginController implements Initializable {
 
                     Scanner scan = new Scanner(saveFile);   //Use Scanner to read the File
                     if(scan.nextBoolean()) {  //check if the checkbox was on
+                        scan.nextLine(); //go to next line in txt file
+                        String id = scan.nextLine();    //append the text to string
+                        String pass = scan.nextLine();  //append the text to string
                         cboxRememberMe.setSelected(true); //set the checkbox on
-                        scan.nextLine();  //go to next line in txt file
-                        UserID.setText(scan.nextLine());  //append the text to name field
-                        PassID.setText(scan.nextLine()); //append the text to password field
+                        if(!id.contains("dd+VXnaYQm^C\\Eb-7h6>Yb4KmE_9gZb~!-%8PDQH#s")){    //check if the id was saved as empty
+                            UserID.setText(id);
+                        }
+                        if(!pass.contains("pHYRj&U.)Np*2W<M7`]u*]`.+Gfsgk%DX8U6&Wzgy>")){   //check if the pass was saved as empty
+                            PassID.setText(pass);
+                        }
                     }
                     scan.close();
                 }
