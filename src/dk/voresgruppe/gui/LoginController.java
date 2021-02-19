@@ -18,9 +18,7 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,6 +43,8 @@ public class LoginController implements Initializable {
     public BorderPane borderPanePassField;
     public StackPane stackPane;
     public TextField txtPassShown;
+    public Button btnSwitch;
+    public Label lblLogin;
     StudentManager sMan = new StudentManager();
     TeacherManager tMan = new TeacherManager();
     public TextField UserID;
@@ -55,6 +55,7 @@ public class LoginController implements Initializable {
     public ImageView imgPwIcon;
 
     private boolean hidePass;
+    private boolean isStudentView = true;
     
 
     //This will be the file where the username and password will be saved
@@ -92,9 +93,10 @@ public class LoginController implements Initializable {
         if(cboxRememberMe.isSelected()) {
             saveLoginInfo();
         }
+        if(isStudentView) {
         if(!UserID.getText().isEmpty() && !PassID.getText().isEmpty()) {
             User tempUser = new User(UserID.getText(), PassID.getText());
-            for (Student currentStudent : sMan.getallStudents_OBS() ) {
+            for (Student currentStudent : sMan.getallStudents_OBS()) {
                 User currentUser = currentStudent.getStudentLogin();
                 if (tempUser.getUserName().matches(currentUser.getUserName()) && tempUser.getPassword().matches(currentUser.getPassword())) {
                     try {
@@ -113,24 +115,30 @@ public class LoginController implements Initializable {
                 }
             }
 
-            for(Teacher currentTeacher : tMan.getAllTeachers()){
-                User currentUser = currentTeacher.getTeacherLoginLogin();
-                if(tempUser.getUserName().matches(currentUser.getUserName()) && tempUser.getPassword().matches(currentUser.getPassword())){
-                    try {
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource("TeacherView/teacherView.fxml"));
-                        Parent mainLayout = loader.load();
-                        TeacherViewController tvc = loader.getController();
-                        tvc.setLoggedStudent(currentTeacher);
-                        Stage stage = new Stage();
-                        stage.setScene(new Scene(mainLayout));
-                        stage.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+        }
 
+            if(!isStudentView) {
+                if(!UserID.getText().isEmpty() && !PassID.getText().isEmpty()) {
+                    User tempUser = new User(UserID.getText(), PassID.getText());
+                    for (Teacher currentTeacher : tMan.getAllTeachers()) {
+                        User currentUser = currentTeacher.getTeacherLoginLogin();
+                        if (tempUser.getUserName().matches(currentUser.getUserName()) && tempUser.getPassword().matches(currentUser.getPassword())) {
+                            try {
+                                FXMLLoader loader = new FXMLLoader();
+                                loader.setLocation(getClass().getResource("TeacherView/teacherView.fxml"));
+                                Parent mainLayout = loader.load();
+                                TeacherViewController tvc = loader.getController();
+                                tvc.setLoggedTeacher(currentTeacher);
+                                Stage stage = new Stage();
+                                stage.setScene(new Scene(mainLayout));
+                                stage.show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+
+                            }
+                        }
                     }
-                }
-            }
+                }}
         }
     }
 
@@ -254,15 +262,18 @@ public class LoginController implements Initializable {
     }
 
     public void Teacher_btn(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("TeacherView/teacherView.fxml"));
-        Parent mainLayout = loader.load();
-        TeacherViewController tvc = loader.getController();
-        tvc.setStudentManager(this.sMan);
+        if (isStudentView) {
+            isStudentView = false;
+            btnSwitch.setText("Switch to Student");
+            lblLogin.setText("Teacher Login");
+        }
 
-        Stage stage = new Stage();
-        stage.setScene(new Scene(mainLayout));
-        stage.show();
+        else {
+            isStudentView =true;
+            btnSwitch.setText("Switch to Teacher");
+            lblLogin.setText("Student Login");
+        }
+
 
 
     }

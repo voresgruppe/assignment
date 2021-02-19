@@ -57,7 +57,7 @@ public class TeacherViewController {
     }
 
 
-    public void setLoggedStudent(Teacher loggedTeacher) {
+    public void setLoggedTeacher(Teacher loggedTeacher) {
         this.loggedTeacher = loggedTeacher;
     }
 
