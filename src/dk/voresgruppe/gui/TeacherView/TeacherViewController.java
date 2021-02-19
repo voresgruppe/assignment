@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -19,52 +20,57 @@ public class TeacherViewController {
     private Teacher loggedTeacher;
     public StudentManager sMan;
     @FXML
-    public TableView<Student> tableView = new TableView<>();
+    private TableView<Student> tableView;
     @FXML
     private ObservableList<Student> observableListStudents;
     @FXML
-    public TableColumn<Student, String> StudentName;
+    private TableColumn<Student, String> StudentName;
     @FXML
-    public TableColumn<Student, Double> absencePercentage;
-
-
-    public void StudentName(ActionEvent event) {
-
-    }
-
-
-    public void Teacher_Close(ActionEvent event) {
-        Stage stage = (Stage) logud_teacher.getScene().getWindow();
-        stage.close();
-    }
-
-    public StudentManager getStudentManager() {
-        return sMan;
-    }
-
-    public void setStudentManager(StudentManager studentManager) {
-        this.sMan = studentManager;
-        setStudentTableView();
-    }
+    private TableColumn<Student, Double> absencePercentage;
+    @FXML
+    private TableColumn<Student, String> StudentCourse;
+    @FXML
+    public TextField searchname;
+    public TeacherViewController(){
+        sMan = new StudentManager();
+}
 
     public void initialize() {
+        try {
+            observableListStudents = sMan.getallStudents_OBS();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tableView.setItems(observableListStudents);
+        StudentName.setCellValueFactory(new PropertyValueFactory<Student,String>("fullName"));
+        absencePercentage.setCellValueFactory(new PropertyValueFactory<>("absencePercentage"));
+        StudentCourse.setCellValueFactory(new PropertyValueFactory<>("currentCourse"));
 
     }
+
+
+    public void search() {
+      //  tableView.setItems(sMan.getallStudents_OBS());
+        //if (observableListStudents != null){
+          //  tableView.setItems(observableListStudents.get(s));
+        //}
+    }
+
 
     public void setLoggedStudent(Teacher loggedTeacher) {
         this.loggedTeacher = loggedTeacher;
     }
 
-    public void setStudentTableView() {
-        observableListStudents = FXCollections.observableArrayList();
-        for(Student currentStudent: sMan.getAllStudents()){
-            currentStudent.getFullName();
-            currentStudent.getAbsencePercentage();
-        }
-        observableListStudents.addAll(sMan.getAllStudents());
-        tableView.setItems(observableListStudents);
 
-        StudentName.setCellValueFactory(new PropertyValueFactory<Student, String>("fullName"));
-        absencePercentage.setCellValueFactory(new PropertyValueFactory<Student, Double>("absencePercentage"));
+
+
+
+    //log ud og luk programmet
+    public void Teacher_Close(ActionEvent event) {
+        Stage stage = (Stage) logud_teacher.getScene().getWindow();
+        stage.close();
+    }
+
+    public void setStudentManager(StudentManager sMan) {
     }
 }

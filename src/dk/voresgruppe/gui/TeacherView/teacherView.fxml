@@ -5,14 +5,15 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.TeacherView.TeacherViewController">
    <children>
-      <TableView fx:id="TableView" layoutX="200.0" layoutY="87.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableView" layoutX="51.0" layoutY="90.0" prefHeight="200.0" prefWidth="279.0">
         <columns>
           <TableColumn fx:id="StudentName" prefWidth="100.5999755859375" text="elev" />
           <TableColumn fx:id="absencePercentage" prefWidth="99.4000244140625" text="fravær" />
+            <TableColumn fx:id="StudentCourse" prefWidth="75.0" text="Klasse" />
         </columns>
       </TableView>
-      <TextField layoutX="200.0" layoutY="41.0" onAction="#StudentName" promptText="Name" />
-      <Label layoutX="200.0" layoutY="24.0" text="Søg på elev" />
+      <TextField fx:id="searchname" layoutX="51.0" layoutY="42.0" promptText="Name" />
+      <Label layoutX="51.0" layoutY="24.0" text="Søg på elev" />
       <Button fx:id="logud_teacher" layoutX="503.0" layoutY="339.0" mnemonicParsing="false" onAction="#Teacher_Close" text="Close" />
    </children>
 </AnchorPane>

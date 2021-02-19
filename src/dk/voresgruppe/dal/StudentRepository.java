@@ -2,19 +2,21 @@ package dk.voresgruppe.dal;
 
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.User;
+import javafx.beans.InvalidationListener;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class StudentRepository {
 
-    public List<Student> loadStudents() {
-        List<Student> allStudents = new ArrayList<>();
+    public ArrayList<Student> loadStudents() {
+        ArrayList<Student> studentObservableList = new ArrayList<Student>();
+
         File file = new File("resources/data/MockStudentData.txt");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -22,13 +24,13 @@ public class StudentRepository {
 
             while ((line = reader.readLine()) != null) {
                 Student student = stringLineToStudent(line);
-                allStudents.add(student);
+                studentObservableList.add(student);
 
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return allStudents;
+        return studentObservableList;
     }
 
     private Student stringLineToStudent(String line) {

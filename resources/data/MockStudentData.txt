@@ -1,1 +1,2 @@
 Jane,Jørgensen,1/1/1988,Erhvervsøkonom 1.semester,jane1988,jane1988
+Søren,Mikkelsen,4/11/1998,Datamatiker 2.semester,olebole123,olebole123

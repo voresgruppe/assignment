@@ -22,7 +22,7 @@ public class Student {
     private List<Date> showedUp = datesShowedUp();
     private List<Schedule> weekSchedule = new ArrayList<>();
     private Utils utils = new Utils();
-    private Double absencePercentage;
+    private Double absencePercentage = 0.0;
 
     public Student(String firstName, String lastName, String birthday, String currentCourse, User studentLogin) {
         this.firstName = firstName;
@@ -30,6 +30,7 @@ public class Student {
         this.currentCourse = currentCourse;
         this.studentLogin = studentLogin;
         this.birthday = birthday;
+
     }
     private List<Date> datesToShowUp() {
         List<Date> datesToShowUp = new ArrayList<>();
@@ -62,8 +63,8 @@ public class Student {
     //only for the purposes of mockdata
     private List<Date> datesShowedUp() {
         List<Date> datesShowedUp = datesToShowUp();
-        Random random = new Random();
-        for(int i=3; i<datesShowedUp.size(); i+= random.nextInt(8 - 1 +1)){
+      // Random random = new Random();
+        for(int i=3; i<datesShowedUp.size(); i+= 4){
             datesShowedUp.remove(i);
         }
         return datesShowedUp;
@@ -145,10 +146,9 @@ public class Student {
             return 100;
         }
         else {
-            return (int) (toShowUp.size() - showedUp.size() / (double) toShowUp.size() * 100);
+            return (toShowUp.size() - showedUp.size() / (double) toShowUp.size() * 100);
         }
     }
-
 
     public int getAbsenceDays() {
         if(showedUp.isEmpty()) {

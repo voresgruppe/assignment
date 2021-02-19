@@ -70,7 +70,7 @@ public class LoginController implements Initializable {
         Image image1 = new Image(String.valueOf(logo));
         imgCompanyLogo.setImage(image1);
 
-        for(Student currentStudent : sMan.getAllStudents()) {
+        for(Student currentStudent : sMan.getallStudents_OBS()) {
             System.out.println(currentStudent);
         }
         for(Teacher currentTeacher : tMan.getAllTeachers()){
@@ -93,7 +93,7 @@ public class LoginController implements Initializable {
         }
         if(!UserID.getText().isEmpty() && !PassID.getText().isEmpty()) {
             User tempUser = new User(UserID.getText(), PassID.getText());
-            for (Student currentStudent : sMan.getAllStudents() ) {
+            for (Student currentStudent : sMan.getallStudents_OBS() ) {
                 User currentUser = currentStudent.getStudentLogin();
                 if (tempUser.getUserName().matches(currentUser.getUserName()) && tempUser.getPassword().matches(currentUser.getPassword())) {
                     try {

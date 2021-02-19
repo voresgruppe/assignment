@@ -14,7 +14,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("gui/LoginView.fxml"));
+        java.net.URL u = getClass().getResource("gui/LoginView.fxml");
+        if (u == null){
+            System.out.println("pis");
+        }
+        Parent root = FXMLLoader.load(u);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
