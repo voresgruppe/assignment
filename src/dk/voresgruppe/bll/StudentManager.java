@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
+import java.util.Comparator;
 import java.util.List;
 
 public class StudentManager {
@@ -25,6 +26,11 @@ public class StudentManager {
        // for(Student currentStudent: studentsObservableList) {
            // List<Schedule> schedules = scheduleRepo.weekSchedules();
           //  currentStudent.setWeekSchedule(schedules);
+
+        //order list by AbsencePercentage
+        Comparator<Student> comparator = Comparator.comparingDouble(Student::getAbsencePercentage);
+        comparator = comparator.reversed();
+        FXCollections.sort(studentsObservableList, comparator);
 
         }
 

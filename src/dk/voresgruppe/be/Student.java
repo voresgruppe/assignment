@@ -2,6 +2,8 @@ package dk.voresgruppe.be;
 
 import dk.voresgruppe.util.Utils;
 
+
+
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -63,8 +65,8 @@ public class Student {
     //only for the purposes of mockdata
     private List<Date> datesShowedUp() {
         List<Date> datesShowedUp = datesToShowUp();
-      // Random random = new Random();
-        for(int i=3; i<datesShowedUp.size(); i+= 4){
+      Random random = new Random();
+        for(int i=3; i<datesShowedUp.size(); i+= random.nextInt(11)){
             datesShowedUp.remove(i);
         }
         return datesShowedUp;
@@ -138,7 +140,8 @@ public class Student {
 
     public double getAbsencePercentage() {
         absencePercentage = calcAbsencePercentage();
-        return absencePercentage;
+        //max 2 decimaler
+        return (double)Math.round(absencePercentage * 100d) / 100d;
     }
 
     public double calcAbsencePercentage(){
