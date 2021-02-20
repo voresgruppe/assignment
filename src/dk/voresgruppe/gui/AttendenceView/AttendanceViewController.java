@@ -129,14 +129,14 @@ public class AttendanceViewController implements Initializable {
     }
 
     public void handleRegisterAttendance(ActionEvent actionEvent) {
-        if(utils.getWeekDayFromDate(utils.getCurrentDate()) < 6)
+        if(utils.getWeekDayFromDate(utils.getCurrentDate()) != 7 && utils.getWeekDayFromDate(utils.getCurrentDate()) != 1)
         loggedStudent.addToShowedUp(new Date(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
         else {
             String header = "dude gå hjem det ";
-            if(utils.getWeekDayFromDate(utils.getCurrentDate()) == 6) {
+            if(utils.getWeekDayFromDate(utils.getCurrentDate()) == 7) {
                 header+="Lørdag";
             }
-            if(utils.getWeekDayFromDate(utils.getCurrentDate()) == 7) {
+            if(utils.getWeekDayFromDate(utils.getCurrentDate()) == 1) {
                 header+="Søndag";
             }
             UserError.showError("Fremmøde ikke registreret", header);
