@@ -94,27 +94,28 @@ public class LoginController implements Initializable {
             saveLoginInfo();
         }
         if(isStudentView) {
-        if(!UserID.getText().isEmpty() && !PassID.getText().isEmpty()) {
-            User tempUser = new User(UserID.getText(), PassID.getText());
-            for (Student currentStudent : sMan.getallStudents_OBS()) {
-                User currentUser = currentStudent.getStudentLogin();
-                if (tempUser.getUserName().matches(currentUser.getUserName()) && tempUser.getPassword().matches(currentUser.getPassword())) {
-                    try {
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource("AttendenceView/AttendanceView.fxml"));
-                        Parent mainLayout = loader.load();
-                        AttendanceViewController avc = loader.getController();
-                        avc.setLoggedStudent(currentStudent);
-                        Stage stage = new Stage();
-                        stage.setScene(new Scene(mainLayout));
-                        stage.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+            if (!UserID.getText().isEmpty() && !PassID.getText().isEmpty()) {
+                User tempUser = new User(UserID.getText(), PassID.getText());
+                for (Student currentStudent : sMan.getallStudents_OBS()) {
+                    User currentUser = currentStudent.getStudentLogin();
+                    if (tempUser.getUserName().matches(currentUser.getUserName()) && tempUser.getPassword().matches(currentUser.getPassword())) {
+                        try {
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(getClass().getResource("AttendenceView/AttendanceView.fxml"));
+                            Parent mainLayout = loader.load();
+                            AttendanceViewController avc = loader.getController();
+                            avc.setLoggedStudent(currentStudent);
+                            Stage stage = new Stage();
+                            stage.setScene(new Scene(mainLayout));
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
 
+                        }
                     }
                 }
-            }
 
+            }
         }
 
             if(!isStudentView) {
@@ -138,9 +139,11 @@ public class LoginController implements Initializable {
                             }
                         }
                     }
-                }}
+                }
+            }
         }
-    }
+
+
 
     public void btnClose(ActionEvent actionEvent) {
         System.exit(1);

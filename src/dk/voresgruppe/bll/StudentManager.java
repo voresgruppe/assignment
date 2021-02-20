@@ -33,5 +33,16 @@ public class StudentManager {
         return studentsObservableList;
     }
 
+    public ObservableList<Student> searchStudent(String filter, ObservableList<Student> students) {
+        ObservableList<Student> returnList = FXCollections.observableArrayList();
 
+        for (Student s : students){
+            if(s.getFullName().toLowerCase().contains(filter.toLowerCase()) || s.getCurrentCourse().toLowerCase().contains(filter.toLowerCase())){
+                if(!returnList.contains(s)){
+                    returnList.add(s);
+                }
+            }
+        }
+        return returnList;
+    }
 }

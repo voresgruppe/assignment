@@ -49,7 +49,6 @@ public class AttendanceViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        addProfilePic("image/ProfilePic.png");
         File file = new File("image/Giraf.PNG");
         Image pic = new Image(String.valueOf(file));
         giraf.setImage(pic);
@@ -65,6 +64,7 @@ public class AttendanceViewController implements Initializable {
         txtFieldAbsencePercentage.setText(loggedStudent.getAbsencePercentage() + "%");
         txtFieldAbsenceDays.setText(String.valueOf(loggedStudent.getAbsenceDays()));
         bpAbsenceChart.setCenter(attendanceChart());
+        setPics();
     }
 
 
@@ -140,6 +140,17 @@ public class AttendanceViewController implements Initializable {
                 header+="Søndag";
             }
             UserError.showError("Fremmøde ikke registreret", header);
+        }
+    }
+
+    public void setPics(){
+        switch (loggedStudent.getFullName()) {
+            case "Jane Jørgensen":
+                addProfilePic("image/ProfilePic.png");
+                break;
+            case "Søren Mikkelsen":
+                addProfilePic("image/soren.jpg");
+                break;
         }
     }
 

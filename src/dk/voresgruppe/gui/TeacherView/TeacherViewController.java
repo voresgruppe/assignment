@@ -3,6 +3,8 @@ package dk.voresgruppe.gui.TeacherView;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.bll.StudentManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,6 +48,8 @@ public class TeacherViewController {
         absencePercentage.setCellValueFactory(new PropertyValueFactory<>("absencePercentage"));
         StudentCourse.setCellValueFactory(new PropertyValueFactory<>("currentCourse"));
 
+        setListenerAndSearch();
+
     }
 
 
@@ -72,5 +76,14 @@ public class TeacherViewController {
     }
 
     public void setStudentManager(StudentManager sMan) {
+    }
+
+    public void setListenerAndSearch(){
+        searchname.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                tableView.setItems(sMan.searchStudent(newValue, sMan.getallStudents_OBS()));
+            }
+        });
     }
 }
