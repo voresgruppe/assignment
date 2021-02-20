@@ -31,6 +31,16 @@ public class LoginController implements Initializable {
     public ImageView imgCompanyLogo;
     public ImageView imgPwIcon;
 
+<<<<<<< Updated upstream
+=======
+    private boolean hidePass;
+
+
+    //This will be the file where the username and password will be saved
+    File saveFile = new File("resources/data/RememberMe");
+
+
+>>>>>>> Stashed changes
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         File file = new File("image/pw_eye_visibility.png");
