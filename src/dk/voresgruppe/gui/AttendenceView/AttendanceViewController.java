@@ -24,6 +24,7 @@ import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class AttendanceViewController implements Initializable {
@@ -129,16 +130,18 @@ public class AttendanceViewController implements Initializable {
     }
 
     public void handleRegisterAttendance(ActionEvent actionEvent) {
-        if(utils.getWeekDayFromDate(utils.getCurrentDate()) != 7 && utils.getWeekDayFromDate(utils.getCurrentDate()) != 1)
+        if(utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SATURDAY && utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SUNDAY)
         loggedStudent.addToShowedUp(new Date(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
         else {
             String header = "dude gå hjem det ";
-            if(utils.getWeekDayFromDate(utils.getCurrentDate()) == 7) {
+            if(utils.getWeekDayFromDate(utils.getCurrentDate()) == Calendar.SATURDAY) {
+                System.out.println(utils.getWeekDayFromDate(utils.getCurrentDate()));
                 header+="Lørdag";
             }
-            if(utils.getWeekDayFromDate(utils.getCurrentDate()) == 1) {
+            if(utils.getWeekDayFromDate(utils.getCurrentDate()) == Calendar.SUNDAY) {
                 header+="Søndag";
             }
+
             UserError.showError("Fremmøde ikke registreret", header);
         }
     }

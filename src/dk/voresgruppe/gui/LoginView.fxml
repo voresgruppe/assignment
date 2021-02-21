@@ -40,7 +40,7 @@
             </HBox>
             <HBox prefHeight="86.0" prefWidth="120.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#btnLogin" style="-fx-border-color: green;" text="Log in" />
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#btnLogin" style="-fx-border-color: green;" text="Log in" />
                   <ImageView fitHeight="4.0" fitWidth="4.0" pickOnBounds="true" preserveRatio="true" />
                   <Button mnemonicParsing="false" onAction="#btnClose" style="-fx-border-color: #ff0000;" text="Cancel" />
                </children>
