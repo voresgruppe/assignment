@@ -3,13 +3,10 @@ package dk.voresgruppe.be;
 import dk.voresgruppe.util.Utils;
 
 
-
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Student {
 
@@ -19,6 +16,7 @@ public class Student {
     private String currentCourse;
     private User studentLogin;
     private String birthday;
+    private String mostAbsentDay;
 
     private List<Date> toShowUp = datesToShowUp();
     private List<Date> showedUp = datesShowedUp();
@@ -178,5 +176,61 @@ public class Student {
     @Override
     public String toString() {
         return firstName+  ", " + lastName + ", " + currentCourse + ", " + birthday + ", " + studentLogin;
+    }
+
+    public String getMostAbsentDay() {
+        int m = 0;
+        int ti =0;
+        int o= 0;
+        int to = 0;
+        int f = 0;
+        for (Date currentDate : showedUp) {
+            int day = utils.getWeekDayFromDate(currentDate);
+            switch (day) {
+                case 1:
+                    m += 1;
+                    break;
+                case 2:
+                    ti += 1;
+                    break;
+                case 3:
+                    o += 1;
+                    break;
+                case 4:
+                    to += 1;
+                    break;
+                case 5:
+                    f += 1;
+                    break;
+            }
+
+        }
+        ArrayList<Integer> days = new ArrayList<>();
+        days.add(m);
+        days.add(ti);
+        days.add(o);
+        days.add(to);
+        days.add(f);
+        Collections.sort(days);
+        System.out.println(days.get(1) + " " +days.get(2));
+        int dayOfWeek = days.get(1);
+        if (dayOfWeek == m) {
+            mostAbsentDay = "Mandag";
+        }
+        else if (dayOfWeek == ti) {
+            mostAbsentDay = "Mandag";
+        }
+        else if (dayOfWeek == o) {
+            mostAbsentDay = "Onsdag";
+        }
+        else if (dayOfWeek == to) {
+            mostAbsentDay = "Torsdag";
+        }
+        else if (dayOfWeek == f) {
+            mostAbsentDay = "Fredag";
+        }
+
+
+        return mostAbsentDay;
     }
 }
