@@ -45,30 +45,36 @@
                            </top>
                         </BorderPane>
                         <BorderPane fx:id="borderPanePassField" prefHeight="113.0" prefWidth="265.0">
-                           <top>
-                              <PasswordField id="border" fx:id="PassID" prefHeight="0.0" prefWidth="265.0" promptText="Password" BorderPane.alignment="CENTER">
-                                 <BorderPane.margin>
-                                    <Insets bottom="20.0" />
-                                 </BorderPane.margin></PasswordField>
-                           </top>
                            <bottom>
                               <VBox prefHeight="68.0" prefWidth="254.0" BorderPane.alignment="CENTER">
                                  <children>
+                                    <ImageView fitHeight="8.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                         
                                     <HBox prefHeight="31.0" prefWidth="265.0">
                                        <children>
-                                          <ImageView fx:id="imgPwIcon" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#showPass" pickOnBounds="true" preserveRatio="true" />
-                                          <Label prefHeight="18.0" prefWidth="81.0" text="Remember me" textFill="WHITE" />
                                           <CheckBox fx:id="cboxRememberMe" cache="true" cacheHint="SCALE" mnemonicParsing="false" onAction="#handleRememberMeCbox" textFill="TRANSPARENT">
                                              <graphic>
                                                 <ImageView fitHeight="4.0" fitWidth="4.0" pickOnBounds="true" preserveRatio="true" />
                                              </graphic>
                                           </CheckBox>
+                                          <Label prefHeight="18.0" prefWidth="81.0" text="Remember me" textFill="WHITE" />
                                        </children>
                                     </HBox>
                                  </children>
                               </VBox>
                            </bottom>
+                           <top>
+                              <StackPane prefHeight="0.0" prefWidth="261.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <PasswordField id="border" fx:id="PassID" prefHeight="25.0" prefWidth="239.0" promptText="Password" />
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                       <right>
+                                          <ImageView fx:id="imgPwIcon" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#showPass" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                                       </right>
+                                    </BorderPane>
+                                 </children>
+                              </StackPane>
+                           </top>
                         </BorderPane>
                      </children>
                   </StackPane>
