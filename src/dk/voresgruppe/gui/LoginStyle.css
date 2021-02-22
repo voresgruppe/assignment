@@ -20,8 +20,10 @@
 
 #btn{
     -fx-border-radius: 5;
-    -fx-background-color: transperant;
+    -fx-background-color: Transparent;
+    -fx-background-repeat: no-repeat;
     -fx-border-color: #f6f5f5;
+
 }
 
 test{
@@ -30,6 +32,7 @@ test{
 
 #btntwo{
     -fx-border-radius: 5;
-    -fx-background-color: transperant;
+    -fx-background-color: Transparent;
+    -fx-background-repeat: no-repeat;
     -fx-border-color: #000000;
 }

@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="textfields" prefHeight="400.0" prefWidth="600.0" stylesheets="dk/voresgruppe/gui/LoginStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.LoginController">
+<AnchorPane id="textfields" prefHeight="400.0" prefWidth="600.0" stylesheets="/dk/voresgruppe/gui/LoginStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.LoginController">
    <children>
       <Rectangle id="test" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="401.0" stroke="TRANSPARENT" strokeType="INSIDE" width="317.0" />
       <HBox layoutX="20.0" layoutY="320.0" prefHeight="67.0" prefWidth="265.0">
                <children>
-            <Button id="btn" defaultButton="true" mnemonicParsing="false" onAction="#btnLogin" prefHeight="53.0" prefWidth="262.0"  text="Log in" textFill="#f6f5f5" />
+            <Button id="btn" defaultButton="true" mnemonicParsing="false" onAction="#btnLogin" prefHeight="53.0" prefWidth="262.0" text="Log in" textFill="#f6f5f5" />
             <ImageView fitHeight="4.0" fitWidth="4.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
@@ -31,7 +41,7 @@
                      <children>
                         <BorderPane fx:id="borderPaneTxtField" prefHeight="92.0" prefWidth="264.0">
                            <top>
-                              <TextField fx:id="txtPassShown" BorderPane.alignment="CENTER" />
+                              <TextField id="border" fx:id="txtPassShown" visible="false" BorderPane.alignment="CENTER" />
                            </top>
                         </BorderPane>
                         <BorderPane fx:id="borderPanePassField" prefHeight="113.0" prefWidth="265.0">

@@ -157,8 +157,8 @@ public class LoginController implements Initializable {
             Image image = new Image(String.valueOf(file));
             imgPwIcon.setImage(image);
             hidePass = false;
-            borderPaneTxtField.setVisible(true);
-            borderPanePassField.setVisible(false);
+            txtPassShown.setVisible(true);
+            PassID.setVisible(false);
             txtPassShown.requestFocus();
             txtPassShown.deselect();
             txtPassShown.end();
@@ -167,8 +167,8 @@ public class LoginController implements Initializable {
             Image image = new Image(String.valueOf(file));
             imgPwIcon.setImage(image);
             hidePass = true;
-            borderPaneTxtField.setVisible(false);
-            borderPanePassField.setVisible(true);
+            txtPassShown.setVisible(false);
+            PassID.setVisible(true);
             PassID.requestFocus();
             PassID.deselect();
             PassID.end();
