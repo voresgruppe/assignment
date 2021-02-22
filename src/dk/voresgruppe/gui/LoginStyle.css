@@ -1,0 +1,35 @@
+#textfields{
+    -fx-background-color: #f6f5f5;
+;
+}
+
+#border{
+    -fx-background-color: #1e90ff;
+    -fx-border-color: #f6f5f5;
+    -fx-border-radius: 5;
+
+
+
+}
+
+#bordertwo{
+    -fx-stroke: #000000;
+
+
+}
+
+#btn{
+    -fx-border-radius: 5;
+    -fx-background-color: transperant;
+    -fx-border-color: #f6f5f5;
+}
+
+test{
+    -fx-border-radius: 50;
+}
+
+#btntwo{
+    -fx-border-radius: 5;
+    -fx-background-color: transperant;
+    -fx-border-color: #000000;
+}
