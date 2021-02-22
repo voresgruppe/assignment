@@ -15,6 +15,7 @@ import java.util.*;
 public class StudentRepository {
 
     public ArrayList<Student> loadStudents() {
+
         ArrayList<Student> studentObservableList = new ArrayList<Student>();
 
         File file = new File("resources/data/MockStudentData.txt");

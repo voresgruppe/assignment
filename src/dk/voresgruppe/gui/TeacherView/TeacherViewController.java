@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 public class TeacherViewController {
     public Button logud_teacher;
+
     private Teacher loggedTeacher;
     public StudentManager sMan;
     @FXML
@@ -32,6 +33,8 @@ public class TeacherViewController {
     @FXML
     private TableColumn<Student, String> StudentCourse;
     @FXML
+    public TableColumn<Student, String> StudentAbsenceDay;
+    @FXML
     public TextField searchname;
     public TeacherViewController(){
         sMan = new StudentManager();
@@ -44,9 +47,10 @@ public class TeacherViewController {
             e.printStackTrace();
         }
         tableView.setItems(observableListStudents);
-        StudentName.setCellValueFactory(new PropertyValueFactory<Student,String>("fullName"));
+        StudentName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         absencePercentage.setCellValueFactory(new PropertyValueFactory<>("absencePercentage"));
         StudentCourse.setCellValueFactory(new PropertyValueFactory<>("currentCourse"));
+        StudentAbsenceDay.setCellValueFactory(new PropertyValueFactory<>("mostAbsentDay"));
 
         setListenerAndSearch();
 
