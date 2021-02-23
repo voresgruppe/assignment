@@ -1,5 +1,5 @@
 #background{
-    -fx-background-color: #c5c5cb;
+    -fx-background-color: #0097ff;
 
 }
 
@@ -25,13 +25,12 @@
 
     -fx-background-color: Transparent;
     -fx-background-repeat: no-repeat;
-    -fx-border-color: #000000;
+    -fx-border-color: #515151;
     -fx-border-radius: 2;
 }
 
 #table1{
 
-    -fx-background-color: #7695b3;
-    -fx-background-repeat: no-repeat;
-    -fx-border-color: #515151;
+    -fx-background-color: #f3f3f3;
+   -fx-border-color: #cbcbcb;
 }
