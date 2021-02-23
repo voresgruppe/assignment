@@ -52,7 +52,7 @@
                         
                                     <HBox prefHeight="31.0" prefWidth="265.0">
                                        <children>
-                                          <CheckBox fx:id="cboxRememberMe" cache="true" cacheHint="SCALE" mnemonicParsing="false" onAction="#handleRememberMeCbox" textFill="TRANSPARENT">
+                                          <CheckBox fx:id="cboxRememberMe" cache="true" cacheHint="SCALE" focusTraversable="false" mnemonicParsing="false" onAction="#handleRememberMeCbox" textFill="TRANSPARENT">
                                              <graphic>
                                                 <ImageView fitHeight="4.0" fitWidth="4.0" pickOnBounds="true" preserveRatio="true" />
                                              </graphic>

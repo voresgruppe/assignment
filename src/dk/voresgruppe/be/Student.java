@@ -211,14 +211,15 @@ public class Student {
         days.add(o);
         days.add(to);
         days.add(f);
+        System.out.println(firstName+ " "+ days.get(0) + " "+ days.get(1) + " " +days.get(2)+ " "+days.get(3) + " " +days.get(4));
         Collections.sort(days);
-        System.out.println(days.get(1) + " " +days.get(2));
-        int dayOfWeek = days.get(1);
+        System.out.println(firstName+ " "+ days.get(0) + " "+ days.get(1) + " " +days.get(2)+ " " + days.get(3) + " " +days.get(4));
+        int dayOfWeek = days.get(4);
         if (dayOfWeek == m) {
             mostAbsentDay = "Mandag";
         }
         else if (dayOfWeek == ti) {
-            mostAbsentDay = "Mandag";
+            mostAbsentDay = "Tirsdag";
         }
         else if (dayOfWeek == o) {
             mostAbsentDay = "Onsdag";
