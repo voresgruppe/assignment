@@ -1,5 +1,5 @@
 #background{
-    -fx-background-color: #0097ff;
+    -fx-background-color: #1e90ff;
 
 }
 
@@ -18,7 +18,7 @@
     -fx-border-radius: 2;
     -fx-background-color: Transparent;
     -fx-background-repeat: no-repeat;
-    -fx-border-color: #000000;
+    -fx-border-color: #f6f5f5;
 }
 
 #table{

@@ -19,6 +19,6 @@
          <font>
             <Font size="39.0" />
          </font></Label>
-      <Button id="btntwo" fx:id="logud_teacher" layoutX="530.0" layoutY="360.0" mnemonicParsing="false" onAction="#Teacher_Close" text="Close" />
+      <Button id="btntwo" fx:id="logud_teacher" layoutX="530.0" layoutY="360.0" mnemonicParsing="false" onAction="#Teacher_Close" text="Close" textFill="WHITE" />
    </children>
 </AnchorPane>

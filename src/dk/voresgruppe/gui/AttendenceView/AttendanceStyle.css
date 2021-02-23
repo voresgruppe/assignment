@@ -1,0 +1,17 @@
+#background{
+
+    -fx-background-color: #f6f5f5;
+}
+
+#test{
+
+    -fx-background-color: #1e90ff;
+}
+
+#btn{
+    -fx-border-radius: 5;
+    -fx-background-color: Transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #f6f5f5;
+
+}
