@@ -1,0 +1,32 @@
+#btn {
+    -fx-border-radius: 5;
+    -fx-background-color: blue;
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #f6f5f5;
+}
+
+#textfields{
+    -fx-background-color: #a7d3f8;
+}
+
+#btntwo{
+    -fx-border-radius: 5;
+    -fx-background-color: Transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #000000;
+}
+
+#table{
+
+    -fx-background-color: Transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #000000;
+    -fx-border-radius: 5;
+}
+
+#table1{
+
+    -fx-background-color: #7695b3;
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #515151;
+}
