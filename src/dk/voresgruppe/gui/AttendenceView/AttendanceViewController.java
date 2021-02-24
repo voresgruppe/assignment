@@ -50,9 +50,11 @@ public class AttendanceViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        File file = new File("image/Giraf.PNG");
+        /*File file = new File("image/Giraf.PNG");
         Image pic = new Image(String.valueOf(file));
         giraf.setImage(pic);
+
+         */
     }
 
     public Student getLoggedStudent() {
