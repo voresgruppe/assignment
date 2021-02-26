@@ -58,15 +58,15 @@
                            </children></HBox>
                         <HBox prefHeight="42.0" prefWidth="600.0">
                            <children>
-                              <Label prefHeight="25.0" text="Fraværsprocent:" textFill="WHITE">
+                              <Label prefHeight="25.0" prefWidth="110.0" text="Fraværsprocent:" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets left="10.0" right="23.0" />
+                                    <Insets left="10.0" right="20.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="txtFieldAbsencePercentage" editable="false" prefHeight="25.0" prefWidth="50.0" />
+                              <TextField fx:id="txtFieldAbsencePercentage" editable="false" prefHeight="25.0" prefWidth="55.0" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="5.0" />
@@ -74,17 +74,17 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="600.0">
                            <children>
-                              <Label prefHeight="25.0" prefWidth="114.0" text="Fraværsdage:" textFill="WHITE">
+                              <Label prefHeight="25.0" prefWidth="90.0" text="Fraværsdage:" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets left="10.0" right="42.0" />
+                                    <Insets left="10.0" right="40.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="txtFieldAbsenceDays" editable="false" prefHeight="25.0" prefWidth="50.0">
+                              <TextField fx:id="txtFieldAbsenceDays" editable="false" prefHeight="25.0" prefWidth="55.0">
                                  <HBox.margin>
-                                    <Insets right="290.0" />
+                                    <Insets right="250.0" />
                                  </HBox.margin>
                               </TextField>
                               <Button id="#btn" fx:id="btnLogUd" alignment="CENTER" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="34.0" prefWidth="98.0" text="Log ud">
