@@ -281,4 +281,16 @@ public class LoginController implements Initializable {
 
 
     }
+
+    public void BorderpaneThingyBug(MouseEvent mouseEvent) {
+        if(PassID.isVisible()){
+            PassID.requestFocus();
+            PassID.deselect();
+            PassID.end();
+        }else{
+            txtPassShown.requestFocus();
+            txtPassShown.deselect();
+            txtPassShown.end();
+        }
+    }
 }

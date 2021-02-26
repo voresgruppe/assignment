@@ -74,7 +74,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="600.0">
                            <children>
-                              <Label prefHeight="25.0" text="Fraværsdage:" textFill="WHITE">
+                              <Label prefHeight="25.0" prefWidth="114.0" text="Fraværsdage:" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
