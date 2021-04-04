@@ -5,20 +5,12 @@ import java.util.List;
 
 public class Schedule {
 
-    private Date date;
-    List<Module> modules;
+    private int weekDay;
+    private List<Module> modules;
 
-    public Schedule(Date date, List<Module> modules) {
-        this.date = date;
+    public Schedule(int weekDay, List<Module> modules) {
+        this.weekDay = weekDay;
         this.modules = modules;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public List<Module> getModules() {
@@ -27,5 +19,16 @@ public class Schedule {
 
     public void setModules(List<Module> modules) {
         this.modules = modules;
+    }
+
+    @Override
+    public String toString() {
+        String result = String.valueOf(weekDay);
+        if(!modules.isEmpty()) {
+            for (Module currentModule : modules) {
+                result += " " +  currentModule;
+            }
+        }
+        return result;
     }
 }

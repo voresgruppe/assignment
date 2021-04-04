@@ -1,37 +1,54 @@
 package dk.voresgruppe.bll;
 
 import dk.voresgruppe.be.*;
-<<<<<<< HEAD
 import dk.voresgruppe.dal.ScheduleRepository;
-=======
-import dk.voresgruppe.be.Module;
-import dk.voresgruppe.dal.ScheduleRepositroy;
->>>>>>> parent of f0b2a9d (h)
 import dk.voresgruppe.dal.StudentRepository;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class StudentManager {
+    private ObservableList<Student> studentsObservableList;
     private List<Student> allStudents;
-    private StudentRepository sRepo = new StudentRepository();
+    private StudentRepository studentRepository;
+    //private StudentRepository sRepo = new StudentRepository();
     private ScheduleRepository scheduleRepo = new ScheduleRepository();
 
     public StudentManager() {
-        this.allStudents = this.sRepo.loadStudents();
-        for(Student currentStudent: allStudents) {
-            List<Schedule> schedules = new ArrayList<>();
-            for(int i = 1; i<3; i++){
-                Date date = new Date(i, 1, 2021);
-                schedules.add(scheduleRepo.schedule(date));
-            }
-            currentStudent.setToShowUp(schedules);
+        studentsObservableList = FXCollections.observableArrayList();
+        studentRepository = new StudentRepository();
+        studentsObservableList.addAll(studentRepository.loadStudents());
+
+        //this.studentsObservableList = this.sRepo.loadStudents();
+       // for(Student currentStudent: studentsObservableList) {
+           // List<Schedule> schedules = scheduleRepo.weekSchedules();
+          //  currentStudent.setWeekSchedule(schedules);
+
+        //order list by AbsencePercentage
+        Comparator<Student> comparator = Comparator.comparingDouble(Student::getAbsencePercentage);
+        comparator = comparator.reversed();
+        FXCollections.sort(studentsObservableList, comparator);
+
         }
+
+
+    public ObservableList<Student> getallStudents_OBS(){
+        return studentsObservableList;
     }
 
-    public List<Student> getAllStudents() {
-        return allStudents;
-    }
+    public ObservableList<Student> searchStudent(String filter, ObservableList<Student> students) {
+        ObservableList<Student> returnList = FXCollections.observableArrayList();
 
+        for (Student s : students){
+            if(s.getFullName().toLowerCase().contains(filter.toLowerCase()) || s.getCurrentCourse().toLowerCase().contains(filter.toLowerCase())){
+                if(!returnList.contains(s)){
+                    returnList.add(s);
+                }
+            }
+        }
+        return returnList;
+    }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="background" prefHeight="400.0" prefWidth="600.0" stylesheets="/dk/voresgruppe/gui/TeacherView/TeacherStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.TeacherView.TeacherViewController">
+   <children>
+      <TableView id="table" fx:id="tableView" prefHeight="400.0" prefWidth="367.0">
+        <columns>
+          <TableColumn id="table1" fx:id="StudentName" minWidth="0.0" prefWidth="63.80001527070999" text="elev" />
+          <TableColumn id="table1" fx:id="absencePercentage" prefWidth="90.39999389648438" text="fravær" />
+            <TableColumn id="table1" fx:id="StudentCourse" minWidth="0.0" prefWidth="75.79998779296875" text="Klasse" />
+            <TableColumn id="table1" fx:id="StudentAbsenceDay" prefWidth="140.99998474121094" text="hyppigste pjække dag" />
+        </columns>
+      </TableView>
+      <TextField id="btntwo" fx:id="searchname" layoutX="401.0" layoutY="80.0" promptText="Name" />
+      <Label layoutX="375.0" layoutY="14.0" text="Søg på elev" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="39.0" />
+         </font></Label>
+      <Button id="btntwo" fx:id="logud_teacher" layoutX="530.0" layoutY="360.0" mnemonicParsing="false" onAction="#Teacher_Close" text="Close" textFill="WHITE" />
+   </children>
+</AnchorPane>

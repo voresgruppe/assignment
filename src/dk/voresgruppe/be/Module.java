@@ -6,13 +6,13 @@ public class Module {
     String startTime;
     String endTime;
     String subject;
-    private Date date;
+    int weekDay;
 
-    public Module(String startTime, String endTime, String subject, Date date) {
+    public Module(String startTime, String endTime, String subject, int weekDay) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.subject = subject;
-        this.date = date;
+        this.weekDay = weekDay;
     }
 
     public String getStartTime() {
@@ -39,11 +39,16 @@ public class Module {
         this.subject = subject;
     }
 
-    public Date getDate() {
-        return date;
+    public int getWeekDay() {
+        return weekDay;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setWeekDay(int weekDay) {
+        this.weekDay = weekDay;
+    }
+
+    @Override
+    public String toString() {
+        return startTime + "-" + endTime + " " + subject;
     }
 }

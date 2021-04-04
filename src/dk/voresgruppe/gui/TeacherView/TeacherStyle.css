@@ -1,0 +1,36 @@
+#background{
+    -fx-background-color: #1e90ff;
+
+}
+
+#btn {
+    -fx-border-radius: 2;
+    -fx-background-color: blue;
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #f6f5f5;
+}
+
+#textfields{
+    -fx-background-color: #a7d3f8;
+}
+
+#btntwo{
+    -fx-border-radius: 2;
+    -fx-background-color: Transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #f6f5f5;
+}
+
+#table{
+
+    -fx-background-color: Transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #515151;
+    -fx-border-radius: 2;
+}
+
+#table1{
+
+    -fx-background-color: #f3f3f3;
+   -fx-border-color: #cbcbcb;
+}
