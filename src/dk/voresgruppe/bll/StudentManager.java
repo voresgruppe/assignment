@@ -1,7 +1,6 @@
 package dk.voresgruppe.bll;
 
 import dk.voresgruppe.be.*;
-import dk.voresgruppe.dal.ScheduleRepository;
 import dk.voresgruppe.dal.StudentRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +14,6 @@ public class StudentManager {
     private List<Student> allStudents;
     private StudentRepository studentRepository;
     //private StudentRepository sRepo = new StudentRepository();
-    private ScheduleRepository scheduleRepo = new ScheduleRepository();
 
     public StudentManager() {
         studentsObservableList = FXCollections.observableArrayList();
