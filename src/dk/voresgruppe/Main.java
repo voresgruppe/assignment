@@ -1,6 +1,7 @@
 package dk.voresgruppe;
 
 import dk.voresgruppe.be.Student;
+import dk.voresgruppe.dal.db.DatabaseConnector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,5 +23,9 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+        DatabaseConnector databaseConnector = new DatabaseConnector();
+        System.out.print(databaseConnector.getConnection());
+
     }
 }

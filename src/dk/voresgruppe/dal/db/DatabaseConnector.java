@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class DatabaseConnector {
 
-    private static final String PROP_FILE = "data/database.settings";
+    private static final String PROP_FILE = "resources/data/database.settings";
     SQLServerDataSource dataSource;
 
     public DatabaseConnector() throws IOException {
