@@ -14,9 +14,13 @@ public class DatabaseConnector {
     private static final String PROP_FILE = "resources/data/database.settings";
     SQLServerDataSource dataSource;
 
-    public DatabaseConnector() throws IOException {
+    public DatabaseConnector() {
         Properties databaseProperties = new Properties();
-        databaseProperties.load(new FileInputStream(new File(PROP_FILE)));
+        try {
+            databaseProperties.load(new FileInputStream(new File(PROP_FILE)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         String server = databaseProperties.getProperty("Server");
         String database = databaseProperties.getProperty("Database");

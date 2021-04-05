@@ -1,6 +1,7 @@
 package dk.voresgruppe;
 
 import dk.voresgruppe.be.Student;
+import dk.voresgruppe.bll.AdministratorManager;
 import dk.voresgruppe.dal.db.DatabaseConnector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,7 @@ public class Main extends Application {
 
         DatabaseConnector databaseConnector = new DatabaseConnector();
         System.out.print(databaseConnector.getConnection());
+
 
     }
 }
