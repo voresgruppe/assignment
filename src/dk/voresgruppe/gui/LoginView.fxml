@@ -87,10 +87,11 @@
             <ImageView fx:id="imgCompanyLogo" fitHeight="142.0" fitWidth="212.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
-      <ButtonBar layoutX="406.0" layoutY="346.0" prefHeight="40.0" prefWidth="254.0">
+      <ButtonBar layoutX="321.0" layoutY="346.0" prefHeight="40.0" prefWidth="359.0">
         <buttons>
-          <Button id="btntwo" fx:id="btnSwitch" mnemonicParsing="false" onAction="#Teacher_btn" prefHeight="26.0" prefWidth="138.0" text="Teacher Log in" />
-            <Button id="btntwo" mnemonicParsing="false" onAction="#btnClose" prefHeight="25.0" prefWidth="67.0" text="Cancel" />
+            <Button id="btntwo" mnemonicParsing="false" onAction="#Administrator_btn" prefHeight="26.0" prefWidth="138.0" text="Administrator Log in" />
+          <Button id="btntwo" fx:id="btnSwitch" mnemonicParsing="false" onAction="#Teacher_btn" prefHeight="26.0" prefWidth="100.0" text="Teacher Log in" />
+            <Button id="btntwo" minWidth="30.0" mnemonicParsing="false" onAction="#btnClose" prefHeight="25.0" prefWidth="30.0" text="Cancel" />
         </buttons>
       </ButtonBar>
       <Label id="bordertwo" fx:id="lblLogin" layoutX="16.0" layoutY="21.0" prefHeight="17.0" prefWidth="285.0" text="Student Login" textFill="WHITE">

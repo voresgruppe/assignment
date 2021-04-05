@@ -8,6 +8,11 @@ public class Administrator {
     private String lastname;
     private String username;
     private String password;
+    private User administratorLogin;
+
+    public User getAdministratorLogin() {
+        return administratorLogin;
+    }
 
     public Administrator(int iD, String firstname, String lastname, String username, String password) {
         this.iD = iD;
@@ -15,6 +20,7 @@ public class Administrator {
         this.lastname = lastname;
         this.username = username;
         this.password = password;
+        administratorLogin = new User(username,password);
     }
 
     @Override
@@ -24,5 +30,25 @@ public class Administrator {
                 "," + lastname +
                 "," + username +
                 "," + password;
+    }
+
+    public int getiD() {
+        return iD;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

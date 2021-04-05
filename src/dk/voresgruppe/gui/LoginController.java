@@ -87,6 +87,19 @@ public class LoginController implements Initializable {
 
 
     }
+    public void Administrator_btn(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("AdministratorView/AdministratorLoginView.fxml"));
+            Parent mainLayout = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
 
 
 
@@ -277,10 +290,9 @@ public class LoginController implements Initializable {
             btnSwitch.setText("Switch to Teacher");
             lblLogin.setText("Student Login");
         }
-
-
-
     }
+
+
 
     public void BorderpaneThingyBug(MouseEvent mouseEvent) {
         if(PassID.isVisible()){
@@ -293,4 +305,6 @@ public class LoginController implements Initializable {
             txtPassShown.end();
         }
     }
+
+
 }

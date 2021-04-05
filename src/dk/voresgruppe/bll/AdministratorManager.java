@@ -11,4 +11,8 @@ public class AdministratorManager {
     public AdministratorManager() {
         this.allAdministrators = aRepo.loadTracks();
     }
+
+    public ObservableList<Administrator> getAllAdministrators() {
+        return allAdministrators;
+    }
 }

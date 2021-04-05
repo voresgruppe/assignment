@@ -24,10 +24,5 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-        DatabaseConnector databaseConnector = new DatabaseConnector();
-        System.out.print(databaseConnector.getConnection());
-
-
     }
 }
