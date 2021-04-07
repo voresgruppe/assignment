@@ -1,7 +1,6 @@
-package dk.voresgruppe.gui.AttendenceView;
+package dk.voresgruppe.gui.StudentView;
 
 import dk.voresgruppe.be.Date;
-import dk.voresgruppe.be.Schedule;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.bll.StudentManager;
 import dk.voresgruppe.util.UserError;
@@ -27,9 +26,8 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
-public class AttendanceViewController implements Initializable {
+public class StudentViewController implements Initializable {
     public Label lblGreeting;
-    public ImageView giraf;
     private Student loggedStudent;
     private StudentManager sMan;
     private Utils utils = new Utils();
@@ -45,16 +43,11 @@ public class AttendanceViewController implements Initializable {
     public ImageView imgProfilePic;
     public Button btnLogUd;
 
-    public AttendanceViewController() {
+    public StudentViewController() {
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*File file = new File("image/Giraf.PNG");
-        Image pic = new Image(String.valueOf(file));
-        giraf.setImage(pic);
-
-         */
     }
 
     public Student getLoggedStudent() {

@@ -9,7 +9,7 @@ public class AdministratorManager {
     private AdministratorRepository aRepo = new AdministratorRepository();
 
     public AdministratorManager() {
-        this.allAdministrators = aRepo.loadTracks();
+        this.allAdministrators = aRepo.loadAdministrators();
     }
 
     public ObservableList<Administrator> getAllAdministrators() {

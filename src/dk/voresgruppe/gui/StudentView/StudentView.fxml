@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" stylesheets="/dk/voresgruppe/gui/AttendenceView/AttendanceStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AttendenceView.AttendanceViewController">
+<BorderPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" stylesheets="/dk/voresgruppe/gui/StudentView/StudentStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.StudentView.StudentViewController">
    <center>
       <VBox prefHeight="600.0" prefWidth="598.0" BorderPane.alignment="CENTER">
          <children>

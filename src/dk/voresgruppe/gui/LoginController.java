@@ -6,7 +6,7 @@ import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.bll.StudentManager;
 import dk.voresgruppe.bll.TeacherManager;
-import dk.voresgruppe.gui.AttendenceView.AttendanceViewController;
+import dk.voresgruppe.gui.StudentView.StudentViewController;
 import dk.voresgruppe.gui.TeacherView.TeacherViewController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -90,7 +90,7 @@ public class LoginController implements Initializable {
     public void Administrator_btn(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("AdministratorView/AdministratorLoginView.fxml"));
+            loader.setLocation(getClass().getResource("AdministratorLoginView/AdministratorLoginView.fxml"));
             Parent mainLayout = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
@@ -115,9 +115,9 @@ public class LoginController implements Initializable {
                     if (tempUser.getUserName().matches(currentUser.getUserName()) && tempUser.getPassword().matches(currentUser.getPassword())) {
                         try {
                             FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(getClass().getResource("AttendenceView/AttendanceView.fxml"));
+                            loader.setLocation(getClass().getResource("StudentView/StudentView.fxml"));
                             Parent mainLayout = loader.load();
-                            AttendanceViewController avc = loader.getController();
+                            StudentViewController avc = loader.getController();
                             avc.setLoggedStudent(currentStudent);
                             Stage stage = new Stage();
                             stage.setScene(new Scene(mainLayout));
