@@ -18,10 +18,10 @@ import javafx.stage.Stage;
 
 
 public class TeacherViewController {
-    public Button logud_teacher;
+
 
     private Teacher loggedTeacher;
-    public StudentManager sMan;
+    private StudentManager sMan;
     @FXML
     private TableView<Student> tableView;
     @FXML
@@ -36,6 +36,8 @@ public class TeacherViewController {
     public TableColumn<Student, String> StudentAbsenceDay;
     @FXML
     public TextField searchname;
+    @FXML
+    private Button logud_teacher;
     public TeacherViewController(){
         sMan = new StudentManager();
 }

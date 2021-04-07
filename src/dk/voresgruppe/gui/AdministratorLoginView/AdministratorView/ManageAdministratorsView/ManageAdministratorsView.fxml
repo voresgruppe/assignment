@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AdministratorLoginView.AdministratorView.ManageAdministratorsView.ManageAdministratorsView">
+   <children>
+      <TableView fx:id="tblviewAdministrators" layoutX="8.0" layoutY="6.0" prefHeight="387.0" prefWidth="225.0">
+        <columns>
+          <TableColumn fx:id="administratorID" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="administratorName" prefWidth="124.0" text="Name" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

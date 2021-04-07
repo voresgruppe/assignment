@@ -117,8 +117,8 @@ public class LoginController implements Initializable {
                             FXMLLoader loader = new FXMLLoader();
                             loader.setLocation(getClass().getResource("StudentView/StudentView.fxml"));
                             Parent mainLayout = loader.load();
-                            StudentViewController avc = loader.getController();
-                            avc.setLoggedStudent(currentStudent);
+                            StudentViewController svc = loader.getController();
+                            svc.setLoggedStudent(currentStudent);
                             Stage stage = new Stage();
                             stage.setScene(new Scene(mainLayout));
                             stage.show();

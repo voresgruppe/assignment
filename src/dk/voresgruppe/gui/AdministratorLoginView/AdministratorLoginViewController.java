@@ -3,6 +3,7 @@ package dk.voresgruppe.gui.AdministratorLoginView;
 import dk.voresgruppe.be.Administrator;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.bll.AdministratorManager;
+import dk.voresgruppe.gui.AdministratorLoginView.AdministratorView.AdministratorViewController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AdministratorLoginView {
+public class AdministratorLoginViewController {
     @FXML
     private Button btnCancel;
     @FXML
@@ -24,6 +25,11 @@ public class AdministratorLoginView {
     private TextField txtPassword;
 
     private AdministratorManager aMan = new AdministratorManager();
+
+    public void initialize(){
+        txtUsername.setText("EASV");
+        txtPassword.setText("EASV123");
+    }
 
 
     public void administratorLogin(ActionEvent actionEvent) {
@@ -34,17 +40,19 @@ public class AdministratorLoginView {
         for(Administrator currentAdministrator: administrators) {
             User currentUser = currentAdministrator.getAdministratorLogin();
             if(tempUser.getUserName().matches(currentUser.getUserName()) && tempUser.getPassword().matches(currentUser.getPassword())) {
-                openAdminView();
+                openAdminView(currentAdministrator);
             }
         }
 
     }
 
-    private void openAdminView() {
+    private void openAdminView(Administrator currentAdmin) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("AdministratorView/AdministratorView.fxml"));
             Parent mainLayout = loader.load();
+            AdministratorViewController avc = loader.getController();
+            avc.setLoggedAdministrator(currentAdmin);
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
             stage.show();
