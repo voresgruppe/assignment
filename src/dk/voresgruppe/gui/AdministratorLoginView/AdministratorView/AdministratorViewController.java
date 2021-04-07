@@ -32,4 +32,32 @@ public class AdministratorViewController {
 
         }
     }
+
+    public void manageTeachers(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ManageTeachersView/ManageTeachersView.fxml"));
+            Parent mainLayout = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public void manageStudents(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ManageStudentsView/ManageStudentsView.fxml"));
+            Parent mainLayout = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
 }
