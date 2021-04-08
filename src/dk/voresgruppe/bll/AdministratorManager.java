@@ -15,4 +15,20 @@ public class AdministratorManager {
     public ObservableList<Administrator> getAllAdministrators() {
         return allAdministrators;
     }
+
+    public void add(Administrator a) {
+        int iD = aRepo.addAdministrator(a);
+        a.setId(iD);
+        allAdministrators.add(a);
+    }
+
+    public void delete(Administrator a) {
+        allAdministrators.remove(a);
+        aRepo.delete(a);
+    }
+
+    public void replace(Administrator a, Administrator b){
+        aRepo.update(b);
+        allAdministrators.set(allAdministrators.indexOf(a),b);
+    }
 }

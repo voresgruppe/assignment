@@ -5,8 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AdministratorLoginView.AdministratorView.NewAdministratorView.NewAdministratorViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AdministratorView.ManageAdministratorsView.EditAdministratorViewController">
    <children>
       <TextField fx:id="txtFirstName" layoutX="103.0" layoutY="25.0" />
       <TextField fx:id="txtLastName" layoutX="103.0" layoutY="65.0" />
@@ -16,7 +15,7 @@
       <Label layoutX="25.0" layoutY="69.0" text="Lastname" />
       <Label layoutX="25.0" layoutY="112.0" text="Username" />
       <Label layoutX="24.0" layoutY="149.0" text="Password" />
-      <Button fx:id="btnSave" layoutX="200.0" layoutY="213.0" mnemonicParsing="false" onAction="#saveNewAdministrator" prefHeight="25.0" prefWidth="50.0" text="Save" />
+      <Button fx:id="btnSave" layoutX="200.0" layoutY="213.0" mnemonicParsing="false" onAction="#saveAdministrator" prefHeight="25.0" prefWidth="50.0" text="Save" />
       <Button fx:id="btnCancel" layoutX="274.0" layoutY="213.0" mnemonicParsing="false" onAction="#Cancel" text="Cancel" />
    </children>
 </AnchorPane>
