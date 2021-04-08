@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AdministratorLoginView.AdministratorView.ManageAdministratorsView.ManageAdministratorsView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AdministratorView.ManageAdministratorsView.ManageAdministratorsView">
    <children>
       <TableView fx:id="tblviewAdministrators" layoutX="8.0" layoutY="6.0" prefHeight="387.0" prefWidth="299.0">
         <columns>
@@ -14,5 +14,7 @@
         </columns>
       </TableView>
       <Button layoutX="332.0" layoutY="345.0" mnemonicParsing="false" onAction="#addNewAdministrator" text="Add new Administrator" />
+      <Button layoutX="332.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleDeleteAdministrator" text="Delete Administrator" />
+      <Button layoutX="332.0" layoutY="267.0" mnemonicParsing="false" onAction="#handleEditAdministrator" text="Edit Administrator" />
    </children>
 </AnchorPane>

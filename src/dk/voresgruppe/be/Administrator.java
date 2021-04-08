@@ -2,6 +2,7 @@ package dk.voresgruppe.be;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 public class Administrator {
 
@@ -18,8 +19,7 @@ public class Administrator {
         return administratorLogin;
     }
 
-    public Administrator(int iD, String firstname, String lastname, String username, String password) {
-        this.iD = iD;
+    public Administrator(String firstname, String lastname, String username, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         fullName = firstname + " " + lastname;
@@ -37,13 +37,17 @@ public class Administrator {
                 "," + password;
     }
 
-    public int getiD() {
+    public int getId() {
         return iD;
     }
 
-    public IntegerProperty getIdProperty(){
-        IntegerProperty integerProperty = new SimpleIntegerProperty(iD);
-        return integerProperty;
+    public SimpleStringProperty getIdProperty(){
+        SimpleStringProperty simpleStringProperty = new SimpleStringProperty(String.valueOf(iD));
+        return simpleStringProperty;
+    }
+
+    public void setId(int iD) {
+        this.iD = iD;
     }
 
     public String getFirstname() {
@@ -56,6 +60,11 @@ public class Administrator {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public SimpleStringProperty getFullnameProperty(){
+        SimpleStringProperty simpleStringProperty = new SimpleStringProperty(fullName);
+        return simpleStringProperty;
     }
 
     public String getUsername() {

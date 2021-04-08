@@ -1,9 +1,8 @@
-package dk.voresgruppe.gui.AdministratorLoginView;
+package dk.voresgruppe.gui.AdministratorView;
 
 import dk.voresgruppe.be.Administrator;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.bll.AdministratorManager;
-import dk.voresgruppe.gui.AdministratorLoginView.AdministratorView.AdministratorViewController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,7 +48,7 @@ public class AdministratorLoginViewController {
     private void openAdminView(Administrator currentAdmin) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("AdministratorView/AdministratorView.fxml"));
+            loader.setLocation(getClass().getResource("AdministratorView.fxml"));
             Parent mainLayout = loader.load();
             AdministratorViewController avc = loader.getController();
             avc.setLoggedAdministrator(currentAdmin);

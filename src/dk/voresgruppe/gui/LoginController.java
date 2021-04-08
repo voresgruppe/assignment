@@ -90,7 +90,7 @@ public class LoginController implements Initializable {
     public void Administrator_btn(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("AdministratorLoginView/AdministratorLoginView.fxml"));
+            loader.setLocation(getClass().getResource("AdministratorView/AdministratorLoginView.fxml"));
             Parent mainLayout = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));

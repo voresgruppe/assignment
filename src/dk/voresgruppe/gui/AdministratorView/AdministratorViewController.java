@@ -1,4 +1,4 @@
-package dk.voresgruppe.gui.AdministratorLoginView.AdministratorView;
+package dk.voresgruppe.gui.AdministratorView;
 
 import dk.voresgruppe.be.Administrator;
 import dk.voresgruppe.bll.AdministratorManager;
