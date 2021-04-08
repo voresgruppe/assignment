@@ -3,14 +3,12 @@ package dk.voresgruppe.be;
 public class Teacher {
     private String firstName;
     private String lastName;
-    private String birthday;
     private User teacherLogin;
 
 
-    public Teacher(String fName, String lName, String birthDay, User teacherLogin) {
+    public Teacher(String fName, String lName, User teacherLogin) {
         this.firstName = fName;
         this.lastName = lName;
-        this.birthday = birthDay;
         this.teacherLogin = teacherLogin;
     }
     public User getTeacherLoginLogin() {
@@ -19,6 +17,6 @@ public class Teacher {
 
     @Override
     public String toString() {
-        return firstName+  ", " + lastName + ", " + birthday + ", " + teacherLogin;
+        return firstName+  ", " + lastName + ", " + teacherLogin;
     }
 }

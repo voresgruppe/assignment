@@ -31,10 +31,7 @@ import java.io.*;
 import java.net.URL;
 
 
-
-
-
-
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -60,6 +57,9 @@ public class LoginController implements Initializable {
 
     //This will be the file where the username and password will be saved
     File saveFile = new File("resources/data/RememberMe");
+
+    public LoginController() throws SQLException {
+    }
 
 
     @Override
@@ -100,8 +100,6 @@ public class LoginController implements Initializable {
 
         }
     }
-
-
 
     public void btnLogin(ActionEvent actionEvent) {
         if(cboxRememberMe.isSelected()) {

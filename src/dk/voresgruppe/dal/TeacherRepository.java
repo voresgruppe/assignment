@@ -2,41 +2,39 @@ package dk.voresgruppe.dal;
 
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
+import dk.voresgruppe.dal.db.DatabaseConnector;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class TeacherRepository {
-    public List<Teacher> loadTeacher() {
-        List<Teacher> allTeachers = new ArrayList<>();
-        File file = new File("resources/data/MockTeacherData");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
+    DatabaseConnector dbConnector = new DatabaseConnector();
+    private Connection connect;
 
-            while ((line = reader.readLine()) != null) {
-                Teacher teacher = stringLineToTeacher(line);
-                allTeachers.add(teacher);
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    public TeacherRepository() {
+        try {
+            connect = dbConnector.getConnection();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
         }
-        return allTeachers;
     }
 
-    private Teacher stringLineToTeacher(String line) {
-        String[] arrStudent = line.split(",");
-        String fName = arrStudent[0];
-        String lName = arrStudent[1];
-        String birthDay = arrStudent[2];
-
-        User teacherLogin = new User(arrStudent[3], arrStudent[4]);
-        return new Teacher(fName, lName, birthDay, teacherLogin);
+    public ObservableList<Teacher> loadTeacher() throws SQLException {
+        ObservableList<Teacher> allTeachers = FXCollections.observableArrayList();
+        String query = "SELECT * FROM Teacher ORDER BY TeacherID";
+        Statement statement = connect.createStatement();
+        ResultSet rs = statement.executeQuery(query);
+        while(rs.next()) {
+            User teacherUser = new User(rs.getString("Username"), rs.getString("Password"));
+            Teacher t = new Teacher(rs.getString("Fname"),rs.getString("Lname"),teacherUser);
+            allTeachers.add(t);
+        }
+        return allTeachers;
     }
 
 }
