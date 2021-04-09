@@ -1,5 +1,6 @@
 package dk.voresgruppe.dal;
 
+import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.dal.db.DatabaseConnector;
@@ -10,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 public class TeacherRepository {
 
@@ -35,6 +37,12 @@ public class TeacherRepository {
             allTeachers.add(t);
         }
         return allTeachers;
+    }
+
+    public boolean hasStudentShowedUp(Student s, LocalDate date){
+        String query = "SELECT * FROM StudentAttendance;";
+
+        return true;
     }
 
 }
