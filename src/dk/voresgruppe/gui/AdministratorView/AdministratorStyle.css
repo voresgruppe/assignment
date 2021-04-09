@@ -1,0 +1,13 @@
+#test{
+
+    -fx-background-color: #1e90ff;
+}
+
+#border{
+    -fx-background-color: #1e90ff;
+    -fx-border-color: #f6f5f5;
+    -fx-border-radius: 5;
+
+
+
+}
