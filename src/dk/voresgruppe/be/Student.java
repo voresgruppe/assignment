@@ -15,7 +15,6 @@ public class Student {
     private String fullName;
     private String currentCourse;
     private User studentLogin;
-    private String birthday;
     private String mostAbsentDay;
 
     private List<Date> toShowUp = datesToShowUp();
@@ -24,12 +23,11 @@ public class Student {
     private Utils utils = new Utils();
     private Double absencePercentage = 0.0;
 
-    public Student(String firstName, String lastName, String birthday, String currentCourse, User studentLogin) {
+    public Student(String firstName, String lastName, String currentCourse, User studentLogin) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.currentCourse = currentCourse;
         this.studentLogin = studentLogin;
-        this.birthday = birthday;
 
     }
     private List<Date> datesToShowUp() {
@@ -98,13 +96,6 @@ public class Student {
         return studentLogin;
     }
 
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
 
 
     public Schedule getScheduleFromDate (Date date) {
@@ -175,7 +166,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return firstName+  ", " + lastName + ", " + currentCourse + ", " + birthday + ", " + studentLogin;
+        return firstName+  ", " + lastName + ", " + currentCourse + ", " + studentLogin;
     }
 
     public String getMostAbsentDay() {

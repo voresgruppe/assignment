@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class StudentManager {
     private StudentRepository studentRepository;
     //private StudentRepository sRepo = new StudentRepository();
 
-    public StudentManager() {
+    public StudentManager() throws SQLException {
         studentsObservableList = FXCollections.observableArrayList();
         studentRepository = new StudentRepository();
         studentsObservableList.addAll(studentRepository.loadStudents());
