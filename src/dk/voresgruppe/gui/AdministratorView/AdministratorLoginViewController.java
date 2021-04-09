@@ -1,6 +1,8 @@
 package dk.voresgruppe.gui.AdministratorView;
 
 import dk.voresgruppe.be.Administrator;
+import dk.voresgruppe.be.Student;
+import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.bll.AdministratorManager;
 import javafx.collections.ObservableList;
@@ -11,9 +13,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class AdministratorLoginViewController {
     @FXML
@@ -23,11 +30,16 @@ public class AdministratorLoginViewController {
     @FXML
     private TextField txtPassword;
 
+    public ImageView imgCompanyLogo;
+
     private AdministratorManager aMan = new AdministratorManager();
 
     public void initialize(){
         txtUsername.setText("EASV");
         txtPassword.setText("EASV123");
+        File logo = new File("image/logo.png");
+        Image image1 = new Image(String.valueOf(logo));
+        imgCompanyLogo.setImage(image1);
     }
 
 
@@ -44,6 +56,7 @@ public class AdministratorLoginViewController {
         }
 
     }
+
 
     private void openAdminView(Administrator currentAdmin) {
         try {
