@@ -1,23 +1,15 @@
 package dk.voresgruppe.dal;
 
 import dk.voresgruppe.be.Student;
-import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.dal.db.DatabaseConnector;
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+
 
 public class StudentRepository {
 
@@ -44,29 +36,8 @@ public class StudentRepository {
             allStudents.add(s);
         }
         return allStudents;
-        /*
-
-        ArrayList<Student> studentObservableList = new ArrayList<Student>();
-
-        File file = new File("resources/data/MockStudentData.txt");
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                Student student = stringLineToStudent(line);
-                studentObservableList.add(student);
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return studentObservableList;
-
-         */
     }
 
-    //small brain, få fat i educationName med classID
     private String getEducationNameFromStudentID(int studentID) throws SQLException {
         String sql = "SELECT\te.Name\n" +
                 "FROM Education e\n" +
