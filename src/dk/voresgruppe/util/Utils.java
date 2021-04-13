@@ -39,4 +39,11 @@ public class Utils {
         return c.get(Calendar.DAY_OF_WEEK);
     }
 
+    public Date dateFromString(String string){
+        String[] arrDate = string.split("/");
+        String day = arrDate[0];
+        String month = arrDate[1];
+        String year = arrDate[2];
+        return new Date(Integer.parseInt(day), Integer.parseInt(month), Integer.parseInt(year));
+    }
 }

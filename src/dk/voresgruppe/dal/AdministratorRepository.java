@@ -21,10 +21,6 @@ public class AdministratorRepository {
         }
     }
 
-    /**
-     * Loads all Tracks from MySQL table 'tracks' and make Track Objects from them
-     * @return ObservableList of Track objects
-     */
     public ObservableList<Administrator> loadAdministrators() {
         try {
             ObservableList<Administrator> administrators = FXCollections.observableArrayList();

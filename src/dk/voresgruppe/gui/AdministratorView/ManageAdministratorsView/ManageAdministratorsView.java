@@ -28,13 +28,8 @@ public class ManageAdministratorsView {
     @FXML
     private TableView<Administrator> tblviewAdministrators;
 
-    public ManageAdministratorsView() {
-        aMan = new AdministratorManager();
-    }
 
-    public void initialize() {
-        initAdministrators();
-        administratorsListener();
+    public ManageAdministratorsView() {
     }
 
     public void initAdministrators() {
@@ -51,6 +46,8 @@ public class ManageAdministratorsView {
 
     public void setAMan(AdministratorManager aMan) {
         this.aMan = aMan;
+        initAdministrators();
+        administratorsListener();
     }
 
     public void addNewAdministrator(ActionEvent actionEvent) {

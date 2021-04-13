@@ -26,18 +26,26 @@ public class TeacherRepository {
         }
     }
 
-    public ObservableList<Teacher> loadTeacher() throws SQLException {
-        ObservableList<Teacher> allTeachers = FXCollections.observableArrayList();
-        String query = "SELECT * FROM Teacher ORDER BY TeacherID";
-        Statement statement = connect.createStatement();
-        ResultSet rs = statement.executeQuery(query);
-        while(rs.next()) {
-            User teacherUser = new User(rs.getString("Username"), rs.getString("Password"));
-            Teacher t = new Teacher(rs.getString("Fname"),rs.getString("Lname"),teacherUser);
-            allTeachers.add(t);
+    public ObservableList<Teacher> loadTeacher() {
+
+        try {
+            ObservableList<Teacher> allTeachers = FXCollections.observableArrayList();
+            String query = "SELECT * FROM Teacher ORDER BY TeacherID";
+            Statement statement = connect.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()) {
+                User teacherUser = new User(rs.getString("Username"), rs.getString("Password"));
+                Teacher t = new Teacher(rs.getString("Fname"),rs.getString("Lname"),teacherUser);
+                t.setTeacherID(rs.getInt("TeacherID"));
+                allTeachers.add(t);
+            }
+            return allTeachers;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
         }
-        return allTeachers;
     }
+
 
     public boolean hasStudentShowedUp(Student s, LocalDate date){
         String query = "SELECT * FROM StudentAttendance;";

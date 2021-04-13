@@ -13,8 +13,8 @@ public class TeacherManager {
     private List<Teacher> allTeachers;
     private TeacherRepository tRepo = new TeacherRepository();
 
-    public TeacherManager() throws SQLException {
-        this.allTeachers = this.tRepo.loadTeacher();
+    public TeacherManager()  {
+        this.allTeachers = tRepo.loadTeacher();
     }
 
     public void updateStudentAttendance(Student student, LocalDate date){
@@ -25,5 +25,14 @@ public class TeacherManager {
 
     public List<Teacher> getAllTeachers(){
         return allTeachers;
+    }
+
+    public Teacher getTeacherFromId(int id){
+        for(Teacher current: allTeachers){
+            if(current.getTeacherID() == id) {
+                return current;
+            }
+        }
+        return null;
     }
 }

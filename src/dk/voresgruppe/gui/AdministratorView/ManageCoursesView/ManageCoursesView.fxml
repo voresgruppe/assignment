@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AdministratorView.ManageCoursesView.ManageCoursesViewController">
+   <children>
+      <TableView fx:id="tblviewCourses" layoutX="8.0" layoutY="6.0" prefHeight="387.0" prefWidth="487.0">
+        <columns>
+          <TableColumn fx:id="courseID" prefWidth="48.0" text="ID" />
+          <TableColumn fx:id="courseName" prefWidth="108.0" text="Name" />
+            <TableColumn fx:id="courseTeacher" prefWidth="131.0" text="Teacher" />
+            <TableColumn fx:id="courseStartDate" prefWidth="97.0" text="StartDate" />
+            <TableColumn fx:id="courseEndDate" prefWidth="102.0" text="EndDate" />
+        </columns>
+      </TableView>
+      <Button layoutX="501.0" layoutY="333.0" mnemonicParsing="false" onAction="#addNewCourse" text="Add Course" />
+      <Button layoutX="501.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleDeleteCourse" text="Delete Course" />
+      <Button layoutX="501.0" layoutY="267.0" mnemonicParsing="false" onAction="#handleEditCourse" text="Edit Course" />
+   </children>
+</AnchorPane>
