@@ -35,7 +35,7 @@ public class NewAdministratorViewController {
         if(!firstname.isEmpty() && !lastname.isEmpty() && !userName.isEmpty() && !password.isEmpty()) {
             Administrator a = new Administrator(firstname,lastname,userName,password);
             aMan.add(a);
-            mav.initAdministrators();
+            mav.init();
             closeWindow();
         }
         else {

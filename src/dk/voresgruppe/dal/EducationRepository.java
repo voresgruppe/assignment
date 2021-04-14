@@ -1,49 +1,46 @@
 package dk.voresgruppe.dal;
 
-import dk.voresgruppe.be.Administrator;
+import dk.voresgruppe.be.Education;
 import dk.voresgruppe.dal.db.DatabaseConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
 
-
-public class AdministratorRepository {
-
+public class EducationRepository {
     DatabaseConnector databaseConnector = new DatabaseConnector();
     private Connection connect = null;
 
-    public AdministratorRepository() {
+    public EducationRepository() {
         try {
             connect = databaseConnector.getConnection();
-        } catch(Exception e) {
+        } catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
 
-    public ObservableList<Administrator> loadAdministrators() {
+    public ObservableList<Education> loadEducations() {
         try {
-            ObservableList<Administrator> administrators = FXCollections.observableArrayList();
-            String query = "SELECT * FROM Administrator ORDER BY AdministratorId";
+            ObservableList<Education> educations = FXCollections.observableArrayList();
+            String query = "SELECT * FROM Education ORDER BY EducationId";
             Statement statement = connect.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
-                Administrator a = new Administrator(resultSet.getString("Fname"),resultSet.getString("Lname"),resultSet.getString("Username"),resultSet.getString("Password"));
-                a.setId(resultSet.getInt("AdministratorId"));
-                administrators.add(a);
+                Education e = new Education(resultSet.getString("Name"));
+                e.setiD(resultSet.getInt("EducationId"));
+                educations.add(e);
             }
-
-            return administrators;
+            return educations;
         } catch(Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public int addAdministrator(Administrator a) {
+    public int addEducation(Education e) {
         int returnId = -1;
         try {
-            String query = "INSERT INTO Administrator(Fname, Lname, Username, [Password]) VALUES ('" + a.getFirstname() +"', '"+a.getLastname()+"', '"+a.getUsername()+"', '"+a.getPassword()+"' );";
+            String query = "INSERT INTO Education(Name) VALUES ('" + e.getName() +"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -56,10 +53,10 @@ public class AdministratorRepository {
         return returnId;
     }
 
-    public void delete(Administrator a) {
+    public void delete(Education e) {
         try {
-            int id = a.getId();
-            PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM Administrator WHERE AdministratorId = ?");
+            int id = e.getiD();
+            PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM Education WHERE EducationID = ?");
             preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
@@ -67,10 +64,9 @@ public class AdministratorRepository {
         }
 
     }
-
-    public void update(Administrator a){
+    public void update(Education e){
         try {
-            String query = "UPDATE Administrator SET Fname = '" +a.getFirstname()+"', Lname = '"+a.getLastname()+"', Username = '"+a.getUsername()+"', [Password]= '"+a.getPassword()+"' WHERE AdministratorId = '" +a.getId()+"'";
+            String query = "UPDATE Education SET Name = '" + e.getName() +"' WHERE EducationID = '" + e.getiD() + "'";
             PreparedStatement preparedStatement = null;
             preparedStatement = connect.prepareStatement(query);
             preparedStatement.executeUpdate();
@@ -78,6 +74,4 @@ public class AdministratorRepository {
             throwables.printStackTrace();
         }
     }
-
-
 }

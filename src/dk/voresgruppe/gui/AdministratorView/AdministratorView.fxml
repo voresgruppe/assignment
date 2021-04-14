@@ -9,5 +9,6 @@
       <Button layoutX="230.0" layoutY="278.0" mnemonicParsing="false" onAction="#manageTeachers" text="Manage Teachers" />
       <Button layoutX="354.0" layoutY="278.0" mnemonicParsing="false" onAction="#manageStudents" text="Manage Students" />
       <Button layoutX="77.0" layoutY="318.0" mnemonicParsing="false" onAction="#manageCourses" text="Manage Courses" />
+      <Button layoutX="191.0" layoutY="318.0" mnemonicParsing="false" onAction="#manageEducations" text="Manage Educations" />
    </children>
 </AnchorPane>

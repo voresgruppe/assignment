@@ -47,7 +47,7 @@ public class EditAdministratorViewController {
         if(!firstname.isEmpty() && !lastname.isEmpty() && !userName.isEmpty() && !password.isEmpty()) {
             Administrator a = new Administrator(firstname,lastname,userName,password);
             aMan.replace(currentAdministrator,a);
-            mav.initAdministrators();
+            mav.init();
             closeWindow();
         }
         else {
