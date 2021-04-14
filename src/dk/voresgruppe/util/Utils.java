@@ -46,4 +46,8 @@ public class Utils {
         String year = arrDate[2];
         return new Date(Integer.parseInt(day), Integer.parseInt(month), Integer.parseInt(year));
     }
+
+    public Date dateFromLocalDate(LocalDate localDate){
+        return new Date(localDate.getDayOfMonth(), localDate.getMonthValue(), localDate.getYear());
+    }
 }

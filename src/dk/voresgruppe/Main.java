@@ -18,9 +18,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         java.net.URL u = getClass().getResource("gui/LoginView.fxml");
-        if (u == null){
-            System.out.println("pis");
-        }
         Parent root = FXMLLoader.load(u);
         Scene scene = new Scene(root);
 

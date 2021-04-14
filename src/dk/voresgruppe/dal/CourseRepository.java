@@ -32,8 +32,9 @@ public class CourseRepository {
             Statement statement = connect.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
-                Course c = new Course(resultSet.getInt("CourseID"),resultSet.getInt("TeacherID"),resultSet.getString("Name"));
-                if (resultSet.getString("EndDate")!=null) {
+                Course c = new Course(resultSet.getInt("TeacherID"),resultSet.getString("Name"));
+                c.setCourseID(resultSet.getInt("CourseID"));
+                if (resultSet.getString("EndDate")!=null && !resultSet.getString("EndDate").equals("null")) {
                     c.setEndDate(utils.dateFromString(resultSet.getString("EndDate")));
                 }
                 if (resultSet.getString("StartDate")!=null) {

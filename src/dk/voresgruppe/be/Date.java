@@ -1,5 +1,7 @@
 package dk.voresgruppe.be;
 
+import java.time.LocalDate;
+
 public class Date {
 
     private int day;
@@ -34,6 +36,10 @@ public class Date {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public LocalDate toLocalDate(){
+        return LocalDate.of(year,month,day);
     }
 
 

@@ -3,10 +3,17 @@ package dk.voresgruppe.gui.AdministratorView.ManageCoursesView;
 import dk.voresgruppe.be.Course;
 import dk.voresgruppe.bll.CourseManager;
 import dk.voresgruppe.bll.TeacherManager;
+import dk.voresgruppe.gui.AdministratorView.ManageAdministratorsView.NewAdministratorViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ManageCoursesViewController {
 
@@ -54,11 +61,41 @@ public class ManageCoursesViewController {
     }
 
     public void addNewCourse(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("NewCourseView.fxml"));
+            Parent mainLayout = loader.load();
+            NewCourseViewController nvc = loader.getController();
+            nvc.setManagers(cMan, tMan);
+            nvc.init();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 
     public void handleDeleteCourse(ActionEvent actionEvent) {
+        cMan.delete(selectedCourse);
     }
 
     public void handleEditCourse(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("EditCourseView.fxml"));
+            Parent mainLayout = loader.load();
+            EditCourseViewController nvc = loader.getController();
+            nvc.setManagers(cMan, tMan);
+            nvc.setSelectedCourse(selectedCourse);
+            nvc.init();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 }

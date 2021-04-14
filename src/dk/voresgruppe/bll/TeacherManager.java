@@ -4,13 +4,14 @@ package dk.voresgruppe.bll;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.dal.TeacherRepository;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
 public class TeacherManager {
-    private List<Teacher> allTeachers;
+    private ObservableList<Teacher> allTeachers;
     private TeacherRepository tRepo = new TeacherRepository();
 
     public TeacherManager()  {
@@ -23,7 +24,7 @@ public class TeacherManager {
         }
     }
 
-    public List<Teacher> getAllTeachers(){
+    public ObservableList<Teacher> getAllTeachers(){
         return allTeachers;
     }
 

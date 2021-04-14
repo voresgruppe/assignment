@@ -10,8 +10,7 @@ public class Course {
     private Date startDate;
     private Date endDate;
 
-    public Course(int courseID, int teacherID, String name) {
-        this.courseID = courseID;
+    public Course( int teacherID, String name) {
         this.teacherID = teacherID;
         this.name = name;
     }
