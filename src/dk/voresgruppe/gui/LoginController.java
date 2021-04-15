@@ -11,7 +11,6 @@ import dk.voresgruppe.gui.TeacherView.TeacherViewController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -78,15 +77,11 @@ public class LoginController implements Initializable {
         for(Teacher currentTeacher : tMan.getAllTeachers()){
             System.out.println(currentTeacher);
         }
-
         hidePass = true;
         addListener();
-
-
         updateLoginFields();
-
-
     }
+
     public void Administrator_btn(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader();
