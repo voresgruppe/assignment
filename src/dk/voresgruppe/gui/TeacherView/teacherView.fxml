@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="background" prefHeight="400.0" prefWidth="600.0" stylesheets="/dk/voresgruppe/gui/TeacherView/TeacherStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.TeacherView.TeacherViewController">
+<AnchorPane id="background" prefHeight="400.0" prefWidth="600.0" stylesheets="/dk/voresgruppe/gui/TeacherView/TeacherStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.TeacherView.TeacherViewController">
    <children>
       <TableView id="table" fx:id="tableView" prefHeight="400.0" prefWidth="367.0">
         <columns>
