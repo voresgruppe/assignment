@@ -40,11 +40,21 @@ public class Utils {
     }
 
     public Date dateFromString(String string){
-        String[] arrDate = string.split("/");
-        String day = arrDate[0];
-        String month = arrDate[1];
-        String year = arrDate[2];
-        return new Date(Integer.parseInt(day), Integer.parseInt(month), Integer.parseInt(year));
+        if(string.split("/").length>2) {
+            String[] arrDate = string.split("/");
+            String day = arrDate[0];
+            String month = arrDate[1];
+            String year = arrDate[2];
+            return new Date(Integer.parseInt(day), Integer.parseInt(month), Integer.parseInt(year));
+        }
+        else if(string.split("-").length>2) {
+            String[] arrDate = string.split("-");
+            String day = arrDate[0];
+            String month = arrDate[1];
+            String year = arrDate[2];
+            return new Date(Integer.parseInt(day), Integer.parseInt(month), Integer.parseInt(year));
+        }
+        return null;
     }
 
     public Date dateFromLocalDate(LocalDate localDate){
