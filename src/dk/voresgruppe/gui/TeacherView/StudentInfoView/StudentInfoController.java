@@ -8,7 +8,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,23 +21,19 @@ public class StudentInfoController implements Initializable {
     public Label lblGreeting;
     public DatePicker datePicker;
     public Label lblDidStudentShowUp;
-
     private Student currentStudent;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        lblGreeting.setText("Fraværs overblik for ");
-        lblDidStudentShowUp.setText("");
     }
-
-    // currentStudent er null??????????
 
     public void lookUpStudent(Student studentToLookup){
         this.currentStudent = studentToLookup;
+        lblGreeting.setText("Fraværs overblik for " + currentStudent.getFullName());
+        updateUpdatelbl();
     }
 
     public void editAttendance(ActionEvent actionEvent) {
-        
         updateUpdatelbl();
     }
 
@@ -59,5 +54,7 @@ public class StudentInfoController implements Initializable {
         } else {
             lblDidStudentShowUp.setText("");
         }
+        txtfieldAttendancePercent.setText(currentStudent.getAbsencePercentage() + "");
+        txtfieldAttendanceDays.setText(currentStudent.getAbsenceDays() + "");
     }
 }

@@ -22,15 +22,14 @@ public class StudentManager {
         studentsObservableList.addAll(studentRepository.loadStudents());
 
         //this.studentsObservableList = this.sRepo.loadStudents();
-       // for(Student currentStudent: studentsObservableList) {
-           // List<Schedule> schedules = scheduleRepo.weekSchedules();
-          //  currentStudent.setWeekSchedule(schedules);
+        //for(Student currentStudent: studentsObservableList) {
+        //ist<Schedule> schedules = scheduleRepo.weekSchedules();
+        //currentStudent.setWeekSchedule(schedules);
 
         //order list by AbsencePercentage
         Comparator<Student> comparator = Comparator.comparingDouble(Student::getAbsencePercentage);
         comparator = comparator.reversed();
         FXCollections.sort(studentsObservableList, comparator);
-
         }
 
 

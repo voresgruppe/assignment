@@ -3,11 +3,9 @@ package dk.voresgruppe.gui.TeacherView;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.bll.StudentManager;
-import dk.voresgruppe.gui.StudentView.StudentViewController;
 import dk.voresgruppe.gui.TeacherView.StudentInfoView.StudentInfoController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,13 +17,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
-
 public class TeacherViewController {
-
 
     private Teacher loggedTeacher;
     private StudentManager sMan;
@@ -60,37 +55,18 @@ public class TeacherViewController {
         absencePercentage.setCellValueFactory(new PropertyValueFactory<>("absencePercentage"));
         StudentCourse.setCellValueFactory(new PropertyValueFactory<>("currentCourse"));
         StudentAbsenceDay.setCellValueFactory(new PropertyValueFactory<>("mostAbsentDay"));
-
         setListenerAndSearch();
-
         getClickedStudent();
-
     }
-
-
-    public void search() {
-      //  tableView.setItems(sMan.getallStudents_OBS());
-        //if (observableListStudents != null){
-          //  tableView.setItems(observableListStudents.get(s));
-        //}
-    }
-
 
     public void setLoggedTeacher(Teacher loggedTeacher) {
         this.loggedTeacher = loggedTeacher;
     }
 
-
-
-
-
     //log ud og luk programmet
     public void Teacher_Close(ActionEvent event) {
         Stage stage = (Stage) logud_teacher.getScene().getWindow();
         stage.close();
-    }
-
-    public void setStudentManager(StudentManager sMan) {
     }
 
     public void setListenerAndSearch(){
