@@ -1,6 +1,7 @@
 package dk.voresgruppe.dal;
 
 import dk.voresgruppe.be.Student;
+import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.dal.db.DatabaseConnector;
 import javafx.collections.FXCollections;
@@ -36,6 +37,24 @@ public class StudentRepository {
             allStudents.add(s);
         }
         return allStudents;
+    }
+
+    public ObservableList<Student> loadStudentsWithTeacher(Teacher teacher) throws SQLException {
+        ObservableList<Student> returnList = FXCollections.observableArrayList();
+        String sql = "SELECT DISTINCT s.Fname, s.Lname, s.Username, s.[Password], s.StudentID FROM Student s\n" +
+                "  JOIN StudentAttendance sa ON s.StudentID = sa.studentID\n" +
+                "  JOIN Course c ON sa.courseID = c.CourseID\n" +
+                "  JOIN Teacher t ON c.TeacherID = t.TeacherID\n" +
+                "  WHERE t.Username = '" + teacher.getTeacherLogin().getUserName() + "';";
+        Statement statement = connect.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+        while (rs.next()){
+            User studentUser = new User(rs.getString("Username"), rs.getString("Password"));
+
+            Student s = new Student(rs.getString("Fname"),rs.getString("Lname"),getEducationNameFromStudentID(rs.getInt("StudentID")),studentUser);
+            returnList.add(s);
+        }
+        return returnList;
     }
 
     private String getEducationNameFromStudentID(int studentID) throws SQLException {
