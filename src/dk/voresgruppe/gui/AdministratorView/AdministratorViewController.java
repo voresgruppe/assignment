@@ -1,11 +1,9 @@
 package dk.voresgruppe.gui.AdministratorView;
 
 import dk.voresgruppe.be.Administrator;
-import dk.voresgruppe.bll.AdministratorManager;
-import dk.voresgruppe.bll.CourseManager;
-import dk.voresgruppe.bll.EducationManager;
-import dk.voresgruppe.bll.TeacherManager;
+import dk.voresgruppe.bll.*;
 import dk.voresgruppe.gui.AdministratorView.ManageAdministratorsView.ManageAdministratorsView;
+import dk.voresgruppe.gui.AdministratorView.ManageClassesView.ManageClassesViewController;
 import dk.voresgruppe.gui.AdministratorView.ManageCoursesView.ManageCoursesViewController;
 import dk.voresgruppe.gui.AdministratorView.ManageEducationView.ManageEducationsViewController;
 import javafx.event.ActionEvent;
@@ -22,6 +20,7 @@ public class AdministratorViewController {
     private TeacherManager tMan  = new TeacherManager();
     private CourseManager cMan = new CourseManager();
     private EducationManager eMan = new EducationManager();
+    private ClassManager clMan = new ClassManager();
 
 
     public void setLoggedAdministrator(Administrator loggedAdministrator) {
@@ -79,7 +78,8 @@ public class AdministratorViewController {
             loader.setLocation(getClass().getResource("ManageCoursesView/ManageCoursesView.fxml"));
             Parent mainLayout = loader.load();
             ManageCoursesViewController mcc = loader.getController();
-            mcc.setCMan(cMan);
+            mcc.setManagers(cMan, tMan);
+            mcc.initCourses();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
             stage.show();
@@ -98,6 +98,23 @@ public class AdministratorViewController {
             ManageEducationsViewController mec = loader.getController();
             mec.seteMan(eMan);
             mec.init();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public void manageClasses(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ManageClassesView/ManageClassesView.fxml"));
+            Parent mainLayout = loader.load();
+            ManageClassesViewController mcc = loader.getController();
+            mcc.setManagers(clMan, eMan);
+            mcc.initClasses();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
             stage.show();

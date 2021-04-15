@@ -19,7 +19,7 @@ public class ManageCoursesViewController {
 
     private CourseManager cMan;
     private Course selectedCourse;
-    private TeacherManager tMan = new TeacherManager();
+    private TeacherManager tMan;
 
 
     @FXML
@@ -47,17 +47,15 @@ public class ManageCoursesViewController {
         courseTeacher.cellValueFactoryProperty().setValue(cellData -> tMan.getTeacherFromId(cellData.getValue().getTeacherID()).getFullNameProperty());
         courseStartDate.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getStartDateProperty());
         courseEndDate.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getEndDateProperty());
+        courseListener();
     }
     public void courseListener(){
-        tblviewCourses.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            selectedCourse = newValue;
-        });
+        tblviewCourses.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selectedCourse = newValue);
     }
 
-    public void setCMan(CourseManager cMan) {
+    public void setManagers(CourseManager cMan, TeacherManager tMan) {
         this.cMan = cMan;
-        initCourses();
-        courseListener();
+        this.tMan =tMan;
     }
 
     public void addNewCourse(ActionEvent actionEvent) {

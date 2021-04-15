@@ -32,7 +32,7 @@ public class ClassRepository {
             while(resultSet.next()) {
                 Class c = new Class(resultSet.getInt("EducationID"),resultSet.getString("ClassName"));
                 c.setClassID(resultSet.getInt("ClassID"));
-                if (resultSet.getString("EndDate")!=null && !resultSet.getString("EndDate").equals("null")) {
+                if (resultSet.getString("EndDate")!=null) {
                     c.setEndDate(utils.dateFromString(resultSet.getString("EndDate")));
                 }
                 if (resultSet.getString("StartDate")!=null) {
@@ -78,9 +78,8 @@ public class ClassRepository {
 
     public void update(Class c){
         try {
-            String query = "UPDATE Class SET EducationID = '" +c.getEducationID()+"', Name = '"+c.getClassName()+"', EndDate = '"+c.getEndDate()+"', StartDate= '"+c.getStartDate()+"' WHERE ClassID = '" +c.getClassID()+"'";
-            PreparedStatement preparedStatement = null;
-            preparedStatement = connect.prepareStatement(query);
+            String query = "UPDATE Class SET EducationID = '" +c.getEducationID()+"', ClassName = '"+c.getClassName()+"', EndDate = '"+c.getEndDate()+"', StartDate= '"+c.getStartDate()+"' WHERE ClassID = '" +c.getClassID()+"'";
+            PreparedStatement preparedStatement = connect.prepareStatement(query);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
