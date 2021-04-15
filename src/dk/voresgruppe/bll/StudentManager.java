@@ -14,19 +14,13 @@ public class StudentManager {
     private ObservableList<Student> studentsObservableList;
     private List<Student> allStudents;
     private StudentRepository studentRepository;
+    private ObservableList<Student> studentsFromTeacher;
     //private StudentRepository sRepo = new StudentRepository();
 
     public StudentManager() throws SQLException {
         studentsObservableList = FXCollections.observableArrayList();
         studentRepository = new StudentRepository();
         studentsObservableList.addAll(studentRepository.loadStudents());
-
-        //this.studentsObservableList = this.sRepo.loadStudents();
-        //for(Student currentStudent: studentsObservableList) {
-        //ist<Schedule> schedules = scheduleRepo.weekSchedules();
-        //currentStudent.setWeekSchedule(schedules);
-
-        //order list by AbsencePercentage
         Comparator<Student> comparator = Comparator.comparingDouble(Student::getAbsencePercentage);
         comparator = comparator.reversed();
         FXCollections.sort(studentsObservableList, comparator);
@@ -35,6 +29,11 @@ public class StudentManager {
 
     public ObservableList<Student> getallStudents_OBS(){
         return studentsObservableList;
+    }
+
+    public ObservableList<Student> getStudentsFromTeacher(Teacher teacher) throws SQLException {
+        studentsFromTeacher = studentRepository.loadStudentsWithTeacher(teacher);
+        return studentsFromTeacher;
     }
 
     public ObservableList<Student> searchStudent(String filter, ObservableList<Student> students) {

@@ -22,6 +22,7 @@ import java.sql.SQLException;
 
 public class TeacherViewController {
 
+    public CheckBox chckbox;
     private Teacher loggedTeacher;
     private StudentManager sMan;
     @FXML
@@ -100,5 +101,23 @@ public class TeacherViewController {
         });
     }
 
+    public void showTeachersStudents(ActionEvent actionEvent) throws SQLException {
+        if (chckbox.isSelected()){
+            tableView.setItems(sMan.getStudentsFromTeacher(loggedTeacher));
+            searchname.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                    try {
+                        tableView.setItems(sMan.searchStudent(newValue, sMan.getStudentsFromTeacher(loggedTeacher)));
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                }
+            });
+        }else {
+            tableView.setItems(observableListStudents);
+            setListenerAndSearch();
+        }
+    }
 }
 
