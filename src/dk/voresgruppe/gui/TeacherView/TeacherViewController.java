@@ -16,6 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 
 public class TeacherViewController {
 
@@ -38,7 +40,7 @@ public class TeacherViewController {
     public TextField searchname;
     @FXML
     private Button logud_teacher;
-    public TeacherViewController(){
+    public TeacherViewController() throws SQLException {
         sMan = new StudentManager();
 }
 

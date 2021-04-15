@@ -13,7 +13,7 @@
           <TableColumn fx:id="administratorName" prefWidth="223.0" text="Name" />
         </columns>
       </TableView>
-      <Button layoutX="332.0" layoutY="345.0" mnemonicParsing="false" onAction="#addNewAdministrator" text="Add new Administrator" />
+      <Button layoutX="332.0" layoutY="345.0" mnemonicParsing="false" onAction="#addNewAdministrator" text="Add Administrator" />
       <Button layoutX="332.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleDeleteAdministrator" text="Delete Administrator" />
       <Button layoutX="332.0" layoutY="267.0" mnemonicParsing="false" onAction="#handleEditAdministrator" text="Edit Administrator" />
    </children>

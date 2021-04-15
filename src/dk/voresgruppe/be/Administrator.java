@@ -42,8 +42,7 @@ public class Administrator {
     }
 
     public SimpleStringProperty getIdProperty(){
-        SimpleStringProperty simpleStringProperty = new SimpleStringProperty(String.valueOf(iD));
-        return simpleStringProperty;
+        return new SimpleStringProperty(String.valueOf(iD));
     }
 
     public void setId(int iD) {

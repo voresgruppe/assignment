@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AdministratorView.AdministratorLoginViewController">
+<AnchorPane prefHeight="200.0" prefWidth="400.0" stylesheets="/dk/voresgruppe/gui/AdministratorView/AdministratorStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AdministratorView.AdministratorLoginViewController">
    <children>
-      <TextField fx:id="txtUsername" layoutX="66.0" layoutY="78.0" text="Username" />
-      <TextField fx:id="txtPassword" layoutX="66.0" layoutY="118.0" text="Password" />
-      <Button layoutX="66.0" layoutY="158.0" mnemonicParsing="false" onAction="#administratorLogin" text="Login" />
-      <Button fx:id="btnCancel" layoutX="141.0" layoutY="158.0" mnemonicParsing="false" onAction="#cancelLogin" text="Cancel" />
+      <BorderPane id="test" prefHeight="200.0" prefWidth="200.0" />
+      <TextField id="border" fx:id="txtUsername" layoutX="20.0" layoutY="65.0" text="Username" />
+      <TextField id="border" fx:id="txtPassword" layoutX="20.0" layoutY="104.4" text="Password" />
+      <Button id="border" layoutX="20.0" layoutY="150.0" mnemonicParsing="false" onAction="#administratorLogin" text="Login" textFill="WHITE" />
+      <Button id="border" fx:id="btnCancel" layoutX="117.6" layoutY="150.0" mnemonicParsing="false" onAction="#cancelLogin" text="Cancel" textFill="WHITE" />
+      <Label layoutX="20.0" layoutY="27.6" text="Admistrator Login" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <BorderPane layoutX="200.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="200.0">
+         <center>
+            <ImageView fx:id="imgCompanyLogo" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

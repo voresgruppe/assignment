@@ -60,7 +60,6 @@ public class LoginController implements Initializable {
     public LoginController() throws SQLException {
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         File file = new File("image/pw_eye_visibility.png");

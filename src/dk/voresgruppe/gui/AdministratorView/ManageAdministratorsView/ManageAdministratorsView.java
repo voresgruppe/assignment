@@ -28,16 +28,13 @@ public class ManageAdministratorsView {
     @FXML
     private TableView<Administrator> tblviewAdministrators;
 
+
     public ManageAdministratorsView() {
-        aMan = new AdministratorManager();
     }
 
-    public void initialize() {
-        initAdministrators();
+    public void init(){
         administratorsListener();
-    }
 
-    public void initAdministrators() {
         tblviewAdministrators.setItems(aMan.getAllAdministrators());
         administratorID.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getIdProperty());
         administratorName.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getFullnameProperty());
@@ -49,6 +46,7 @@ public class ManageAdministratorsView {
         });
     }
 
+
     public void setAMan(AdministratorManager aMan) {
         this.aMan = aMan;
     }
@@ -56,7 +54,7 @@ public class ManageAdministratorsView {
     public void addNewAdministrator(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("NewAdministratorView.fxml"));
+            loader.setLocation(getClass().getResource("NewEducationView.fxml"));
             Parent mainLayout = loader.load();
             NewAdministratorViewController nvc = loader.getController();
             nvc.setaMan(aMan);
