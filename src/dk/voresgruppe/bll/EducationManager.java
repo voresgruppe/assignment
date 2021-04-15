@@ -28,8 +28,8 @@ public class EducationManager {
     }
 
     public void replace(Education a, Education b){
-        eRepo.update(b);
         b.setiD(a.getiD());
+        eRepo.update(b);
         allEducations.set(allEducations.indexOf(a),b);
     }
 

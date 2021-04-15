@@ -89,6 +89,7 @@ public class EditCourseViewController {
     public void handleSaveCourse(ActionEvent actionEvent) {
         if(selectedTeacher !=null && courseName.getText() != null) {
             Course newCourse = new Course(selectedTeacher.getTeacherID(), courseName.getText());
+            newCourse.setCourseID(selectedCourse.getCourseID());
             if(courseStartDate.getValue() != null) {
                 java.util.Date date = java.util.Date.from(Instant.from(courseStartDate.getValue().atStartOfDay(ZoneId.systemDefault())));
                 Date startDate = new Date(date.getDate(), date.getMonth()+1, date.getYear()+1900);

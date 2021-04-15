@@ -71,8 +71,7 @@ public class AdministratorRepository {
     public void update(Administrator a){
         try {
             String query = "UPDATE Administrator SET Fname = '" +a.getFirstname()+"', Lname = '"+a.getLastname()+"', Username = '"+a.getUsername()+"', [Password]= '"+a.getPassword()+"' WHERE AdministratorId = '" +a.getId()+"'";
-            PreparedStatement preparedStatement = null;
-            preparedStatement = connect.prepareStatement(query);
+            PreparedStatement preparedStatement = connect.prepareStatement(query);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

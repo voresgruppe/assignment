@@ -28,6 +28,7 @@ public class AdministratorManager {
     }
 
     public void replace(Administrator a, Administrator b){
+        b.setId(a.getId());
         aRepo.update(b);
         allAdministrators.set(allAdministrators.indexOf(a),b);
     }

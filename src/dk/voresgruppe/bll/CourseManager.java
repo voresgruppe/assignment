@@ -29,6 +29,7 @@ public class CourseManager {
     }
 
     public void replace(Course a, Course b){
+        b.setCourseID(a.getCourseID());
         cRepo.update(b);
         allCourses.set(allCourses.indexOf(a),b);
     }

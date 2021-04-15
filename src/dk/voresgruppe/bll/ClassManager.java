@@ -29,6 +29,7 @@ public class ClassManager {
     }
 
     public void replace(Class a, Class b){
+        b.setClassID(a.getClassID());
         cRepo.update(b);
         allClasses.set(allClasses.indexOf(a),b);
     }
