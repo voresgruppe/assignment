@@ -3,19 +3,24 @@ package dk.voresgruppe.gui.TeacherView;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.bll.StudentManager;
+import dk.voresgruppe.gui.StudentView.StudentViewController;
+import dk.voresgruppe.gui.TeacherView.StudentInfoView.StudentInfoController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 
@@ -58,6 +63,8 @@ public class TeacherViewController {
 
         setListenerAndSearch();
 
+        getClickedStudent();
+
     }
 
 
@@ -94,4 +101,28 @@ public class TeacherViewController {
             }
         });
     }
+
+    public void getClickedStudent(){
+        tableView.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
+                Student clickedStudent = tableView.getSelectionModel().getSelectedItem();
+                System.out.println(clickedStudent.toString());
+                try {
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("StudentInfoView/StudentInfoView.fxml"));
+                    Parent mainLayout = loader.load();
+                    StudentInfoController sic = loader.getController();
+                    sic.lookUpStudent(clickedStudent);
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(mainLayout));
+                    stage.setTitle(clickedStudent.getFullName() + ", " + clickedStudent.getCurrentCourse() + " Info");
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 }
+
