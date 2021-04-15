@@ -103,15 +103,12 @@ public class TeacherViewController {
 
     public void showTeachersStudents(ActionEvent actionEvent) throws SQLException {
         if (chckbox.isSelected()){
-            tableView.setItems(sMan.getStudentsFromTeacher(loggedTeacher));
+            ObservableList<Student> studentsFromTeacher = sMan.getStudentsFromTeacher(loggedTeacher);
+            tableView.setItems(studentsFromTeacher);
             searchname.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                    try {
-                        tableView.setItems(sMan.searchStudent(newValue, sMan.getStudentsFromTeacher(loggedTeacher)));
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
+                    tableView.setItems(sMan.searchStudent(newValue, studentsFromTeacher));
                 }
             });
         }else {
