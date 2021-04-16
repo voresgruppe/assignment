@@ -4,8 +4,6 @@ import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.bll.StudentManager;
 import dk.voresgruppe.gui.TeacherView.StudentInfoView.StudentInfoController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,12 +69,7 @@ public class TeacherViewController {
     }
 
     public void setListenerAndSearch(){
-        searchname.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                tableView.setItems(sMan.searchStudent(newValue, sMan.getallStudents_OBS()));
-            }
-        });
+        searchname.textProperty().addListener((observableValue, oldValue, newValue) -> tableView.setItems(sMan.searchStudent(newValue, sMan.getallStudents_OBS())));
     }
 
     public void getClickedStudent(){
@@ -104,17 +97,11 @@ public class TeacherViewController {
     public void showTeachersStudents(ActionEvent actionEvent) throws SQLException {
         if (chckbox.isSelected()){
             ObservableList<Student> studentsFromTeacher = sMan.getStudentsFromTeacher(loggedTeacher);
-            tableView.setItems(studentsFromTeacher);
-            searchname.textProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                    tableView.setItems(sMan.searchStudent(newValue, studentsFromTeacher));
-                }
-            });
+            tableView.setItems(sMan.searchStudent(searchname.getText(), studentsFromTeacher));
+            searchname.textProperty().addListener((observableValue, oldValue, newValue) -> tableView.setItems(sMan.searchStudent(newValue, studentsFromTeacher)));
         }else {
-            tableView.setItems(observableListStudents);
+            tableView.setItems(sMan.searchStudent(searchname.getText(), observableListStudents));
             setListenerAndSearch();
         }
     }
 }
-

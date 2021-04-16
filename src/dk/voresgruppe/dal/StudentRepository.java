@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 public class StudentRepository {
 
     DatabaseConnector dbConnector = new DatabaseConnector();
@@ -28,15 +27,7 @@ public class StudentRepository {
     public ObservableList<Student> loadStudents() throws SQLException {
         ObservableList<Student> allStudents = FXCollections.observableArrayList();
         String query = "SELECT * FROM Student ORDER BY StudentID";
-        Statement statement = connect.createStatement();
-        ResultSet rs = statement.executeQuery(query);
-        while(rs.next()) {
-            User studentUser = new User(rs.getString("Username"), rs.getString("Password"));
-
-            Student s = new Student(rs.getString("Fname"),rs.getString("Lname"),getEducationNameFromStudentID(rs.getInt("StudentID")),studentUser);
-            allStudents.add(s);
-        }
-        return allStudents;
+        return getStudents(allStudents, query);
     }
 
     public ObservableList<Student> loadStudentsWithTeacher(Teacher teacher) throws SQLException {
@@ -46,6 +37,10 @@ public class StudentRepository {
                 "  JOIN Course c ON sa.courseID = c.CourseID\n" +
                 "  JOIN Teacher t ON c.TeacherID = t.TeacherID\n" +
                 "  WHERE t.Username = '" + teacher.getTeacherLogin().getUserName() + "';";
+        return getStudents(returnList, sql);
+    }
+
+    private ObservableList<Student> getStudents(ObservableList<Student> returnList, String sql) throws SQLException {
         Statement statement = connect.createStatement();
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()){
@@ -70,18 +65,4 @@ public class StudentRepository {
         }
         return "-1";
     }
-
-    private Student stringLineToStudent(String line) {
-        String[] arrStudent = line.split(",");
-        String fName = arrStudent[0];
-        String lName = arrStudent[1];
-        String course = arrStudent[3];
-        User studentUser = new User(arrStudent[4], arrStudent[5]);
-        return new Student(fName, lName, course, studentUser);
-    }
-
-
-
-
-
 }
