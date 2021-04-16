@@ -6,9 +6,7 @@ import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.dal.TeacherRepository;
 import javafx.collections.ObservableList;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
 
 public class TeacherManager {
     private ObservableList<Teacher> allTeachers;
@@ -27,6 +25,23 @@ public class TeacherManager {
     public ObservableList<Teacher> getAllTeachers(){
         return allTeachers;
     }
+
+    public void add(Teacher t){
+        t.setTeacherID(tRepo.addTeacher(t));
+        allTeachers.add(t);
+    }
+    public void delete(Teacher t) {
+        allTeachers.remove(t);
+        tRepo.delete(t);
+    }
+
+    public void replace(Teacher a, Teacher b){
+        b.setTeacherID(a.getTeacherID());
+        tRepo.update(b);
+        allTeachers.set(allTeachers.indexOf(a),b);
+    }
+
+
 
     public Teacher getTeacherFromId(int id){
         for(Teacher current: allTeachers){

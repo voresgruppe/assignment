@@ -128,7 +128,7 @@ public class LoginController implements Initializable {
                 if(!UserID.getText().isEmpty() && !PassID.getText().isEmpty()) {
                     User tempUser = new User(UserID.getText(), PassID.getText());
                     for (Teacher currentTeacher : tMan.getAllTeachers()) {
-                        User currentUser = currentTeacher.getTeacherLoginLogin();
+                        User currentUser = currentTeacher.getTeacherLogin();
                         if (tempUser.getUserName().matches(currentUser.getUserName()) && tempUser.getPassword().matches(currentUser.getPassword())) {
                             try {
                                 FXMLLoader loader = new FXMLLoader();

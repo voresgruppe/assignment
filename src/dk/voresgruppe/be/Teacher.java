@@ -16,12 +16,14 @@ public class Teacher {
         fullName = firstname + " " + lastname;
         this.teacherLogin = teacherLogin;
     }
-    public User getTeacherLoginLogin() {
-        return teacherLogin;
-    }
+
 
     public int getTeacherID() {
         return teacherID;
+    }
+
+    public SimpleStringProperty getIDProperty(){
+        return new SimpleStringProperty(String.valueOf(teacherID));
     }
 
     public void setTeacherID(int teacherID) {

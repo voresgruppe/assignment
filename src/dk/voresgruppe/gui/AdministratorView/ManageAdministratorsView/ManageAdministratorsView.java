@@ -16,8 +16,6 @@ import java.io.IOException;
 
 public class ManageAdministratorsView {
     private AdministratorManager aMan;
-
-    private ObservableList<Administrator> observableListAdministrators;
     private Administrator selectedAdministrator;
 
 
@@ -41,9 +39,7 @@ public class ManageAdministratorsView {
     }
 
     private void administratorsListener() {
-        tblviewAdministrators.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            selectedAdministrator = newValue;
-        });
+        tblviewAdministrators.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selectedAdministrator = newValue);
     }
 
 
