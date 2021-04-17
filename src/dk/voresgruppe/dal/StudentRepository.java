@@ -67,7 +67,7 @@ public class StudentRepository {
     public int addStudent(Student s) {
         int returnId = -1;
         try {
-            String query = "INSERT INTO Student(StudentId, Fname, Lname, Username, [Password], ClassID) VALUES ('"+ s.getStudentID() +"', '" + s.getFirstName() +"', '"+s.getLastName()+"', '"+s.getStudentLogin().getUserName()+"', '"+s.getStudentLogin().getPassword()+"', '"+s.getClassID()+"' );";
+            String query = "INSERT INTO Student(Fname, Lname, Username, [Password], ClassID) VALUES ('"+ s.getFirstName() +"', '"+s.getLastName()+"', '"+s.getStudentLogin().getUserName()+"', '"+s.getStudentLogin().getPassword()+"', '"+s.getClassID()+"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
