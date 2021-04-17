@@ -6,10 +6,10 @@ import dk.voresgruppe.be.User;
 import dk.voresgruppe.dal.db.DatabaseConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentRepository {
 
@@ -45,11 +45,34 @@ public class StudentRepository {
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()){
             User studentUser = new User(rs.getString("Username"), rs.getString("Password"));
+            Student s = new Student(rs.getString("Fname"),rs.getString("Lname"),getEducationNameFromStudentID(rs.getInt("StudentID")),studentUser, rs.getInt("StudentID"));
 
-            Student s = new Student(rs.getString("Fname"),rs.getString("Lname"),getEducationNameFromStudentID(rs.getInt("StudentID")),studentUser);
+            List<dk.voresgruppe.be.Date> dates = new ArrayList<>();
+            getStudentDaysShowedUp(s).forEach(date -> dates.add(new dk.voresgruppe.be.Date(date.getDay(),date.getMonth(),date.getYear())));
+            s.setShowedUp(dates);
+
             returnList.add(s);
         }
         return returnList;
+    }
+
+
+    /***
+     * returns a list of days that the student has marked as participating in.
+     * @param student the student whose participation we want to find
+     * @return List of days student has been at the establishment
+     */
+    private List<Date> getStudentDaysShowedUp(Student student) throws SQLException{
+        String query = "SELECT * FROM StudentAttendance WHERE StudentID=?";
+        PreparedStatement pstmt = connect.prepareStatement(query);
+        pstmt.setInt(1,student.getId());
+        ResultSet rs = pstmt.executeQuery();
+        List<Date> dates = new ArrayList<>();
+        while(rs.next()){
+            dates.add(rs.getDate("attendaceDate"));
+        }
+        System.out.println(dates);
+        return dates;
     }
 
     private String getEducationNameFromStudentID(int studentID) throws SQLException {

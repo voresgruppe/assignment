@@ -33,13 +33,13 @@ public class StudentViewController implements Initializable {
     private Utils utils = new Utils();
     private UserError userError = new UserError();
 
-@FXML
+    @FXML
     public BorderPane bpAbsenceChart;
-@FXML
+    @FXML
     public TextField txtFieldAbsencePercentage;
-@FXML
+    @FXML
     public TextField txtFieldAbsenceDays;
-@FXML
+    @FXML
     public ImageView imgProfilePic;
     public Button btnLogUd;
 
@@ -67,7 +67,7 @@ public class StudentViewController implements Initializable {
     public LineChart attendanceChart() {
         final NumberAxis xAxis = new NumberAxis(1, loggedStudent.getToShowUp().size(), 10);
         final NumberAxis yAxis = new NumberAxis(0, 100, 5);
-        final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
+        final LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
         //lineChart.setTitle("Fravær");
 
 
@@ -75,34 +75,31 @@ public class StudentViewController implements Initializable {
         XYChart.Series series = new XYChart.Series();
         series.setName("Fraværs Procent");
         //populating the series with data
-        int i= 0;
-        int x =0;
-        for(Date currentDate: loggedStudent.getToShowUp()) {
-            for(Date currentShowDate: loggedStudent.getShowedUp()) {
+        int i = 0;
+        int x = 0;
+        for (Date currentDate : loggedStudent.getToShowUp()) {
+            for (Date currentShowDate : loggedStudent.getShowedUp()) {
                 if (utils.checkIfDatesMatch(currentDate, currentShowDate)) {
                     i++;
                 }
             }
             x++;
-            double y = (x - i) /(double) x * 100;
+            double y = (x - i) / (double) x * 100;
             series.getData().add(new XYChart.Data(x, y));
         }
         lineChart.getData().add(series);
         lineChart.setCreateSymbols(false);
-       return lineChart;
+        return lineChart;
     }
 
 
-
-    public String setLblGreeting () {
+    public String setLblGreeting() {
         String label = "";
-        if(LocalTime.now().getHour() < 11) {
+        if (LocalTime.now().getHour() < 11) {
             label += "Godmorgen ";
-        }
-        else if(LocalTime.now().getHour() >= 11 && LocalTime.now().getHour() <=16 ) {
+        } else if (LocalTime.now().getHour() >= 11 && LocalTime.now().getHour() <= 16) {
             label += "Goddag ";
-        }
-        else if(LocalTime.now().getHour() >16 ) {
+        } else if (LocalTime.now().getHour() > 16) {
             label += "Godaften ";
         }
 
@@ -121,27 +118,26 @@ public class StudentViewController implements Initializable {
         File file = new File(path);
         Image pic = new Image(String.valueOf(file));
         imgProfilePic.setImage(pic);
-
     }
 
     public void handleRegisterAttendance(ActionEvent actionEvent) {
-        if(utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SATURDAY && utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SUNDAY)
-        loggedStudent.addToShowedUp(new Date(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+        if (utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SATURDAY && utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SUNDAY)
+            loggedStudent.addToShowedUp(new Date(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
         else {
             String header = "dude gå hjem det ";
-            if(utils.getWeekDayFromDate(utils.getCurrentDate()) == Calendar.SATURDAY) {
+            if (utils.getWeekDayFromDate(utils.getCurrentDate()) == Calendar.SATURDAY) {
                 System.out.println(utils.getWeekDayFromDate(utils.getCurrentDate()));
-                header+="Lørdag";
+                header += "Lørdag";
             }
-            if(utils.getWeekDayFromDate(utils.getCurrentDate()) == Calendar.SUNDAY) {
-                header+="Søndag";
+            if (utils.getWeekDayFromDate(utils.getCurrentDate()) == Calendar.SUNDAY) {
+                header += "Søndag";
             }
 
             UserError.showError("Fremmøde ikke registreret", header);
         }
     }
 
-    public void setPics(){
+    public void setPics() {
         switch (loggedStudent.getFullName()) {
             case "Jane Jørgensen":
                 addProfilePic("image/ProfilePic.png");
@@ -156,9 +152,6 @@ public class StudentViewController implements Initializable {
         Stage stage = (Stage) btnLogUd.getScene().getWindow();
         stage.close();
     }
-
-
-
 
 
 }

@@ -19,7 +19,7 @@ public class StudentManager {
         Comparator<Student> comparator = Comparator.comparingDouble(Student::getAbsencePercentage);
         comparator = comparator.reversed();
         FXCollections.sort(studentsObservableList, comparator);
-        }
+    }
 
     public ObservableList<Student> getallStudents_OBS(){
         return studentsObservableList;

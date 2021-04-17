@@ -22,50 +22,47 @@ public class Student {
     private List<Schedule> weekSchedule = new ArrayList<>();
     private Utils utils = new Utils();
     private Double absencePercentage = 0.0;
+    private int id;
 
-    public Student(String firstName, String lastName, String currentCourse, User studentLogin) {
+    public Student(String firstName, String lastName, String currentCourse, User studentLogin, int id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.currentCourse = currentCourse;
         this.studentLogin = studentLogin;
-
+        this.id = id;
     }
+
     private List<Date> datesToShowUp() {
         List<Date> datesToShowUp = new ArrayList<>();
-        int d = 1;
-        int m = 8;
-        int y = 2020;
-        while(!(d==25 && m==12 && y==2020)) {
-            Date date = new Date(d,m,y);
-            YearMonth YM =YearMonth.of(y,m);
-            Calendar c = Calendar.getInstance();
-            c.set(y,m,d);
-            if(c.get(Calendar.DAY_OF_WEEK)<6){
+        int day = 1;
+        int month = 8;
+        int year = 2020;
+
+        while (!(day == 25 && month == 12 && year == 2020)) {
+            Date date = new Date(day, month, year);
+            YearMonth YM = YearMonth.of(year, month);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, day);
+            if (calendar.get(Calendar.DAY_OF_WEEK) < 6) {
                 datesToShowUp.add(date);
             }
-            if(d<YM.lengthOfMonth()){
-                d+=1;
-            }
-            else {
-                d=1;
-                m+=1;
-                if(m>12) {
-                    m=1;
-                    y+=1;
+            if (day < YM.lengthOfMonth()) {
+                day += 1;
+            } else {
+                day = 1;
+                month += 1;
+                if (month > 12) {
+                    month = 1;
+                    year += 1;
                 }
             }
         }
         return datesToShowUp;
     }
 
-    //only for the purposes of mockdata
+    //TODO: get the dates where students have showed up
     private List<Date> datesShowedUp() {
-        List<Date> datesShowedUp = datesToShowUp();
-      Random random = new Random();
-        for(int i=3; i<datesShowedUp.size(); i+= random.nextInt(11)){
-            datesShowedUp.remove(i);
-        }
-        return datesShowedUp;
+        return this.showedUp;
     }
 
     public String getFirstName() {
@@ -97,8 +94,7 @@ public class Student {
     }
 
 
-
-    public Schedule getScheduleFromDate (Date date) {
+    public Schedule getScheduleFromDate(Date date) {
         int weekday = utils.getWeekNumberFromDate(date);
         return weekSchedule.get(weekday);
     }
@@ -119,7 +115,7 @@ public class Student {
         this.showedUp = showedUp;
     }
 
-    public void addToShowedUp (Date date) {
+    public void addToShowedUp(Date date) {
         showedUp.add(date);
     }
 
@@ -130,23 +126,21 @@ public class Student {
     public double getAbsencePercentage() {
         absencePercentage = calcAbsencePercentage();
         //max 2 decimaler
-        return (double)Math.round(absencePercentage * 100d) / 100d;
+        return (double) Math.round(absencePercentage * 100d) / 100d;
     }
 
-    public double calcAbsencePercentage(){
-        if(showedUp.isEmpty()) {
+    public double calcAbsencePercentage() {
+        if (showedUp.isEmpty()) {
             return 100;
-        }
-        else {
-            return (toShowUp.size() - showedUp.size() / (double) toShowUp.size() * 100);
+        } else {
+            return ((this.toShowUp.size() - this.showedUp.size()) / (double) this.toShowUp.size() * 100);
         }
     }
 
     public int getAbsenceDays() {
-        if(showedUp.isEmpty()) {
+        if (showedUp.isEmpty()) {
             return toShowUp.size();
-        }
-        else {
+        } else {
             return toShowUp.size() - showedUp.size();
         }
     }
@@ -159,68 +153,71 @@ public class Student {
         this.weekSchedule = weekSchedule;
     }
 
-    public String getFullName(){
+    public String getFullName() {
         fullName = firstName + " " + lastName;
         return fullName;
     }
 
     @Override
     public String toString() {
-        return firstName+  ", " + lastName + ", " + currentCourse + ", " + studentLogin;
+        return firstName + ", " + lastName + ", " + currentCourse + ", " + studentLogin;
     }
 
     public String getMostAbsentDay() {
-        int m = 0;
-        int ti =0;
-        int o= 0;
-        int to = 0;
-        int f = 0;
+        int monday = 0;
+        int tuesday = 0;
+        int wednesday = 0;
+        int thursday = 0;
+        int friday = 0;
         for (Date currentDate : showedUp) {
             int day = utils.getWeekDayFromDate(currentDate);
             switch (day) {
                 case 1:
-                    m += 1;
+                    monday += 1;
                     break;
                 case 2:
-                    ti += 1;
+                    tuesday += 1;
                     break;
                 case 3:
-                    o += 1;
+                    wednesday += 1;
                     break;
                 case 4:
-                    to += 1;
+                    thursday += 1;
                     break;
                 case 5:
-                    f += 1;
+                    friday += 1;
                     break;
             }
 
         }
         ArrayList<Integer> days = new ArrayList<>();
-        days.add(m);
-        days.add(ti);
-        days.add(o);
-        days.add(to);
-        days.add(f);
+        days.add(monday);
+        days.add(tuesday);
+        days.add(wednesday);
+        days.add(thursday);
+        days.add(friday);
         Collections.sort(days);
         int dayOfWeek = days.get(4);
-        if (dayOfWeek == m) {
+        if (dayOfWeek == monday) {
             mostAbsentDay = "Mandag";
-        }
-        else if (dayOfWeek == ti) {
+        } else if (dayOfWeek == tuesday) {
             mostAbsentDay = "Tirsdag";
-        }
-        else if (dayOfWeek == o) {
+        } else if (dayOfWeek == wednesday) {
             mostAbsentDay = "Onsdag";
-        }
-        else if (dayOfWeek == to) {
+        } else if (dayOfWeek == thursday) {
             mostAbsentDay = "Torsdag";
-        }
-        else if (dayOfWeek == f) {
+        } else if (dayOfWeek == friday) {
             mostAbsentDay = "Fredag";
         }
 
-
         return mostAbsentDay;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
