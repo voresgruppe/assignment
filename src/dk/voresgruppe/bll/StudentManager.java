@@ -4,6 +4,8 @@ import dk.voresgruppe.be.*;
 import dk.voresgruppe.dal.StudentRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.lang.Class;
 import java.sql.SQLException;
 import java.util.Comparator;
 
@@ -11,6 +13,7 @@ public class StudentManager {
     private ObservableList<Student> studentsObservableList;
     private StudentRepository studentRepository;
     private ObservableList<Student> studentsFromTeacher;
+    private ClassManager cMan = new ClassManager();
 
     public StudentManager() throws SQLException {
         studentsObservableList = FXCollections.observableArrayList();
@@ -34,7 +37,7 @@ public class StudentManager {
         ObservableList<Student> returnList = FXCollections.observableArrayList();
 
         for (Student s : students){
-            if(s.getFullName().toLowerCase().contains(filter.toLowerCase()) || s.getCurrentCourse().toLowerCase().contains(filter.toLowerCase())){
+            if(s.getFullName().toLowerCase().contains(filter.toLowerCase()) || cMan.getClassFromID(s.getClassID()).getClassName().toLowerCase().contains(filter.toLowerCase())){
                 if(!returnList.contains(s)){
                     returnList.add(s);
                 }

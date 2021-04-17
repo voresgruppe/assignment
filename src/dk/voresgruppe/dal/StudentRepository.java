@@ -45,7 +45,7 @@ public class StudentRepository {
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()){
             User studentUser = new User(rs.getString("Username"), rs.getString("Password"));
-            Student s = new Student(rs.getString("Fname"),rs.getString("Lname"),getEducationNameFromStudentID(rs.getInt("StudentID")),studentUser, rs.getInt("StudentID"));
+            Student s = new Student(rs.getInt("StudentID"), rs.getInt("ClassID"),rs.getString("Fname"),rs.getString("Lname"),studentUser);
 
             List<dk.voresgruppe.be.Date> dates = new ArrayList<>();
             getStudentDaysShowedUp(s).forEach(date -> dates.add(new dk.voresgruppe.be.Date(date.getDay(),date.getMonth(),date.getYear())));
@@ -65,7 +65,7 @@ public class StudentRepository {
     private List<Date> getStudentDaysShowedUp(Student student) throws SQLException{
         String query = "SELECT * FROM StudentAttendance WHERE StudentID=?";
         PreparedStatement pstmt = connect.prepareStatement(query);
-        pstmt.setInt(1,student.getId());
+        pstmt.setInt(1,student.getStudentID());
         ResultSet rs = pstmt.executeQuery();
         List<Date> dates = new ArrayList<>();
         while(rs.next()){
