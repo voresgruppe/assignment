@@ -1,6 +1,7 @@
 package dk.voresgruppe.be;
 
 import dk.voresgruppe.util.Utils;
+import javafx.beans.property.SimpleStringProperty;
 
 
 import java.lang.reflect.Array;
@@ -29,6 +30,7 @@ public class Student {
         this.studentID = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
+        fullName = firstName + " " + lastName;
         this.classID = classID;
         this.studentLogin = studentLogin;
     }
@@ -65,6 +67,10 @@ public class Student {
         return studentID;
     }
 
+    public SimpleStringProperty getIDProperty(){
+        return new SimpleStringProperty(String.valueOf(studentID));
+    }
+
     public void setStudentID(int studentID) {
         this.studentID = studentID;
     }
@@ -88,6 +94,17 @@ public class Student {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+    public SimpleStringProperty getFullnameProperty(){
+        return new SimpleStringProperty(fullName);
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public int getClassID() {
@@ -160,11 +177,6 @@ public class Student {
 
     public void setWeekSchedule(List<Schedule> weekSchedule) {
         this.weekSchedule = weekSchedule;
-    }
-
-    public String getFullName() {
-        fullName = firstName + " " + lastName;
-        return fullName;
     }
 
     @Override
