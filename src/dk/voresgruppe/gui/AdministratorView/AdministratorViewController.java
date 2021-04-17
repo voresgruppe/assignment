@@ -6,6 +6,7 @@ import dk.voresgruppe.gui.AdministratorView.ManageAdministratorsView.ManageAdmin
 import dk.voresgruppe.gui.AdministratorView.ManageClassesView.ManageClassesViewController;
 import dk.voresgruppe.gui.AdministratorView.ManageCoursesView.ManageCoursesViewController;
 import dk.voresgruppe.gui.AdministratorView.ManageEducationView.ManageEducationsViewController;
+import dk.voresgruppe.gui.AdministratorView.ManageTeachersView.ManageTeachersViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -49,6 +50,9 @@ public class AdministratorViewController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("ManageTeachersView/ManageTeachersView.fxml"));
             Parent mainLayout = loader.load();
+            ManageTeachersViewController mtc = loader.getController();
+            mtc.settMan(tMan);
+            mtc.initTeachers();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
             stage.show();

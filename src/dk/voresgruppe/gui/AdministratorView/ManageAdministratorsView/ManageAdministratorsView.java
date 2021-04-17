@@ -50,11 +50,10 @@ public class ManageAdministratorsView {
     public void addNewAdministrator(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("NewEducationView.fxml"));
+            loader.setLocation(getClass().getResource("NewAdministratorView.fxml"));
             Parent mainLayout = loader.load();
             NewAdministratorViewController nvc = loader.getController();
             nvc.setaMan(aMan);
-            nvc.setMav(this);
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
             stage.show();

@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 
 public class NewAdministratorViewController {
     private AdministratorManager aMan;
-    private ManageAdministratorsView mav;
 
 
     @FXML
@@ -35,7 +34,6 @@ public class NewAdministratorViewController {
         if(!firstname.isEmpty() && !lastname.isEmpty() && !userName.isEmpty() && !password.isEmpty()) {
             Administrator a = new Administrator(firstname,lastname,userName,password);
             aMan.add(a);
-            mav.init();
             closeWindow();
         }
         else {
@@ -54,9 +52,5 @@ public class NewAdministratorViewController {
 
     public void setaMan(AdministratorManager aMan) {
         this.aMan = aMan;
-    }
-
-    public void setMav(ManageAdministratorsView mav) {
-        this.mav = mav;
     }
 }
