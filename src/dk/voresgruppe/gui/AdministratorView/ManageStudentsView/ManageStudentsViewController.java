@@ -3,10 +3,17 @@ package dk.voresgruppe.gui.AdministratorView.ManageStudentsView;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.bll.ClassManager;
 import dk.voresgruppe.bll.StudentManager;
+import dk.voresgruppe.gui.AdministratorView.ManageAdministratorsView.NewAdministratorViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ManageStudentsViewController {
     private StudentManager sMan;
@@ -28,7 +35,7 @@ public class ManageStudentsViewController {
 
         studentID.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getIDProperty());
         studentName.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getFullnameProperty());
-        studentClass.cellValueFactoryProperty().setValue(cellData -> cMan.getClassFromID(cellData.getValue().getStudentID()).getClassNameProperty());
+        studentClass.cellValueFactoryProperty().setValue(cellData -> cMan.getClassFromID(cellData.getValue().getClassID()).getClassNameProperty());
     }
 
     public void setsMan(StudentManager sMan) {
@@ -40,11 +47,41 @@ public class ManageStudentsViewController {
     }
 
     public void addNewStudent(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("NewStudentView.fxml"));
+            Parent mainLayout = loader.load();
+            NewStudentViewController nac = loader.getController();
+            nac.setManagers(sMan, cMan);
+            nac.init();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 
     public void handleDeleteStudent(ActionEvent actionEvent) {
+        sMan.delete(selectedStudent);
     }
 
     public void handleEditStudent(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("EditStudentView.fxml"));
+            Parent mainLayout = loader.load();
+            EditStudentViewController nsc = loader.getController();
+            nsc.setManagers(sMan, cMan);
+            nsc.setSelectedStudent(selectedStudent);
+            nsc.init();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 }

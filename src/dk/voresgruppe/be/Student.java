@@ -26,8 +26,7 @@ public class Student {
 
     private Utils utils = new Utils();
 
-    public Student(int studentId, int classID, String firstName, String lastName, User studentLogin) {
-        this.studentID = studentId;
+    public Student(int classID, String firstName, String lastName, User studentLogin) {
         this.firstName = firstName;
         this.lastName = lastName;
         fullName = firstName + " " + lastName;

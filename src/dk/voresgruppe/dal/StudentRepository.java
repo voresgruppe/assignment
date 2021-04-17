@@ -52,7 +52,8 @@ public class StudentRepository {
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()){
             User studentUser = new User(rs.getString("Username"), rs.getString("Password"));
-            Student s = new Student(rs.getInt("StudentID"), rs.getInt("ClassID"),rs.getString("Fname"),rs.getString("Lname"),studentUser);
+            Student s = new Student(rs.getInt("ClassID"),rs.getString("Fname"),rs.getString("Lname"),studentUser);
+            s.setStudentID(rs.getInt("StudentID"));
 
             List<dk.voresgruppe.be.Date> dates = new ArrayList<>();
             getStudentDaysShowedUp(s).forEach(date -> dates.add(new dk.voresgruppe.be.Date(date.getDay(),date.getMonth(),date.getYear())));
