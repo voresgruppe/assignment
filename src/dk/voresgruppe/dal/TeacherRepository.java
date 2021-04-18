@@ -82,10 +82,52 @@ public class TeacherRepository {
     }
 
 
-    public boolean hasStudentShowedUp(Student s, LocalDate date){
-        String query = "SELECT * FROM StudentAttendance;";
+    public boolean hasStudentShowedUp(Student s, LocalDate date) throws SQLException {
+        String query = "SELECT s.Username, sa.courseID FROM StudentAttendance sa\n" +
+                "JOIN Student s ON sa.studentID = s.StudentID\n" +
+                "WHERE s.Username = '" + s.getStudentLogin().getUserName() + "' AND sa.attendaceDate = '" + date + "';";
 
-        return true;
+        Statement statement = connect.createStatement();
+        ResultSet rs = statement.executeQuery(query);
+        while(rs.next()) {
+            if (rs.getString("Username").equals(s.getStudentLogin().getUserName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //The statement did not return a result set.
+    public void addToShowedUp(Student s, LocalDate date) throws SQLException {
+        String sql = "INSERT INTO StudentAttendance(studentID, courseID, attendaceDate) VALUES ("+ getStudentIDFromDB(s) + ", 1, '" + date + "');";
+        Statement st = connect.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while (rs.next()){
+            System.out.println(rs.getInt("studentID"));
+        }
+    }
+
+    //The statement did not return a result set.
+    private int getStudentIDFromDB(Student s) throws SQLException {
+        String sql = "SELECT StudentID FROM Student\n" +
+                "WHERE Username = '" + s.getStudentLogin().getUserName() + "';";
+        Statement st = connect.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while(rs.next()){
+            int returnValue = rs.getInt("StudentID");
+            return returnValue;
+        }
+        return -1;
+    }
+
+    //The statement did not return a result set.
+    public void removeFromShowedUp(Student s, LocalDate date) throws SQLException {
+        String sql = "DELETE FROM StudentAttendance WHERE studentID = " + getStudentIDFromDB(s) + "AND attendaceDate = '" + date + "';";
+        Statement st = connect.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while(rs.next()){
+            System.out.println(rs.getInt("studentID"));
+        }
     }
 
 }

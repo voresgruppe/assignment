@@ -1,6 +1,7 @@
 package dk.voresgruppe.gui.TeacherView.StudentInfoView;
 
 import dk.voresgruppe.be.Student;
+import dk.voresgruppe.bll.TeacherManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -22,6 +24,7 @@ public class StudentInfoController implements Initializable {
     public DatePicker datePicker;
     public Label lblDidStudentShowUp;
     private Student currentStudent;
+    private TeacherManager tMan;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -30,6 +33,7 @@ public class StudentInfoController implements Initializable {
     public void lookUpStudent(Student studentToLookup){
         this.currentStudent = studentToLookup;
         lblGreeting.setText("Fraværs overblik for " + currentStudent.getFullName());
+        tMan = new TeacherManager();
         updateUpdatelbl();
     }
 
@@ -42,7 +46,8 @@ public class StudentInfoController implements Initializable {
         stage.close();
     }
 
-    public void updateDidStudentShowUp(ActionEvent actionEvent) {
+    public void updateDidStudentShowUp(ActionEvent actionEvent) throws SQLException {
+        tMan.updateStudentAttendance(currentStudent,datePicker.getValue());
         updateUpdatelbl();
     }
 
