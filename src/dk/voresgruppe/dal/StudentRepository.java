@@ -1,5 +1,6 @@
 package dk.voresgruppe.dal;
 
+import dk.voresgruppe.be.Administrator;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
@@ -24,10 +25,16 @@ public class StudentRepository {
         }
     }
 
-    public ObservableList<Student> loadStudents() throws SQLException {
-        ObservableList<Student> allStudents = FXCollections.observableArrayList();
-        String query = "SELECT * FROM Student ORDER BY StudentID";
-        return getStudents(allStudents, query);
+    public ObservableList<Student> loadStudents() {
+
+        try {
+            ObservableList<Student> allStudents = FXCollections.observableArrayList();
+            String query = "SELECT * FROM Student ORDER BY StudentID";
+            return getStudents(allStudents, query);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
     }
 
     public ObservableList<Student> loadStudentsWithTeacher(Teacher teacher) throws SQLException {
@@ -45,7 +52,8 @@ public class StudentRepository {
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()){
             User studentUser = new User(rs.getString("Username"), rs.getString("Password"));
-            Student s = new Student(rs.getString("Fname"),rs.getString("Lname"),getEducationNameFromStudentID(rs.getInt("StudentID")),studentUser, rs.getInt("StudentID"));
+            Student s = new Student(rs.getInt("ClassID"),rs.getString("Fname"),rs.getString("Lname"),studentUser);
+            s.setStudentID(rs.getInt("StudentID"));
 
             List<dk.voresgruppe.be.Date> dates = new ArrayList<>();
             getStudentDaysShowedUp(s).forEach(date -> dates.add(new dk.voresgruppe.be.Date(date.getDay(),date.getMonth(),date.getYear())));
@@ -54,6 +62,44 @@ public class StudentRepository {
             returnList.add(s);
         }
         return returnList;
+    }
+
+    public int addStudent(Student s) {
+        int returnId = -1;
+        try {
+            String query = "INSERT INTO Student(Fname, Lname, Username, [Password], ClassID) VALUES ('"+ s.getFirstName() +"', '"+s.getLastName()+"', '"+s.getStudentLogin().getUserName()+"', '"+s.getStudentLogin().getPassword()+"', '"+s.getClassID()+"' );";
+            PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if(generatedKeys.next()){
+                returnId = generatedKeys.getInt(1);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return returnId;
+    }
+
+    public void delete(Student s) {
+        try {
+            int id = s.getStudentID();
+            PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM Student WHERE StudentID = ?");
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    public void update(Student s){
+        try {
+            String query = "UPDATE Student SET Fname = '" +s.getFirstName()+"', Lname = '"+s.getLastName()+"', Username = '"+s.getStudentLogin().getUserName()+"', [Password]= '"+s.getStudentLogin().getPassword()+"', ClassID= '"+s.getClassID()+"' WHERE StudentID = '" +s.getStudentID()+"'";
+            PreparedStatement preparedStatement = connect.prepareStatement(query);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
 
@@ -65,7 +111,7 @@ public class StudentRepository {
     private List<Date> getStudentDaysShowedUp(Student student) throws SQLException{
         String query = "SELECT * FROM StudentAttendance WHERE StudentID=?";
         PreparedStatement pstmt = connect.prepareStatement(query);
-        pstmt.setInt(1,student.getId());
+        pstmt.setInt(1,student.getStudentID());
         ResultSet rs = pstmt.executeQuery();
         List<Date> dates = new ArrayList<>();
         while(rs.next()){

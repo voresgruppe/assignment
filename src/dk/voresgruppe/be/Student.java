@@ -1,6 +1,7 @@
 package dk.voresgruppe.be;
 
 import dk.voresgruppe.util.Utils;
+import javafx.beans.property.SimpleStringProperty;
 
 
 import java.lang.reflect.Array;
@@ -10,26 +11,27 @@ import java.util.*;
 
 public class Student {
 
+    private int studentID;
     private String firstName;
     private String lastName;
     private String fullName;
-    private String currentCourse;
+    private int classID;
     private User studentLogin;
     private String mostAbsentDay;
 
     private List<Date> toShowUp = datesToShowUp();
     private List<Date> showedUp = datesShowedUp();
     private List<Schedule> weekSchedule = new ArrayList<>();
-    private Utils utils = new Utils();
     private Double absencePercentage = 0.0;
-    private int id;
 
-    public Student(String firstName, String lastName, String currentCourse, User studentLogin, int id) {
+    private Utils utils = new Utils();
+
+    public Student(int classID, String firstName, String lastName, User studentLogin) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.currentCourse = currentCourse;
+        fullName = firstName + " " + lastName;
+        this.classID = classID;
         this.studentLogin = studentLogin;
-        this.id = id;
     }
 
     private List<Date> datesToShowUp() {
@@ -60,6 +62,18 @@ public class Student {
         return datesToShowUp;
     }
 
+    public int getStudentID() {
+        return studentID;
+    }
+
+    public SimpleStringProperty getIDProperty(){
+        return new SimpleStringProperty(String.valueOf(studentID));
+    }
+
+    public void setStudentID(int studentID) {
+        this.studentID = studentID;
+    }
+
     //TODO: get the dates where students have showed up
     private List<Date> datesShowedUp() {
         return this.showedUp;
@@ -81,12 +95,23 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public String getCurrentCourse() {
-        return currentCourse;
+    public String getFullName() {
+        return fullName;
+    }
+    public SimpleStringProperty getFullnameProperty(){
+        return new SimpleStringProperty(fullName);
     }
 
-    public void setCurrentCourse(String currentCourse) {
-        this.currentCourse = currentCourse;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public int getClassID() {
+        return classID;
+    }
+
+    public void setClassID(int classID) {
+        this.classID = classID;
     }
 
     public User getStudentLogin() {
@@ -153,14 +178,9 @@ public class Student {
         this.weekSchedule = weekSchedule;
     }
 
-    public String getFullName() {
-        fullName = firstName + " " + lastName;
-        return fullName;
-    }
-
     @Override
     public String toString() {
-        return firstName + ", " + lastName + ", " + currentCourse + ", " + studentLogin;
+        return firstName + ", " + lastName;
     }
 
     public String getMostAbsentDay() {
@@ -211,13 +231,5 @@ public class Student {
         }
 
         return mostAbsentDay;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

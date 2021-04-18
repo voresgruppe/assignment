@@ -2,6 +2,7 @@ package dk.voresgruppe.gui.TeacherView;
 
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
+import dk.voresgruppe.bll.ClassManager;
 import dk.voresgruppe.bll.StudentManager;
 import dk.voresgruppe.gui.TeacherView.StudentInfoView.StudentInfoController;
 import javafx.collections.ObservableList;
@@ -23,6 +24,7 @@ public class TeacherViewController {
     public CheckBox chckbox;
     private Teacher loggedTeacher;
     private StudentManager sMan;
+    private ClassManager cMan = new ClassManager();
     @FXML
     private TableView<Student> tableView;
     @FXML
@@ -52,7 +54,7 @@ public class TeacherViewController {
         tableView.setItems(observableListStudents);
         StudentName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         absencePercentage.setCellValueFactory(new PropertyValueFactory<>("absencePercentage"));
-        StudentCourse.setCellValueFactory(new PropertyValueFactory<>("currentCourse"));
+        StudentCourse.cellValueFactoryProperty().setValue(cellData -> cMan.getClassFromID(cellData.getValue().getClassID()).getClassNameProperty());
         StudentAbsenceDay.setCellValueFactory(new PropertyValueFactory<>("mostAbsentDay"));
         setListenerAndSearch();
         getClickedStudent();
@@ -85,7 +87,7 @@ public class TeacherViewController {
                     sic.lookUpStudent(clickedStudent);
                     Stage stage = new Stage();
                     stage.setScene(new Scene(mainLayout));
-                    stage.setTitle(clickedStudent.getFullName() + ", " + clickedStudent.getCurrentCourse() + " Info");
+                    stage.setTitle(clickedStudent.getFullName() + ", " + cMan.getClassFromID(clickedStudent.getClassID()).getClassNameProperty() + " Info");
                     stage.show();
                 } catch (IOException e) {
                     e.printStackTrace();

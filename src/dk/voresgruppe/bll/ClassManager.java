@@ -33,4 +33,13 @@ public class ClassManager {
         cRepo.update(b);
         allClasses.set(allClasses.indexOf(a),b);
     }
+
+    public Class getClassFromID(int classID){
+        for(Class current: allClasses){
+            if(current.getClassID() == classID){
+                return current;
+            }
+        }
+        return null;
+    }
 }
