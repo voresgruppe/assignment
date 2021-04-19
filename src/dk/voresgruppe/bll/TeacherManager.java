@@ -18,9 +18,13 @@ public class TeacherManager {
     }
 
     public void updateStudentAttendance(Student student, LocalDate date) throws SQLException {
-        if(tRepo.hasStudentShowedUp(student, date)){  //hvis date allerede er i databasen for den student skal den fjernes og omvendt
+        if(tRepo.hasStudentShowedUp(student, date)){
             tRepo.removeFromShowedUp(student, date);
         }else tRepo.addToShowedUp(student,date);
+    }
+
+    public boolean didStudentShowUpAt(Student s, LocalDate d){
+        return tRepo.hasStudentShowedUp(s, d);
     }
 
     public ObservableList<Teacher> getAllTeachers(){

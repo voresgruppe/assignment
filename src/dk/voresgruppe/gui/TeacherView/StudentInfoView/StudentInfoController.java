@@ -38,8 +38,10 @@ public class StudentInfoController implements Initializable {
     }
 
     public void editAttendance(ActionEvent actionEvent) throws SQLException {
-        tMan.updateStudentAttendance(currentStudent,datePicker.getValue());
-        updateUpdatelbl();
+        if (datePicker.getValue() != null) {
+            tMan.updateStudentAttendance(currentStudent, datePicker.getValue());
+            updateUpdatelbl();
+        }
     }
 
     public void closeWindow(ActionEvent actionEvent) {
@@ -55,7 +57,9 @@ public class StudentInfoController implements Initializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
         LocalDate date = datePicker.getValue();
         if (date != null) {
-            lblDidStudentShowUp.setText(formatter.format(date));
+            if(tMan.didStudentShowUpAt(currentStudent, date)){
+                lblDidStudentShowUp.setText(formatter.format(date) + " showed up");
+            }else lblDidStudentShowUp.setText(formatter.format(date) + " absent");
         } else {
             lblDidStudentShowUp.setText("");
         }

@@ -117,7 +117,6 @@ public class StudentRepository {
         while(rs.next()){
             dates.add(rs.getDate("attendaceDate"));
         }
-        System.out.println(dates);
         return dates;
     }
 
