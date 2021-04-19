@@ -7,18 +7,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AdministratorView.ManageClassesView.EditClassViewController">
    <children>
       <TextField fx:id="className" layoutX="88.0" layoutY="32.0" />
-      <DatePicker fx:id="classStartDate" layoutX="88.0" layoutY="116.0" />
-      <DatePicker fx:id="classEndDate" layoutX="88.0" layoutY="150.0" />
+      <DatePicker fx:id="classStartDate" layoutX="88.0" layoutY="175.0" />
+      <DatePicker fx:id="classEndDate" layoutX="88.0" layoutY="234.0" />
       <Label layoutX="26.0" layoutY="36.0" text="Name:" />
       <Label layoutX="28.0" layoutY="79.0" text="Education:" />
-      <Label layoutX="28.0" layoutY="120.0" text="Start date:" />
-      <Label layoutX="31.0" layoutY="154.0" text="End date:" />
+      <Label layoutX="28.0" layoutY="179.0" text="Start date:" />
+      <Label layoutX="28.0" layoutY="238.0" text="End date:" />
       <Button layoutX="236.0" layoutY="283.0" mnemonicParsing="false" onAction="#handleSaveClass" text="Save" />
       <Button fx:id="btnCancel" layoutX="305.0" layoutY="283.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
-      <ComboBox fx:id="classEducationName" layoutX="88.0" layoutY="75.0" onAction="#handleSelectEducation" prefWidth="150.0" />
+      <ComboBox fx:id="classEducationName" layoutX="88.0" layoutY="75.0" prefWidth="150.0" />
+      <Label layoutX="29.0" layoutY="120.0" text="Schedule" />
+      <ComboBox fx:id="classScheduleName" layoutX="88.0" layoutY="116.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

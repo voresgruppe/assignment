@@ -68,7 +68,7 @@ public class ManageClassesViewController {
             loader.setLocation(getClass().getResource("NewClassView.fxml"));
             Parent mainLayout = loader.load();
             NewClassViewController nvc = loader.getController();
-            nvc.setManagers(cMan, eMan);
+            nvc.setManagers(cMan, eMan, scheduleMan);
             nvc.init();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
@@ -89,7 +89,7 @@ public class ManageClassesViewController {
             loader.setLocation(getClass().getResource("EditClassView.fxml"));
             Parent mainLayout = loader.load();
             EditClassViewController evc = loader.getController();
-            evc.setManagers(cMan, eMan);
+            evc.setManagers(cMan, eMan, scheduleMan);
             evc.setSelectedClass(selectedClass);
             evc.init();
             Stage stage = new Stage();

@@ -1,12 +1,10 @@
 package dk.voresgruppe.gui.AdministratorView.ManageClassesView;
 
+import dk.voresgruppe.be.*;
 import dk.voresgruppe.be.Class;
-import dk.voresgruppe.be.Course;
-import dk.voresgruppe.be.Date;
-import dk.voresgruppe.be.Education;
-import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.bll.ClassManager;
 import dk.voresgruppe.bll.EducationManager;
+import dk.voresgruppe.bll.ScheduleManager;
 import dk.voresgruppe.util.UserError;
 import dk.voresgruppe.util.Utils;
 import javafx.event.ActionEvent;
@@ -19,16 +17,21 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 public class NewClassViewController {
+
     private Utils utils= new Utils();
     private ClassManager cMan;
     private EducationManager eMan;
+    private ScheduleManager sMan;
     private Education selectedEducation;
+    private Schedule selectedSchedule;
 
 
     @FXML
     private TextField className;
     @FXML
     private ComboBox<Education> classEducationName;
+    @FXML
+    private ComboBox<Schedule> classScheduleName;
     @FXML
     private DatePicker classEndDate;
     @FXML
@@ -62,17 +65,44 @@ public class NewClassViewController {
             }
 
         });
+
+        classScheduleName.setItems(sMan.getAllSchedules());
+        classScheduleName.setConverter(new StringConverter<>() {
+
+            @Override
+            public String toString(Schedule sc) {
+                if(sc == null){
+                    return null;
+                }
+                return sc.getScheduleName();
+            }
+
+            @Override
+            public Schedule fromString(String s) {
+                return classScheduleName.getItems().stream().filter(sc -> sc.getScheduleName().equals(s)).findFirst().orElse(null);
+            }
+
+        });
+
+        classScheduleName.valueProperty().addListener((obs, oldval, newval) -> {
+            if(newval != null) {
+                selectedSchedule = sMan.getScheduleFromId(newval.getScheduleID());
+            }
+
+        });
     }
 
-    public void setManagers(ClassManager cMan, EducationManager eMan){
+    public void setManagers(ClassManager cMan, EducationManager eMan, ScheduleManager sMan){
         this.cMan = cMan;
         this.eMan = eMan;
+        this.sMan = sMan;
     }
 
 
     public void handleSaveClass(ActionEvent actionEvent) {
-        if(selectedEducation !=null && className.getText() != null) {
+        if(selectedSchedule !=null && selectedEducation !=null && className.getText() != null) {
             Class newClass = new Class(selectedEducation.getiD(), className.getText());
+            newClass.setScheduleID(selectedSchedule.getScheduleID());
             if(classStartDate.getValue() != null) {
                 Date startDate = utils.dateFromLocalDate(classStartDate.getValue());
                 newClass.setStartDate(startDate);
@@ -90,6 +120,9 @@ public class NewClassViewController {
         else if (className == null){
             UserError.showError("input Error", "you need to give the class a name");
         }
+        else if(selectedSchedule == null){
+            UserError.showError("input Error", "you need to select a Schedule");
+        }
     }
 
     public void handleCancel(ActionEvent actionEvent) {
@@ -100,6 +133,4 @@ public class NewClassViewController {
         stage.close();
     }
 
-    public void handleSelectEducation(ActionEvent actionEvent) {
-    }
 }

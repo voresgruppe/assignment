@@ -85,7 +85,7 @@ public class ScheduleRepository {
 
     public void update(Schedule s){
         try {
-            String query = "UPDATE Schedule SET scheduleID = '" +s.getScheduleID()+"', monday = '"+s.getMonday()+"', tuesday = '"+s.getTuesday()+"', wednesday= '"+s.getWednesday()+"', thursday= '"+s.getThursday()+"', friday= '"+s.getFriday()+"', scheduleName= '"+s.getScheduleName()+"' WHERE scheduleID = " +s.getScheduleID()+";";
+            String query = "UPDATE Schedule SET monday = '"+s.getMonday()+"', tuesday = '"+s.getTuesday()+"', wednesday= '"+s.getWednesday()+"', thursday= '"+s.getThursday()+"', friday= '"+s.getFriday()+"', scheduleName= '"+s.getScheduleName()+"' WHERE scheduleID = " +s.getScheduleID()+";";
             PreparedStatement preparedStatement = null;
             preparedStatement = connect.prepareStatement(query);
             preparedStatement.executeUpdate();
