@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.TeacherView.StudentInfoView.StudentInfoController">
    <children>
@@ -11,7 +14,7 @@
       <Button fx:id="btnClose" cancelButton="true" layoutX="522.0" layoutY="330.0" mnemonicParsing="false" onAction="#closeWindow" text="Close" />
       <Label fx:id="lblGreeting" layoutX="31.0" layoutY="33.0" text="Fraværs overblik for [Elev]" />
       <Button fx:id="btnEditAttendance" layoutX="31.0" layoutY="139.0" mnemonicParsing="false" onAction="#editAttendance" text="Rediger fravær fra dato" />
-      <Label layoutX="31.0" layoutY="246.0" text="Fraværs Procent:" />
+      <Label layoutX="31.0" layoutY="246.0" text="Fraværs procent:" />
       <Label layoutX="31.0" layoutY="291.0" text="Fraværs dage: " />
       <TextField fx:id="txtfieldAttendancePercent" editable="false" layoutX="139.0" layoutY="242.0" prefHeight="25.0" prefWidth="55.0" />
       <TextField fx:id="txtfieldAttendanceDays" editable="false" layoutX="139.0" layoutY="287.0" prefHeight="25.0" prefWidth="55.0" />

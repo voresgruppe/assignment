@@ -7,6 +7,7 @@ import dk.voresgruppe.dal.db.DatabaseConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,5 +133,34 @@ public class StudentRepository {
             return rs.getString("Name");
         }
         return "-1";
+    }
+
+    public void showedUpThisDay(Student s, LocalDate d){
+        try {
+            if(!doesAttendanceExist(s,d)) {
+                String sql = "INSERT INTO StudentAttendance(studentID, courseID, attendaceDate) VALUES (?,?,'" + d + "');";
+                PreparedStatement preparedStatement = connect.prepareStatement(sql);
+                preparedStatement.setInt(1, s.getStudentID());
+                preparedStatement.setInt(2, 1);  //lav lige det her om til hvilket fag eleven er mødt op til
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private boolean doesAttendanceExist(Student s, LocalDate d){
+        try{
+            String sql = "SELECT * FROM StudentAttendance\n" +
+                    "WHERE studentID = " + s.getStudentID() + " AND courseID = " + 1 + " AND attendaceDate = '" + d + "';"; //lav lige det her 1 om til hvilket fag eleven er mødt op til
+            Statement statement = connect.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while(rs.next()){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }

@@ -57,8 +57,8 @@ public class StudentInfoController implements Initializable {
         LocalDate date = datePicker.getValue();
         if (date != null) {
             if(tMan.didStudentShowUpAt(currentStudent, date)){
-                lblDidStudentShowUp.setText(formatter.format(date) + " showed up");
-            }else lblDidStudentShowUp.setText(formatter.format(date) + " absent");
+                lblDidStudentShowUp.setText(formatter.format(date) + " mødt op");
+            }else lblDidStudentShowUp.setText(formatter.format(date) + " fraværende");
         } else {
             lblDidStudentShowUp.setText("");
         }

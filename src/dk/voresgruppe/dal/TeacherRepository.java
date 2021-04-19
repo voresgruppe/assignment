@@ -141,7 +141,6 @@ public class TeacherRepository {
         try {
             String sql = "DELETE FROM StudentAttendance WHERE studentID = ? AND attendaceDate = '" + date + "';";
             int id = s.getStudentID();
-            String theDate = "'" + date.toString() + "'";
             PreparedStatement preparedStatement = connect.prepareStatement(sql);
             preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();

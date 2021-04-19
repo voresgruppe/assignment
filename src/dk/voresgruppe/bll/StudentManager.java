@@ -5,6 +5,7 @@ import dk.voresgruppe.dal.StudentRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 
 public class StudentManager {
@@ -60,6 +61,10 @@ public class StudentManager {
         Comparator<Student> comparator = Comparator.comparingDouble(Student::getAbsencePercentage);
         comparator = comparator.reversed();
         FXCollections.sort(studentsObservableList, comparator);
+    }
+
+    public void showedUpToday(Student s, LocalDate d){
+        sRepo.showedUpThisDay(s,d);
     }
 
 }

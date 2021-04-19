@@ -60,6 +60,7 @@ public class StudentViewController implements Initializable {
         txtFieldAbsencePercentage.setText(loggedStudent.getAbsencePercentage() + "%");
         txtFieldAbsenceDays.setText(String.valueOf(loggedStudent.getAbsenceDays()));
         bpAbsenceChart.setCenter(attendanceChart());
+        sMan = new StudentManager();
         setPics();
     }
 
@@ -121,8 +122,10 @@ public class StudentViewController implements Initializable {
     }
 
     public void handleRegisterAttendance(ActionEvent actionEvent) {
-        if (utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SATURDAY && utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SUNDAY)
+        if (utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SATURDAY && utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SUNDAY) {
             loggedStudent.addToShowedUp(new Date(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+            sMan.showedUpToday(loggedStudent, LocalDate.now());
+        }
         else {
             String header = "dude gå hjem det ";
             if (utils.getWeekDayFromDate(utils.getCurrentDate()) == Calendar.SATURDAY) {
