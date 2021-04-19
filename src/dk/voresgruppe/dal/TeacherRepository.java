@@ -82,7 +82,8 @@ public class TeacherRepository {
     }
 
 
-    public boolean hasStudentShowedUp(Student s, LocalDate date) throws SQLException {
+    public boolean hasStudentShowedUp(Student s, LocalDate date) {
+        try{
         String query = "SELECT s.Username, sa.courseID FROM StudentAttendance sa\n" +
                 "JOIN Student s ON sa.studentID = s.StudentID\n" +
                 "WHERE s.Username = '" + s.getStudentLogin().getUserName() + "' AND sa.attendaceDate = '" + date + "';";
@@ -95,39 +96,59 @@ public class TeacherRepository {
             }
         }
         return false;
-    }
-
-    //The statement did not return a result set.
-    public void addToShowedUp(Student s, LocalDate date) throws SQLException {
-        String sql = "INSERT INTO StudentAttendance(studentID, courseID, attendaceDate) VALUES ("+ getStudentIDFromDB(s) + ", 1, '" + date + "');";
-        Statement st = connect.createStatement();
-        ResultSet rs = st.executeQuery(sql);
-        while (rs.next()){
-            System.out.println(rs.getInt("studentID"));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+        return false;
     }
 
-    //The statement did not return a result set.
-    private int getStudentIDFromDB(Student s) throws SQLException {
-        String sql = "SELECT StudentID FROM Student\n" +
-                "WHERE Username = '" + s.getStudentLogin().getUserName() + "';";
-        Statement st = connect.createStatement();
-        ResultSet rs = st.executeQuery(sql);
-        while(rs.next()){
-            int returnValue = rs.getInt("StudentID");
-            return returnValue;
+    //returns an int to make it work!! 🤡🤡🤡
+    public int addToShowedUp(Student s, LocalDate date) {
+        int returnID = -1;
+        try {
+            String sql = "INSERT INTO StudentAttendance(studentID, courseID, attendaceDate) VALUES (" + getStudentIDFromDB(s) + ", 1, '" + date + "');";
+            PreparedStatement preparedStatement = connect.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if(generatedKeys.next()){
+                returnID = generatedKeys.getInt(1);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return returnID;
+    }
+
+    private int getStudentIDFromDB(Student s) {
+        try {
+            String sql = "SELECT StudentID FROM Student\n" +
+                    "WHERE Username = '" + s.getStudentLogin().getUserName() + "';";
+            Statement st = connect.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                int returnValue = rs.getInt("StudentID");
+                return returnValue;
+            }
+            return -1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return -1;
     }
 
-    //The statement did not return a result set.
-    public void removeFromShowedUp(Student s, LocalDate date) throws SQLException {
-        String sql = "DELETE FROM StudentAttendance WHERE studentID = " + getStudentIDFromDB(s) + "AND attendaceDate = '" + date + "';";
-        Statement st = connect.createStatement();
-        ResultSet rs = st.executeQuery(sql);
-        while(rs.next()){
-            System.out.println(rs.getInt("studentID"));
+
+    public void removeFromShowedUp(Student s, LocalDate date) {
+        try {
+            String sql = "DELETE FROM StudentAttendance WHERE studentID = ? AND attendaceDate = '" + date + "';";
+            int id = s.getStudentID();
+            String theDate = "'" + date.toString() + "'";
+            PreparedStatement preparedStatement = connect.prepareStatement(sql);
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+            } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+
     }
 
 }

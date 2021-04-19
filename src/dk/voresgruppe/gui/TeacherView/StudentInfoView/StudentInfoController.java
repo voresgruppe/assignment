@@ -37,7 +37,8 @@ public class StudentInfoController implements Initializable {
         updateUpdatelbl();
     }
 
-    public void editAttendance(ActionEvent actionEvent) {
+    public void editAttendance(ActionEvent actionEvent) throws SQLException {
+        tMan.updateStudentAttendance(currentStudent,datePicker.getValue());
         updateUpdatelbl();
     }
 
@@ -46,8 +47,7 @@ public class StudentInfoController implements Initializable {
         stage.close();
     }
 
-    public void updateDidStudentShowUp(ActionEvent actionEvent) throws SQLException {
-        tMan.updateStudentAttendance(currentStudent,datePicker.getValue());
+    public void updateDidStudentShowUp(ActionEvent actionEvent) {
         updateUpdatelbl();
     }
 
