@@ -27,10 +27,11 @@
     -fx-background-repeat: no-repeat;
     -fx-border-color: #515151;
     -fx-border-radius: 2;
+
 }
 
 #table1{
 
-    -fx-background-color: #f3f3f3;
-   -fx-border-color: #cbcbcb;
+    -fx-background-color: #1088e5;
+   -fx-border-color: #000000;
 }
