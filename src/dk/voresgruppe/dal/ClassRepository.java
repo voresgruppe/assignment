@@ -41,6 +41,9 @@ public class ClassRepository {
                 if(String.valueOf(resultSet.getInt("ClassID"))!= null){
                     c.setScheduleID(resultSet.getInt("ClassID"));
                 }
+                if(String.valueOf(resultSet.getInt("scheduleID"))!= null){
+                    c.setScheduleID(resultSet.getInt("scheduleID"));
+                }
                 classes.add(c);
             }
 
