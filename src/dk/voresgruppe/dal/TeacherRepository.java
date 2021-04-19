@@ -1,15 +1,13 @@
 package dk.voresgruppe.dal;
 
-import dk.voresgruppe.be.Administrator;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.dal.db.DatabaseConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
-import java.time.LocalDate;
+
 
 public class TeacherRepository {
 
@@ -82,7 +80,7 @@ public class TeacherRepository {
     }
 
 
-    public boolean hasStudentShowedUp(Student s, LocalDate date) {
+    public boolean hasStudentShowedUp(Student s, dk.voresgruppe.be.Date date) {
         try{
         String query = "SELECT s.Username, sa.courseID FROM StudentAttendance sa\n" +
                 "JOIN Student s ON sa.studentID = s.StudentID\n" +
@@ -103,7 +101,7 @@ public class TeacherRepository {
     }
 
     //returns an int to make it work!! 🤡🤡🤡
-    public int addToShowedUp(Student s, LocalDate date) {
+    public int addToShowedUp(Student s, dk.voresgruppe.be.Date date) {
         int returnID = -1;
         try {
             String sql = "INSERT INTO StudentAttendance(studentID, courseID, attendaceDate) VALUES (" + getStudentIDFromDB(s) + ", 1, '" + date + "');";
@@ -137,7 +135,7 @@ public class TeacherRepository {
     }
 
 
-    public void removeFromShowedUp(Student s, LocalDate date) {
+    public void removeFromShowedUp(Student s, dk.voresgruppe.be.Date date) {
         try {
             String sql = "DELETE FROM StudentAttendance WHERE studentID = ? AND attendaceDate = '" + date + "';";
             int id = s.getStudentID();

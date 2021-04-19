@@ -1,7 +1,9 @@
 package dk.voresgruppe.gui.TeacherView.StudentInfoView;
 
+import dk.voresgruppe.be.Date;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.bll.TeacherManager;
+import dk.voresgruppe.util.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,6 +26,7 @@ public class StudentInfoController implements Initializable {
     public Label lblDidStudentShowUp;
     private Student currentStudent;
     private TeacherManager tMan;
+    private Utils utils= new Utils();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -38,7 +41,8 @@ public class StudentInfoController implements Initializable {
 
     public void editAttendance(ActionEvent actionEvent) {
         if (datePicker.getValue() != null) {
-            tMan.updateStudentAttendance(currentStudent, datePicker.getValue());
+            Date date = utils.dateFromLocalDate(datePicker.getValue());
+            tMan.updateStudentAttendance(currentStudent, date);
             updateUpdatelbl();
         }
     }
@@ -54,11 +58,12 @@ public class StudentInfoController implements Initializable {
 
     public void updateUpdatelbl(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
-        LocalDate date = datePicker.getValue();
+        Date date = utils.dateFromLocalDate(datePicker.getValue());
+        LocalDate day = datePicker.getValue();
         if (date != null) {
             if(tMan.didStudentShowUpAt(currentStudent, date)){
-                lblDidStudentShowUp.setText(formatter.format(date) + " mødt op");
-            }else lblDidStudentShowUp.setText(formatter.format(date) + " fraværende");
+                lblDidStudentShowUp.setText(formatter.format(day) + " mødt op");
+            }else lblDidStudentShowUp.setText(formatter.format(day) + " fraværende");
         } else {
             lblDidStudentShowUp.setText("");
         }
