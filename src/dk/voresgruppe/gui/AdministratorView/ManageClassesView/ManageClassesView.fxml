@@ -5,19 +5,20 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AdministratorView.ManageClassesView.ManageClassesViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AdministratorView.ManageClassesView.ManageClassesViewController">
    <children>
-      <TableView fx:id="tblviewClasses" layoutX="8.0" layoutY="6.0" prefHeight="387.0" prefWidth="487.0">
+      <TableView fx:id="tblviewClasses" layoutX="8.0" layoutY="6.0" prefHeight="387.0" prefWidth="562.0">
         <columns>
           <TableColumn fx:id="classID" prefWidth="48.0" text="ID" />
           <TableColumn fx:id="className" prefWidth="108.0" text="Name" />
             <TableColumn fx:id="classEducation" prefWidth="131.0" text="Education" />
             <TableColumn fx:id="classStartDate" prefWidth="97.0" text="StartDate" />
             <TableColumn fx:id="classEndDate" prefWidth="102.0" text="EndDate" />
+            <TableColumn fx:id="classSchedule" prefWidth="75.0" text="Schedule" />
         </columns>
       </TableView>
-      <Button layoutX="501.0" layoutY="333.0" mnemonicParsing="false" onAction="#addNewClass" text="Add Class" />
-      <Button layoutX="501.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleDeleteClass" text="Delete Class" />
-      <Button layoutX="501.0" layoutY="267.0" mnemonicParsing="false" onAction="#handleEditClass" text="Edit Class" />
+      <Button layoutX="618.0" layoutY="333.0" mnemonicParsing="false" onAction="#addNewClass" text="Add Class" />
+      <Button layoutX="605.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleDeleteClass" text="Delete Class" />
+      <Button layoutX="619.0" layoutY="267.0" mnemonicParsing="false" onAction="#handleEditClass" text="Edit Class" />
    </children>
 </AnchorPane>

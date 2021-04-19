@@ -1,11 +1,8 @@
 package dk.voresgruppe.gui.AdministratorView.ManageClassesView;
 
 import dk.voresgruppe.be.Class;
-import dk.voresgruppe.be.Education;
 import dk.voresgruppe.bll.ClassManager;
-import dk.voresgruppe.bll.CourseManager;
 import dk.voresgruppe.bll.EducationManager;
-import dk.voresgruppe.gui.AdministratorView.ManageCoursesView.NewCourseViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +15,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ManageClassesViewController {
+
     private ClassManager cMan;
     private Class selectedClass;
     private EducationManager eMan;
+
 
     @FXML
     private TableView <Class> tblviewClasses;
@@ -34,6 +33,8 @@ public class ManageClassesViewController {
     private TableColumn<Class, String> classEndDate;
     @FXML
     private TableColumn<Class, String> classStartDate;
+    @FXML
+    public TableColumn<Class, String> classSchedule;
 
     public ManageClassesViewController() {
     }
