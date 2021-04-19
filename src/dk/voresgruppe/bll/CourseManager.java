@@ -33,4 +33,13 @@ public class CourseManager {
         cRepo.update(b);
         allCourses.set(allCourses.indexOf(a),b);
     }
+
+    public Course getCourseFromID(int courseID){
+        for(Course current: allCourses){
+            if(current.getCourseID() == courseID){
+                return current;
+            }
+        }
+        return null;
+    }
 }

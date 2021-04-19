@@ -6,6 +6,7 @@ import dk.voresgruppe.gui.AdministratorView.ManageAdministratorsView.ManageAdmin
 import dk.voresgruppe.gui.AdministratorView.ManageClassesView.ManageClassesViewController;
 import dk.voresgruppe.gui.AdministratorView.ManageCoursesView.ManageCoursesViewController;
 import dk.voresgruppe.gui.AdministratorView.ManageEducationView.ManageEducationsViewController;
+import dk.voresgruppe.gui.AdministratorView.ManageScheduleView.ManageSchedulesViewController;
 import dk.voresgruppe.gui.AdministratorView.ManageStudentsView.ManageStudentsViewController;
 import dk.voresgruppe.gui.AdministratorView.ManageTeachersView.ManageTeachersViewController;
 import javafx.event.ActionEvent;
@@ -130,6 +131,24 @@ public class AdministratorViewController {
             ManageClassesViewController mcc = loader.getController();
             mcc.setManagers(clMan, eMan, scheduleManager);
             mcc.initClasses();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.setTitle("Manage classes");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public void manageSchedule(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ManageScheduleView/ManageSchedulesView.fxml"));
+            Parent mainLayout = loader.load();
+            ManageSchedulesViewController msc = loader.getController();
+            msc.setManagers(scheduleManager,cMan);
+            msc.initSchedules();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
             stage.setTitle("Manage classes");
