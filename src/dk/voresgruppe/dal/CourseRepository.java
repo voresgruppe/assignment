@@ -80,7 +80,7 @@ public class CourseRepository {
 
     public void update(Course c){
         try {
-            String query = "UPDATE Course SET TeacherID = '" +c.getTeacherID()+"', Name = '"+c.getName()+"', EndDate = '"+c.getEndDate()+"', StartDate= '"+c.getStartDate()+"' WHERE CourseId = '" +c.getCourseID()+"'";
+            String query = "UPDATE Course SET TeacherID = '" +c.getTeacherID()+"', Name = '"+c.getName()+"', EndDate = '"+c.getEndDate()+"', StartDate= '"+c.getStartDate()+"' WHERE CourseId = " +c.getCourseID()+";";
             PreparedStatement preparedStatement = null;
             preparedStatement = connect.prepareStatement(query);
             preparedStatement.executeUpdate();
