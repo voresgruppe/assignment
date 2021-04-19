@@ -63,8 +63,8 @@ public class StudentManager {
         FXCollections.sort(studentsObservableList, comparator);
     }
 
-    public void showedUpToday(Student s, LocalDate d){
-        sRepo.showedUpThisDay(s,d);
+    public void showedUpToday(Student s, Date d, int courseID){
+        sRepo.showedUpThisDay(s,d, courseID);
     }
 
 }

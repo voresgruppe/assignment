@@ -78,7 +78,6 @@ public class TeacherViewController {
         tableView.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
                 Student clickedStudent = tableView.getSelectionModel().getSelectedItem();
-                System.out.println(clickedStudent.toString());
                 try {
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(getClass().getResource("StudentInfoView/StudentInfoView.fxml"));

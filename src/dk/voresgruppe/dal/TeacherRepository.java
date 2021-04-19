@@ -8,7 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
 
-
 public class TeacherRepository {
 
     DatabaseConnector dbConnector = new DatabaseConnector();
@@ -101,10 +100,10 @@ public class TeacherRepository {
     }
 
     //returns an int to make it work!! 🤡🤡🤡
-    public int addToShowedUp(Student s, dk.voresgruppe.be.Date date) {
+    public int addToShowedUp(Student s, dk.voresgruppe.be.Date date, int courseID) {
         int returnID = -1;
         try {
-            String sql = "INSERT INTO StudentAttendance(studentID, courseID, attendaceDate) VALUES (" + getStudentIDFromDB(s) + ", 1, '" + date + "');";
+            String sql = "INSERT INTO StudentAttendance(studentID, courseID, attendaceDate) VALUES (" + getStudentIDFromDB(s) + ", " + courseID + ", '" + date + "');";
             PreparedStatement preparedStatement = connect.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -134,10 +133,9 @@ public class TeacherRepository {
         return -1;
     }
 
-
-    public void removeFromShowedUp(Student s, dk.voresgruppe.be.Date date) {
+    public void removeFromShowedUp(Student s, dk.voresgruppe.be.Date date, int courseID) {
         try {
-            String sql = "DELETE FROM StudentAttendance WHERE studentID = ? AND attendaceDate = '" + date + "';";
+            String sql = "DELETE FROM StudentAttendance WHERE studentID = ? AND attendaceDate = '" + date + "' AND courseID = " + courseID + ";";
             int id = s.getStudentID();
             PreparedStatement preparedStatement = connect.prepareStatement(sql);
             preparedStatement.setInt(1,id);
@@ -145,7 +143,6 @@ public class TeacherRepository {
             } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
 }
