@@ -48,7 +48,7 @@ public class ManageClassesViewController {
         classEducation.cellValueFactoryProperty().setValue(cellData -> eMan.getEducationFromId(cellData.getValue().getEducationID()).getNameProperty());
         classStartDate.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getStartDateProperty());
         classEndDate.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getEndDateProperty());
-        classSchedule.cellValueFactoryProperty().setValue(cellData -> scheduleMan.getScheduleFromId(cellData.getValue().getClassID()).getScheduleNameProperty());
+        classSchedule.cellValueFactoryProperty().setValue(cellData -> scheduleMan.getScheduleFromId(cellData.getValue().getScheduleID()).getScheduleNameProperty());
         classListener();
     }
 

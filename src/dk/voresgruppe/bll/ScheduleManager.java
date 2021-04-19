@@ -1,6 +1,5 @@
 package dk.voresgruppe.bll;
 
-import dk.voresgruppe.be.Education;
 import dk.voresgruppe.be.Schedule;
 import dk.voresgruppe.dal.ScheduleRepository;
 import javafx.beans.Observable;
