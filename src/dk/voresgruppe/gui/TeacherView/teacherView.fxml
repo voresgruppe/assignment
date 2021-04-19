@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="background" prefHeight="400.0" prefWidth="600.0" stylesheets="/dk/voresgruppe/gui/TeacherView/TeacherStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.TeacherView.TeacherViewController">
+<AnchorPane id="background" prefHeight="400.0" prefWidth="800.0" stylesheets="/dk/voresgruppe/gui/TeacherView/TeacherStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.TeacherView.TeacherViewController">
    <children>
-      <TableView id="table" fx:id="tableView" prefHeight="400.0" prefWidth="367.0">
+      <TableView id="table" fx:id="tableView" prefHeight="400.0" prefWidth="550.0">
         <columns>
-          <TableColumn id="table1" fx:id="StudentName" minWidth="0.0" prefWidth="63.80001527070999" text="elev" />
-          <TableColumn id="table1" fx:id="absencePercentage" prefWidth="90.39999389648438" text="fravær" />
-            <TableColumn id="table1" fx:id="StudentCourse" minWidth="0.0" prefWidth="75.79998779296875" text="Klasse" />
-            <TableColumn id="table1" fx:id="StudentAbsenceDay" prefWidth="140.99998474121094" text="hyppigste pjække dag" />
+          <TableColumn id="table1" fx:id="StudentName" prefWidth="125.0" resizable="false" text="elev" />
+          <TableColumn id="table1" fx:id="absencePercentage" prefWidth="125.0" resizable="false" text="fravær" />
+            <TableColumn id="table1" fx:id="StudentCourse" prefWidth="125.0" resizable="false" text="Klasse" />
+            <TableColumn id="table1" fx:id="StudentAbsenceDay" prefWidth="175.0" resizable="false" text="hyppigste pjække dag" />
         </columns>
       </TableView>
-      <TextField id="btntwo" fx:id="searchname" layoutX="401.0" layoutY="80.0" promptText="Name" />
-      <Label layoutX="375.0" layoutY="14.0" text="Søg på elev" textAlignment="CENTER" textFill="WHITE">
+      <TextField id="btntwo" fx:id="searchname" layoutX="606.0" layoutY="80.0" promptText="Name" />
+      <Label alignment="CENTER" layoutX="550.0" layoutY="24.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="261.0" text="Søg på elev" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.leftAnchor="550.0" AnchorPane.rightAnchor="-1.0">
          <font>
             <Font size="39.0" />
          </font></Label>
-      <Button id="btntwo" fx:id="logud_teacher" layoutX="530.0" layoutY="360.0" mnemonicParsing="false" onAction="#Teacher_Close" text="Close" textFill="WHITE" />
-      <CheckBox fx:id="chckbox" layoutX="439.0" layoutY="168.0" mnemonicParsing="false" onAction="#showTeachersStudents" text="Vis kun mine elever" />
+      <Button id="btntwo" fx:id="logud_teacher" layoutX="730.0" layoutY="353.0" mnemonicParsing="false" onAction="#Teacher_Close" text="Close" textFill="WHITE" />
+      <CheckBox fx:id="chckbox" layoutX="603.0" layoutY="118.0" mnemonicParsing="false" onAction="#showTeachersStudents" prefHeight="18.0" prefWidth="149.0" text="Vis kun mine elever" />
    </children>
 </AnchorPane>
