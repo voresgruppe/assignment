@@ -4,6 +4,7 @@ package dk.voresgruppe.gui;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
+import dk.voresgruppe.bll.AdministratorManager;
 import dk.voresgruppe.bll.StudentManager;
 import dk.voresgruppe.bll.TeacherManager;
 import dk.voresgruppe.gui.StudentView.StudentViewController;
@@ -43,6 +44,7 @@ public class LoginController implements Initializable {
     public Label lblLogin;
     StudentManager sMan = new StudentManager();
     TeacherManager tMan = new TeacherManager();
+    AdministratorManager aMan = new AdministratorManager();
     public TextField UserID;
     public PasswordField PassID;
 
@@ -69,16 +71,18 @@ public class LoginController implements Initializable {
         File logo = new File("image/logo.png");
         Image image1 = new Image(String.valueOf(logo));
         imgCompanyLogo.setImage(image1);
-
-        for(Student currentStudent : sMan.getallStudents_OBS()) {
-            System.out.println(currentStudent);
-        }
-        for(Teacher currentTeacher : tMan.getAllTeachers()){
-            System.out.println(currentTeacher);
-        }
         hidePass = true;
         addListener();
         updateLoginFields();
+
+        printInfo();
+    }
+
+    public void printInfo(){
+        System.out.println("Example Student login: Username: " + sMan.getallStudents_OBS().get(1).getStudentLogin().getUserName() + "Password: " + sMan.getallStudents_OBS().get(1).getStudentLogin().getPassword());
+        System.out.println("Example Student login: Username: " + tMan.getAllTeachers().get(1).getTeacherLogin().getUserName() + "Password: " + tMan.getAllTeachers().get(1).getTeacherLogin().getPassword());
+        System.out.println("Example Student login: Username: " + aMan.getAllAdministrators().get(1).getUsername() + "Password: " + aMan.getAllAdministrators().get(1).getPassword());
+
     }
 
     public void Administrator_btn(ActionEvent actionEvent) {

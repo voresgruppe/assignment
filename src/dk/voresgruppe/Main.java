@@ -21,7 +21,5 @@ public class Main extends Application {
         stage.setResizable(false);
         stage.setTitle("Login");
         stage.show();
-
-        CourseRepository cRep = new CourseRepository();
     }
 }
