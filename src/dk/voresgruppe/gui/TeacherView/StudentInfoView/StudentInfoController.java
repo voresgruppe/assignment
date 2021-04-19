@@ -30,6 +30,7 @@ public class StudentInfoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        datePicker.setValue(LocalDate.now());
     }
 
     public void lookUpStudent(Student studentToLookup){
