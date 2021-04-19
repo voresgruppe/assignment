@@ -2,6 +2,9 @@ package dk.voresgruppe.gui.StudentView;
 
 import dk.voresgruppe.be.Date;
 import dk.voresgruppe.be.Student;
+import dk.voresgruppe.bll.ClassManager;
+import dk.voresgruppe.bll.CourseManager;
+import dk.voresgruppe.bll.ScheduleManager;
 import dk.voresgruppe.bll.StudentManager;
 import dk.voresgruppe.util.UserError;
 import dk.voresgruppe.util.Utils;
@@ -18,7 +21,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
@@ -32,6 +34,9 @@ public class StudentViewController implements Initializable {
     private StudentManager sMan;
     private Utils utils = new Utils();
     private UserError userError = new UserError();
+    private CourseManager courseMan;
+    private ScheduleManager scMan;
+    private ClassManager classMan;
 
     @FXML
     public BorderPane bpAbsenceChart;
@@ -42,6 +47,8 @@ public class StudentViewController implements Initializable {
     @FXML
     public ImageView imgProfilePic;
     public Button btnLogUd;
+
+
 
     public StudentViewController() {
     }
@@ -61,6 +68,9 @@ public class StudentViewController implements Initializable {
         txtFieldAbsenceDays.setText(String.valueOf(loggedStudent.getAbsenceDays()));
         bpAbsenceChart.setCenter(attendanceChart());
         sMan = new StudentManager();
+        courseMan = new CourseManager();
+        scMan = new ScheduleManager();
+        classMan = new ClassManager();
         setPics();
     }
 
@@ -124,7 +134,20 @@ public class StudentViewController implements Initializable {
     public void handleRegisterAttendance(ActionEvent actionEvent) {
         if (utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SATURDAY && utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SUNDAY) {
             loggedStudent.addToShowedUp(new Date(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
-            sMan.showedUpToday(loggedStudent, LocalDate.now());
+            int courseID = -1;
+            if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.MONDAY){
+                courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getMonday()).getCourseID();
+            }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.TUESDAY){
+                courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getTuesday()).getCourseID();
+            }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.WEDNESDAY){
+                courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getWednesday()).getCourseID();
+            }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.THURSDAY){
+                courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getThursday()).getCourseID();
+            }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.FRIDAY){
+                courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getFriday()).getCourseID();
+            }
+            Date date = utils.dateFromLocalDate(LocalDate.now());
+            sMan.showedUpToday(loggedStudent, date,courseID);
         }
         else {
             String header = "dude gå hjem det ";

@@ -71,6 +71,7 @@ public class Schedule {
     public int getScheduleID() {
         return scheduleID;
     }
+
     public SimpleStringProperty getScheduleIDProperty(){
         return new SimpleStringProperty(String.valueOf(scheduleID));
     }

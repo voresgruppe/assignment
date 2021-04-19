@@ -1,7 +1,11 @@
 package dk.voresgruppe.gui.TeacherView.StudentInfoView;
 
+import dk.voresgruppe.be.Course;
 import dk.voresgruppe.be.Date;
 import dk.voresgruppe.be.Student;
+import dk.voresgruppe.bll.ClassManager;
+import dk.voresgruppe.bll.CourseManager;
+import dk.voresgruppe.bll.ScheduleManager;
 import dk.voresgruppe.bll.TeacherManager;
 import dk.voresgruppe.util.Utils;
 import javafx.event.ActionEvent;
@@ -14,6 +18,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class StudentInfoController implements Initializable {
@@ -26,6 +31,9 @@ public class StudentInfoController implements Initializable {
     public Label lblDidStudentShowUp;
     private Student currentStudent;
     private TeacherManager tMan;
+    private CourseManager courseMan;
+    private ScheduleManager scMan;
+    private ClassManager classMan;
     private Utils utils= new Utils();
 
     @Override
@@ -37,13 +45,16 @@ public class StudentInfoController implements Initializable {
         this.currentStudent = studentToLookup;
         lblGreeting.setText("Fraværs overblik for " + currentStudent.getFullName());
         tMan = new TeacherManager();
+        courseMan = new CourseManager();
+        scMan = new ScheduleManager();
+        classMan = new ClassManager();
         updateUpdatelbl();
     }
 
     public void editAttendance(ActionEvent actionEvent) {
         if (datePicker.getValue() != null) {
             Date date = utils.dateFromLocalDate(datePicker.getValue());
-            tMan.updateStudentAttendance(currentStudent, date);
+            tMan.updateStudentAttendance(currentStudent, date, getTodaysCourse(currentStudent));
             updateUpdatelbl();
         }
     }
@@ -70,5 +81,21 @@ public class StudentInfoController implements Initializable {
         }
         txtfieldAttendancePercent.setText(currentStudent.getAbsencePercentage() + "");
         txtfieldAttendanceDays.setText(currentStudent.getAbsenceDays() + "");
+    }
+
+    private int getTodaysCourse(Student loggedStudent){
+        int courseID = -1;
+        if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.MONDAY){
+            courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getMonday()).getCourseID();
+        }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.TUESDAY){
+            courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getTuesday()).getCourseID();
+        }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.WEDNESDAY){
+            courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getWednesday()).getCourseID();
+        }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.THURSDAY){
+            courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getThursday()).getCourseID();
+        }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.FRIDAY){
+            courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getFriday()).getCourseID();
+        }
+        return courseID;
     }
 }
