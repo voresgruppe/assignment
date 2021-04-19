@@ -82,5 +82,20 @@ public class ManageSchedulesViewController {
     }
 
     public void handleEditSchedule(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("EditScheduleView.fxml"));
+            Parent mainLayout = loader.load();
+            EditScheduleViewController esc = loader.getController();
+            esc.setManagers(scMan, cMan);
+            esc.setSelectedSchedule(selectedSchedule);
+            esc.init();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 }

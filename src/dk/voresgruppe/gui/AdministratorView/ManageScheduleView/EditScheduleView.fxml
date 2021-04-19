@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="381.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.voresgruppe.gui.AdministratorView.ManageScheduleView.EditScheduleViewController">
+   <children>
+      <TextField fx:id="scheduleName" layoutX="118.0" layoutY="32.0" />
+      <Label layoutX="26.0" layoutY="36.0" text="Name:" />
+      <Label layoutX="28.0" layoutY="79.0" text="Monday" />
+      <Button layoutX="235.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleSaveSchedule" text="Save" />
+      <Button fx:id="btnCancel" layoutX="304.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+      <ComboBox fx:id="scheduleMonday" layoutX="117.0" layoutY="75.0" prefWidth="150.0" />
+      <Label layoutX="28.0" layoutY="124.0" text="Tuesday" />
+      <Label layoutX="30.0" layoutY="167.0" text="Wednesday" />
+      <Label layoutX="28.0" layoutY="219.0" text="Thursday" />
+      <Label layoutX="28.0" layoutY="275.0" text="Friday" />
+      <ComboBox fx:id="scheduleTuesday" layoutX="118.0" layoutY="120.0" prefWidth="150.0" />
+      <ComboBox fx:id="scheduleWednesday" layoutX="118.0" layoutY="163.0" prefWidth="150.0" />
+      <ComboBox fx:id="scheduleThursday" layoutX="117.0" layoutY="215.0" prefWidth="150.0" />
+      <ComboBox fx:id="scheduleFriday" layoutX="118.0" layoutY="271.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
