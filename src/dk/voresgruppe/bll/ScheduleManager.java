@@ -1,5 +1,6 @@
 package dk.voresgruppe.bll;
 
+import dk.voresgruppe.be.Education;
 import dk.voresgruppe.be.Schedule;
 import dk.voresgruppe.dal.ScheduleRepository;
 import javafx.beans.Observable;
@@ -31,5 +32,14 @@ public class ScheduleManager {
         b.setScheduleID(a.getScheduleID());
         scRepo.update(b);
         allSchedules.set(allSchedules.indexOf(a),b);
+    }
+
+    public Schedule getScheduleFromId(int id){
+        for(Schedule current: allSchedules){
+            if(current.getScheduleID() == id) {
+                return current;
+            }
+        }
+        return null;
     }
 }

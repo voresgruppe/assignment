@@ -24,6 +24,7 @@ public class AdministratorViewController {
     private EducationManager eMan = new EducationManager();
     private ClassManager clMan = new ClassManager();
     private StudentManager sMan = new StudentManager();
+    private ScheduleManager scheduleManager = new ScheduleManager();
 
 
     public void setLoggedAdministrator(Administrator loggedAdministrator) {
@@ -127,7 +128,7 @@ public class AdministratorViewController {
             loader.setLocation(getClass().getResource("ManageClassesView/ManageClassesView.fxml"));
             Parent mainLayout = loader.load();
             ManageClassesViewController mcc = loader.getController();
-            mcc.setManagers(clMan, eMan);
+            mcc.setManagers(clMan, eMan, scheduleManager);
             mcc.initClasses();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));

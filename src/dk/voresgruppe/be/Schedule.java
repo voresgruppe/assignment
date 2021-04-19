@@ -1,6 +1,8 @@
 package dk.voresgruppe.be;
 
 
+import javafx.beans.property.SimpleStringProperty;
+
 public class Schedule {
     private String scheduleName;
     private int monday;
@@ -12,6 +14,10 @@ public class Schedule {
 
     public Schedule(String scheduleName) {
         this.scheduleName = scheduleName;
+    }
+
+    public SimpleStringProperty getScheduleNameProperty(){
+        return new SimpleStringProperty(String.valueOf(scheduleName));
     }
 
     public String getScheduleName() {
