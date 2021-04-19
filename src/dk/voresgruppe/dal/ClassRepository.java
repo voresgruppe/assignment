@@ -38,6 +38,9 @@ public class ClassRepository {
                 if (resultSet.getString("StartDate")!=null) {
                     c.setStartDate(utils.dateFromString(resultSet.getString("StartDate")));
                 }
+                if(String.valueOf(resultSet.getInt("ClassID"))!= null){
+                    c.setScheduleID(resultSet.getInt("ClassID"));
+                }
                 classes.add(c);
             }
 
@@ -51,7 +54,7 @@ public class ClassRepository {
     public int addClass(Class c) {
         int returnId = -1;
         try {
-            String query = "INSERT INTO Class (EducationID, ClassName, EndDate, StartDate) VALUES ('" +c.getEducationID()+"', '"+c.getClassName()+"', '"+c.getEndDate()+"', '"+c.getStartDate()+"' );";
+            String query = "INSERT INTO Class (EducationID, ClassName, EndDate, StartDate, scheduleID) VALUES ('" +c.getEducationID()+"', '"+c.getClassName()+"', '"+c.getEndDate()+"', '"+c.getStartDate()+"', '"+c.getScheduleID()+"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -78,7 +81,7 @@ public class ClassRepository {
 
     public void update(Class c){
         try {
-            String query = "UPDATE Class SET EducationID = '" +c.getEducationID()+"', ClassName = '"+c.getClassName()+"', EndDate = '"+c.getEndDate()+"', StartDate= '"+c.getStartDate()+"' WHERE ClassID = '" +c.getClassID()+"'";
+            String query = "UPDATE Class SET EducationID = '" +c.getEducationID()+"', ClassName = '"+c.getClassName()+"', EndDate = '"+c.getEndDate()+"', StartDate= '"+c.getStartDate()+"', scheduleID= '"+c.getScheduleID()+"' WHERE ClassID = '" +c.getClassID()+"'";
             PreparedStatement preparedStatement = connect.prepareStatement(query);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
