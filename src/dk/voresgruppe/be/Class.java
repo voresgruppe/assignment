@@ -6,6 +6,7 @@ public class Class {
 
     private int classID;
     private int educationID;
+    private int scheduleID;
     private String className;
     private Date startDate;
     private Date endDate;
@@ -13,6 +14,14 @@ public class Class {
     public Class(int educationID, String className) {
         this.educationID = educationID;
         this.className = className;
+    }
+
+    public int getScheduleID() {
+        return scheduleID;
+    }
+
+    public void setScheduleID(int scheduleID) {
+        this.scheduleID = scheduleID;
     }
 
     public int getClassID() {

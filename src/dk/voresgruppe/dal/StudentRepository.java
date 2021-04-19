@@ -1,9 +1,12 @@
 package dk.voresgruppe.dal;
 
+import com.sun.webkit.network.Util;
+import dk.voresgruppe.be.Date;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.dal.db.DatabaseConnector;
+import dk.voresgruppe.util.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
@@ -15,6 +18,7 @@ public class StudentRepository {
 
     DatabaseConnector dbConnector = new DatabaseConnector();
     private Connection connect;
+    private Utils utils =  new Utils();
 
     public StudentRepository() {
         try {
@@ -112,7 +116,7 @@ public class StudentRepository {
             ResultSet rs = pstmt.executeQuery();
             List<Date> dates = new ArrayList<>();
             while (rs.next()) {
-                dates.add(rs.getDate("attendaceDate"));
+                dates.add(utils.dateFromString(rs.getString("attendaceDate")));
             }
             return dates;
         } catch (SQLException throwables) {

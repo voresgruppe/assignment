@@ -1,7 +1,7 @@
 package dk.voresgruppe.dal;
 
 import dk.voresgruppe.be.Class;
-import dk.voresgruppe.be.Course;
+import dk.voresgruppe.be.StudentAttendance;
 import dk.voresgruppe.dal.db.DatabaseConnector;
 import dk.voresgruppe.util.Utils;
 import javafx.collections.FXCollections;
@@ -9,13 +9,12 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
-public class ClassRepository {
-
+public class StudentAttendanceRepository {
     private DatabaseConnector databaseConnector = new DatabaseConnector();
     private Connection connect = null;
     private Utils utils = new Utils();
 
-    public ClassRepository() {
+    public StudentAttendanceRepository() {
         try {
             connect = databaseConnector.getConnection();
         } catch(Exception e) {
@@ -23,38 +22,29 @@ public class ClassRepository {
         }
     }
 
-    public ObservableList<Class> loadClasses() {
+    public ObservableList<StudentAttendance> loadStudentAttendances(){
         try {
-            ObservableList<Class> classes = FXCollections.observableArrayList();
-            String query = "SELECT * FROM Class ORDER BY ClassID";
+            ObservableList<StudentAttendance> studentAttendances = FXCollections.observableArrayList();
+            String query = "SELECT * FROM StudentAttendance ORDER BY StudentAttendanceID";
             Statement statement = connect.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
-                Class c = new Class(resultSet.getInt("EducationID"),resultSet.getString("ClassName"));
-                c.setClassID(resultSet.getInt("ClassID"));
-                if (resultSet.getString("EndDate")!=null) {
-                    c.setEndDate(utils.dateFromString(resultSet.getString("EndDate")));
-                }
-                if (resultSet.getString("StartDate")!=null) {
-                    c.setStartDate(utils.dateFromString(resultSet.getString("StartDate")));
-                }
-                if(String.valueOf(resultSet.getInt("ClassID"))!= null){
-                    c.setScheduleID(resultSet.getInt("ClassID"));
-                }
-                classes.add(c);
+                StudentAttendance sa = new StudentAttendance(resultSet.getInt("studentID"), utils.dateFromString(resultSet.getString("AttendaceDate")));
+                sa.setStudentAttendanceID(resultSet.getInt("StudentAttendanceID"));
+                studentAttendances.add(sa);
             }
 
-            return classes;
+            return studentAttendances;
         } catch(Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public int addClass(Class c) {
+    public int add(StudentAttendance sa) {
         int returnId = -1;
         try {
-            String query = "INSERT INTO Class (EducationID, ClassName, EndDate, StartDate, scheduleID) VALUES ('" +c.getEducationID()+"', '"+c.getClassName()+"', '"+c.getEndDate()+"', '"+c.getStartDate()+"', '"+c.getScheduleID()+"' );";
+            String query = "INSERT INTO StudentAttendance (StudentAttendanceID, studentID, AttendaceDate) VALUES ('" +sa.getStudentAttendanceID()+"', '"+sa.getStudentID()+"', '"+sa.getAttendanceDate()+"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -67,10 +57,10 @@ public class ClassRepository {
         return returnId;
     }
 
-    public void delete(Class c) {
+    public void delete(StudentAttendance sa) {
         try {
-            int id = c.getClassID();
-            PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM Class WHERE ClassID = ?");
+            int id = sa.getStudentAttendanceID();
+            PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM StudentAttendance WHERE StudentAttendanceID = ?");
             preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
@@ -79,13 +69,14 @@ public class ClassRepository {
 
     }
 
-    public void update(Class c){
+    public void update(StudentAttendance sa){
         try {
-            String query = "UPDATE Class SET EducationID = '" +c.getEducationID()+"', ClassName = '"+c.getClassName()+"', EndDate = '"+c.getEndDate()+"', StartDate= '"+c.getStartDate()+"', scheduleID= '"+c.getScheduleID()+"' WHERE ClassID = '" +c.getClassID()+"'";
+            String query = "UPDATE StudentAttendance SET studentID = '" +sa.getStudentID()+"', AttendaceDate = '"+sa.getAttendanceDate()+"' WHERE StudentAttendanceID = '" +sa.getStudentAttendanceID()+"'";
             PreparedStatement preparedStatement = connect.prepareStatement(query);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
+
 }
