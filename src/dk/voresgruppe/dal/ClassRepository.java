@@ -1,7 +1,6 @@
 package dk.voresgruppe.dal;
 
 import dk.voresgruppe.be.Class;
-import dk.voresgruppe.be.Course;
 import dk.voresgruppe.dal.db.DatabaseConnector;
 import dk.voresgruppe.util.Utils;
 import javafx.collections.FXCollections;

@@ -58,7 +58,7 @@ public class ScheduleRepository {
     public int addSchedule(Schedule s) {
         int returnId = -1;
         try {
-            String query = "INSERT INTO Schedule (monday, tuesday, wednesday, thursday, friday, scheduleName) VALUES ('" +s.getMonday()+"', "+s.getTuesday()+", "+s.getWednesday()+", "+s.getThursday()+", "+s.getFriday()+", "+ s.getScheduleName()+");";
+            String query = "INSERT INTO Schedule (monday, tuesday, wednesday, thursday, friday, scheduleName) VALUES ('" +s.getMonday()+"', '"+s.getTuesday()+"', '"+s.getWednesday()+"', '"+s.getThursday()+"', '"+s.getFriday()+"', '"+ s.getScheduleName()+"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();

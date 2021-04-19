@@ -4,10 +4,17 @@ import dk.voresgruppe.be.Schedule;
 import dk.voresgruppe.bll.ClassManager;
 import dk.voresgruppe.bll.CourseManager;
 import dk.voresgruppe.bll.ScheduleManager;
+import dk.voresgruppe.gui.AdministratorView.ManageClassesView.NewClassViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ManageSchedulesViewController {
     private ScheduleManager scMan;
@@ -54,6 +61,20 @@ public class ManageSchedulesViewController {
     }
 
     public void addNewSchedule(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("NewScheduleView.fxml"));
+            Parent mainLayout = loader.load();
+            NewScheduleViewController nsc = loader.getController();
+            nsc.setManagers(scMan, cMan);
+            nsc.init();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 
     public void handleDeleteSchedule(ActionEvent actionEvent) {

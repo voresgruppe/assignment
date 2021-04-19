@@ -18,8 +18,8 @@
             <TableColumn fx:id="friday" prefWidth="102.0" text="friday" />
         </columns>
       </TableView>
-      <Button layoutX="501.0" layoutY="333.0" mnemonicParsing="false" onAction="#addNewSchedule" text="Add Course" />
-      <Button layoutX="501.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleDeleteSchedule" text="Delete Course" />
-      <Button layoutX="501.0" layoutY="267.0" mnemonicParsing="false" onAction="#handleEditSchedule" text="Edit Course" />
+      <Button layoutX="501.0" layoutY="333.0" mnemonicParsing="false" onAction="#addNewSchedule" text="Add Schedule" />
+      <Button layoutX="501.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleDeleteSchedule" text="Delete Schedule" />
+      <Button layoutX="501.0" layoutY="267.0" mnemonicParsing="false" onAction="#handleEditSchedule" text="Edit Schedule" />
    </children>
 </AnchorPane>
