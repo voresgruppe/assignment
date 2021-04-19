@@ -79,9 +79,9 @@ public class LoginController implements Initializable {
     }
 
     public void printInfo(){
-        System.out.println("Example Student login: Username: " + sMan.getallStudents_OBS().get(1).getStudentLogin().getUserName() + "Password: " + sMan.getallStudents_OBS().get(1).getStudentLogin().getPassword());
-        System.out.println("Example Teacher login: Username: " + tMan.getAllTeachers().get(1).getTeacherLogin().getUserName() + "Password: " + tMan.getAllTeachers().get(1).getTeacherLogin().getPassword());
-        System.out.println("Example Administrator login: Username: " + aMan.getAllAdministrators().get(1).getUsername() + "Password: " + aMan.getAllAdministrators().get(1).getPassword());
+        System.out.println("Example Student login: Username: " + sMan.getallStudents_OBS().get(1).getStudentLogin().getUserName() + " Password: " + sMan.getallStudents_OBS().get(1).getStudentLogin().getPassword());
+        System.out.println("Example Teacher login: Username: " + tMan.getAllTeachers().get(1).getTeacherLogin().getUserName() + " Password: " + tMan.getAllTeachers().get(1).getTeacherLogin().getPassword());
+        System.out.println("Example Administrator login: Username: " + aMan.getAllAdministrators().get(1).getUsername() + " Password: " + aMan.getAllAdministrators().get(1).getPassword());
 
     }
 
