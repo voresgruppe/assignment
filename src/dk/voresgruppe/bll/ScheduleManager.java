@@ -13,6 +13,10 @@ public class ScheduleManager {
         allSchedules = scRepo.loadSchedules();
     }
 
+    public ObservableList<Schedule> getAllSchedules(){
+        return allSchedules;
+    }
+
     public void add(Schedule sc){
         sc.setScheduleID(scRepo.addSchedule(sc));
         allSchedules.add(sc);
