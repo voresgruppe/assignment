@@ -1,34 +1,72 @@
 package dk.voresgruppe.be;
 
 
-import java.util.List;
-
 public class Schedule {
+    private String scheduleName;
+    private int monday;
+    private int tuesday;
+    private int wednesday;
+    private int thursday;
+    private int friday;
+    private int scheduleID;
 
-    private int weekDay;
-    private List<Module> modules;
-
-    public Schedule(int weekDay, List<Module> modules) {
-        this.weekDay = weekDay;
-        this.modules = modules;
+    public Schedule(String scheduleName) {
+        this.scheduleName = scheduleName;
     }
 
-    public List<Module> getModules() {
-        return modules;
+    public String getScheduleName() {
+        return scheduleName;
     }
 
-    public void setModules(List<Module> modules) {
-        this.modules = modules;
+    public void setScheduleName(String scheduleName) {
+        this.scheduleName = scheduleName;
     }
 
-    @Override
-    public String toString() {
-        String result = String.valueOf(weekDay);
-        if(!modules.isEmpty()) {
-            for (Module currentModule : modules) {
-                result += " " +  currentModule;
-            }
-        }
-        return result;
+    public int getMonday() {
+        return monday;
+    }
+
+    public void setMonday(int monday) {
+        this.monday = monday;
+    }
+
+    public int getTuesday() {
+        return tuesday;
+    }
+
+    public void setTuesday(int tuesday) {
+        this.tuesday = tuesday;
+    }
+
+    public int getWednesday() {
+        return wednesday;
+    }
+
+    public void setWednesday(int wednesday) {
+        this.wednesday = wednesday;
+    }
+
+    public int getThursday() {
+        return thursday;
+    }
+
+    public void setThursday(int thursday) {
+        this.thursday = thursday;
+    }
+
+    public int getFriday() {
+        return friday;
+    }
+
+    public void setFriday(int friday) {
+        this.friday = friday;
+    }
+
+    public int getScheduleID() {
+        return scheduleID;
+    }
+
+    public void setScheduleID(int scheduleID) {
+        this.scheduleID = scheduleID;
     }
 }
