@@ -88,6 +88,7 @@ public class LoginController implements Initializable {
             Parent mainLayout = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
+            stage.setTitle("Admin login");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,6 +114,7 @@ public class LoginController implements Initializable {
                             svc.setLoggedStudent(currentStudent);
                             Stage stage = new Stage();
                             stage.setScene(new Scene(mainLayout));
+                            stage.setTitle("Student: " + currentStudent.getFullName());
                             stage.show();
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -138,6 +140,7 @@ public class LoginController implements Initializable {
                                 tvc.setLoggedTeacher(currentTeacher);
                                 Stage stage = new Stage();
                                 stage.setScene(new Scene(mainLayout));
+                                stage.setTitle("Teacher: " + currentTeacher.getFullName());
                                 stage.show();
                             } catch (IOException e) {
                                 e.printStackTrace();

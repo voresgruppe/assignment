@@ -17,7 +17,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class TeacherViewController {
 
@@ -41,12 +40,13 @@ public class TeacherViewController {
     public TextField searchname;
     @FXML
     private Button logud_teacher;
-    public TeacherViewController() throws SQLException {
+    public TeacherViewController(){
         sMan = new StudentManager();
 }
 
     public void initialize() {
         try {
+            sMan.orderStudentsWithMostAbsence();
             observableListStudents = sMan.getallStudents_OBS();
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,7 +87,7 @@ public class TeacherViewController {
                     sic.lookUpStudent(clickedStudent);
                     Stage stage = new Stage();
                     stage.setScene(new Scene(mainLayout));
-                    stage.setTitle(clickedStudent.getFullName() + ", " + cMan.getClassFromID(clickedStudent.getClassID()).getClassNameProperty() + " Info");
+                    stage.setTitle(clickedStudent.getFullName() + ", " + cMan.getClassFromID(clickedStudent.getClassID()).getClassName() + " Info");
                     stage.show();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -96,7 +96,7 @@ public class TeacherViewController {
         });
     }
 
-    public void showTeachersStudents(ActionEvent actionEvent) throws SQLException {
+    public void showTeachersStudents(ActionEvent actionEvent) {
         if (chckbox.isSelected()){
             ObservableList<Student> studentsFromTeacher = sMan.getStudentsFromTeacher(loggedTeacher);
             tableView.setItems(sMan.searchStudent(searchname.getText(), studentsFromTeacher));

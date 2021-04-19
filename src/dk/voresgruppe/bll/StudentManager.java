@@ -5,7 +5,6 @@ import dk.voresgruppe.dal.StudentRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.SQLException;
 import java.util.Comparator;
 
 public class StudentManager {
@@ -16,11 +15,6 @@ public class StudentManager {
 
     public StudentManager() {
         studentsObservableList = sRepo.loadStudents();
-        /*
-        Comparator<Student> comparator = Comparator.comparingDouble(Student::getAbsencePercentage);
-        comparator = comparator.reversed();
-        FXCollections.sort(studentsObservableList, comparator);
-         */
     }
 
     public ObservableList<Student> getallStudents_OBS(){
@@ -44,7 +38,7 @@ public class StudentManager {
         studentsObservableList.set(studentsObservableList.indexOf(a),b);
     }
 
-    public ObservableList<Student> getStudentsFromTeacher(Teacher teacher) throws SQLException {
+    public ObservableList<Student> getStudentsFromTeacher(Teacher teacher){
         studentsFromTeacher = sRepo.loadStudentsWithTeacher(teacher);
         return studentsFromTeacher;
     }
@@ -61,4 +55,11 @@ public class StudentManager {
         }
         return returnList;
     }
+
+    public void orderStudentsWithMostAbsence(){
+        Comparator<Student> comparator = Comparator.comparingDouble(Student::getAbsencePercentage);
+        comparator = comparator.reversed();
+        FXCollections.sort(studentsObservableList, comparator);
+    }
+
 }

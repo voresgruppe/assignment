@@ -40,6 +40,7 @@ public class AdministratorViewController {
             mac.init();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
+            stage.setTitle("Manage administrators");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,6 +58,7 @@ public class AdministratorViewController {
             mtc.initTeachers();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
+            stage.setTitle("Manage teachers");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,6 +76,7 @@ public class AdministratorViewController {
             msc.initStudents();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
+            stage.setTitle("Manage students");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,6 +94,7 @@ public class AdministratorViewController {
             mcc.initCourses();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
+            stage.setTitle("Manage courses");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -109,6 +113,7 @@ public class AdministratorViewController {
             mec.init();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
+            stage.setTitle("Manage educations");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -126,6 +131,7 @@ public class AdministratorViewController {
             mcc.initClasses();
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
+            stage.setTitle("Manage classes");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

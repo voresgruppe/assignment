@@ -67,6 +67,7 @@ public class AdministratorLoginViewController {
             avc.setLoggedAdministrator(currentAdmin);
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
+            stage.setTitle("Administrator view");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

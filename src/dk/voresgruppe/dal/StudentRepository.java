@@ -1,13 +1,11 @@
 package dk.voresgruppe.dal;
 
-import dk.voresgruppe.be.Administrator;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
 import dk.voresgruppe.dal.db.DatabaseConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,20 +24,14 @@ public class StudentRepository {
     }
 
     public ObservableList<Student> loadStudents() {
-
-        try {
-            ObservableList<Student> allStudents = FXCollections.observableArrayList();
-            String query = "SELECT * FROM Student ORDER BY StudentID";
-            return getStudents(allStudents, query);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
-        }
+        ObservableList<Student> allStudents = FXCollections.observableArrayList();
+        String query = "SELECT * FROM Student ORDER BY StudentID";
+        return getStudents(allStudents, query);
     }
 
-    public ObservableList<Student> loadStudentsWithTeacher(Teacher teacher) throws SQLException {
+    public ObservableList<Student> loadStudentsWithTeacher(Teacher teacher) {
         ObservableList<Student> returnList = FXCollections.observableArrayList();
-        String sql = "SELECT DISTINCT s.Fname, s.Lname, s.Username, s.[Password], s.StudentID FROM Student s\n" +
+        String sql = "SELECT DISTINCT s.Fname, s.Lname, s.Username, s.[Password], s.StudentID, s.ClassID FROM Student s\n" +
                 "  JOIN StudentAttendance sa ON s.StudentID = sa.studentID\n" +
                 "  JOIN Course c ON sa.courseID = c.CourseID\n" +
                 "  JOIN Teacher t ON c.TeacherID = t.TeacherID\n" +
@@ -47,21 +39,26 @@ public class StudentRepository {
         return getStudents(returnList, sql);
     }
 
-    private ObservableList<Student> getStudents(ObservableList<Student> returnList, String sql) throws SQLException {
-        Statement statement = connect.createStatement();
-        ResultSet rs = statement.executeQuery(sql);
-        while (rs.next()){
-            User studentUser = new User(rs.getString("Username"), rs.getString("Password"));
-            Student s = new Student(rs.getInt("ClassID"),rs.getString("Fname"),rs.getString("Lname"),studentUser);
-            s.setStudentID(rs.getInt("StudentID"));
+    private ObservableList<Student> getStudents(ObservableList<Student> returnList, String sql) {
+        try {
+            Statement statement = connect.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                User studentUser = new User(rs.getString("Username"), rs.getString("Password"));
+                Student s = new Student(rs.getInt("ClassID"), rs.getString("Fname"), rs.getString("Lname"), studentUser);
+                s.setStudentID(rs.getInt("StudentID"));
 
-            List<dk.voresgruppe.be.Date> dates = new ArrayList<>();
-            getStudentDaysShowedUp(s).forEach(date -> dates.add(new dk.voresgruppe.be.Date(date.getDay(),date.getMonth(),date.getYear())));
-            s.setShowedUp(dates);
+                List<dk.voresgruppe.be.Date> dates = new ArrayList<>();
+                getStudentDaysShowedUp(s).forEach(date -> dates.add(new dk.voresgruppe.be.Date(date.getDay(), date.getMonth(), date.getYear())));
+                s.setShowedUp(dates);
 
-            returnList.add(s);
+                returnList.add(s);
+            }
+            return returnList;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-        return returnList;
+        return null;
     }
 
     public int addStudent(Student s) {
@@ -89,7 +86,6 @@ public class StudentRepository {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
     public void update(Student s){
@@ -102,22 +98,26 @@ public class StudentRepository {
         }
     }
 
-
     /***
      * returns a list of days that the student has marked as participating in.
      * @param student the student whose participation we want to find
      * @return List of days student has been at the establishment
      */
-    private List<Date> getStudentDaysShowedUp(Student student) throws SQLException{
-        String query = "SELECT * FROM StudentAttendance WHERE StudentID=?";
-        PreparedStatement pstmt = connect.prepareStatement(query);
-        pstmt.setInt(1,student.getStudentID());
-        ResultSet rs = pstmt.executeQuery();
-        List<Date> dates = new ArrayList<>();
-        while(rs.next()){
-            dates.add(rs.getDate("attendaceDate"));
+    private List<Date> getStudentDaysShowedUp(Student student) {
+        try {
+            String query = "SELECT * FROM StudentAttendance WHERE StudentID=?";
+            PreparedStatement pstmt = connect.prepareStatement(query);
+            pstmt.setInt(1, student.getStudentID());
+            ResultSet rs = pstmt.executeQuery();
+            List<Date> dates = new ArrayList<>();
+            while (rs.next()) {
+                dates.add(rs.getDate("attendaceDate"));
+            }
+            return dates;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-        return dates;
+        return null;
     }
 
     private String getEducationNameFromStudentID(int studentID) throws SQLException {

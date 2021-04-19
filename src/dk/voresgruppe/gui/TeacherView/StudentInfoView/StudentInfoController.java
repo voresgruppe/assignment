@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -37,7 +36,7 @@ public class StudentInfoController implements Initializable {
         updateUpdatelbl();
     }
 
-    public void editAttendance(ActionEvent actionEvent) throws SQLException {
+    public void editAttendance(ActionEvent actionEvent) {
         if (datePicker.getValue() != null) {
             tMan.updateStudentAttendance(currentStudent, datePicker.getValue());
             updateUpdatelbl();
