@@ -1,6 +1,5 @@
 package dk.voresgruppe.dal;
 
-import com.sun.webkit.network.Util;
 import dk.voresgruppe.be.Date;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;

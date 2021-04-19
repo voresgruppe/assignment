@@ -1,6 +1,5 @@
 package dk.voresgruppe.gui;
 
-
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.be.User;
@@ -11,26 +10,20 @@ import dk.voresgruppe.gui.StudentView.StudentViewController;
 import dk.voresgruppe.gui.TeacherView.TeacherViewController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.net.URL;
-
-
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -122,11 +115,9 @@ public class LoginController implements Initializable {
                             stage.show();
                         } catch (IOException e) {
                             e.printStackTrace();
-
                         }
                     }
                 }
-
             }
         }
 
@@ -148,7 +139,6 @@ public class LoginController implements Initializable {
                                 stage.show();
                             } catch (IOException e) {
                                 e.printStackTrace();
-
                             }
                         }
                     }
@@ -221,7 +211,6 @@ public class LoginController implements Initializable {
             txtPassShown.setText(PassID.getText());
         }
     }
-
 
     public void handleRememberMeCbox(ActionEvent actionEvent) {
             saveLoginInfo();

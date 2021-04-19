@@ -1,11 +1,9 @@
 package dk.voresgruppe.gui.AdministratorView.ManageClassesView;
 
 import dk.voresgruppe.be.Class;
-import dk.voresgruppe.be.Education;
 import dk.voresgruppe.bll.ClassManager;
-import dk.voresgruppe.bll.CourseManager;
 import dk.voresgruppe.bll.EducationManager;
-import dk.voresgruppe.gui.AdministratorView.ManageCoursesView.NewCourseViewController;
+import dk.voresgruppe.bll.ScheduleManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +16,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ManageClassesViewController {
+
     private ClassManager cMan;
     private Class selectedClass;
     private EducationManager eMan;
+    private ScheduleManager scheduleMan;
+
 
     @FXML
     private TableView <Class> tblviewClasses;
@@ -34,6 +35,8 @@ public class ManageClassesViewController {
     private TableColumn<Class, String> classEndDate;
     @FXML
     private TableColumn<Class, String> classStartDate;
+    @FXML
+    public TableColumn<Class, String> classSchedule;
 
     public ManageClassesViewController() {
     }
@@ -45,6 +48,7 @@ public class ManageClassesViewController {
         classEducation.cellValueFactoryProperty().setValue(cellData -> eMan.getEducationFromId(cellData.getValue().getEducationID()).getNameProperty());
         classStartDate.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getStartDateProperty());
         classEndDate.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getEndDateProperty());
+        classSchedule.cellValueFactoryProperty().setValue(cellData -> scheduleMan.getScheduleFromId(cellData.getValue().getClassID()).getScheduleNameProperty());
         classListener();
     }
 
@@ -52,9 +56,10 @@ public class ManageClassesViewController {
         tblviewClasses.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selectedClass = newValue);
     }
 
-    public void setManagers(ClassManager cMan, EducationManager eMan){
+    public void setManagers(ClassManager cMan, EducationManager eMan, ScheduleManager scheduleMan){
         this.cMan = cMan;
         this.eMan = eMan;
+        this.scheduleMan = scheduleMan;
     }
 
     public void addNewClass(ActionEvent actionEvent) {
