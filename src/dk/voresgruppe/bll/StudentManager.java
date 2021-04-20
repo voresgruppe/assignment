@@ -4,8 +4,6 @@ import dk.voresgruppe.be.*;
 import dk.voresgruppe.dal.StudentRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.time.LocalDate;
 import java.util.Comparator;
 
 public class StudentManager {
@@ -65,6 +63,10 @@ public class StudentManager {
 
     public void showedUpToday(Student s, Date d, int courseID){
         sRepo.showedUpThisDay(s,d, courseID);
+    }
+
+    public boolean doesAttendanceExist(Student s, Date d, int courseID){
+        return sRepo.doesAttendanceExist(s,d,courseID);
     }
 
 }

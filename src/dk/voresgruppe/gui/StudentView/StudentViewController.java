@@ -148,6 +148,9 @@ public class StudentViewController implements Initializable {
             }
             Date date = utils.dateFromLocalDate(LocalDate.now());
             sMan.showedUpToday(loggedStudent, date,courseID);
+            if(sMan.doesAttendanceExist(loggedStudent,date,courseID)){
+                UserError.showError("Rolig nu..", "Fremmøde for i dag er allerede blevet registreret");
+            }
         }
         else {
             String header = "dude gå hjem det ";
