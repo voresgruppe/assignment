@@ -136,15 +136,15 @@ public class StudentViewController implements Initializable {
             loggedStudent.addToShowedUp(new Date(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
             int courseID = -1;
             if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.MONDAY){
-                courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getMonday()).getCourseID();
+                courseID = scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getMonday();
             }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.TUESDAY){
-                courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getTuesday()).getCourseID();
+                courseID = scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getTuesday();
             }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.WEDNESDAY){
-                courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getWednesday()).getCourseID();
+                courseID = scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getWednesday();
             }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.THURSDAY){
-                courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getThursday()).getCourseID();
+                courseID = scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getThursday();
             }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.FRIDAY){
-                courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getFriday()).getCourseID();
+                courseID = scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getFriday();
             }
             Date date = utils.dateFromLocalDate(LocalDate.now());
             sMan.showedUpToday(loggedStudent, date,courseID);
