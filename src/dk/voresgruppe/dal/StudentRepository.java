@@ -50,12 +50,14 @@ public class StudentRepository {
                 User studentUser = new User(rs.getString("Username"), rs.getString("Password"));
                 Student s = new Student(rs.getInt("ClassID"), rs.getString("Fname"), rs.getString("Lname"), studentUser);
                 s.setStudentID(rs.getInt("StudentID"));
-
+                /*
                 List<dk.voresgruppe.be.Date> dates = new ArrayList<>();
                 getStudentDaysShowedUp(s).forEach(date -> dates.add(new dk.voresgruppe.be.Date(date.getDay(), date.getMonth(), date.getYear())));
                 s.setShowedUp(dates);
-
+                */
                 returnList.add(s);
+
+
             }
             return returnList;
         } catch (SQLException throwables) {

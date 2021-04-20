@@ -2,12 +2,15 @@ package dk.voresgruppe.bll;
 
 import dk.voresgruppe.be.StudentAttendance;
 import dk.voresgruppe.dal.StudentAttendanceRepository;
+import dk.voresgruppe.util.UserError;
+import dk.voresgruppe.util.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class StudentAttendanceManager {
     private ObservableList<StudentAttendance> allStudentAttendances;
     private StudentAttendanceRepository saRepo = new StudentAttendanceRepository();
+    private Utils utils = new Utils();
 
     public StudentAttendanceManager() {allStudentAttendances = saRepo.loadStudentAttendances();
     }
@@ -17,8 +20,14 @@ public class StudentAttendanceManager {
     }
 
     public void add(StudentAttendance sa){
-        sa.setStudentAttendanceID(saRepo.add(sa));
-        allStudentAttendances.add(sa);
+        if (!checkIfAlreadyExists(sa)) {
+            sa.setStudentAttendanceID(saRepo.add(sa));
+            allStudentAttendances.add(sa);
+            UserError.showError("fremmøde Regristreret","gennemført");
+        }
+        else {
+            UserError.showError("fremmøde er allerede Regristreret"," ikke gennemført");
+        }
     }
 
     public void delete(StudentAttendance sa){
@@ -32,13 +41,13 @@ public class StudentAttendanceManager {
         allStudentAttendances.set(allStudentAttendances.indexOf(a),b);
     }
 
-    public StudentAttendance getStudentAttendanceFromID(int studentAttendanceID){
-        for(StudentAttendance studentAttendance: allStudentAttendances){
-            if(studentAttendance.getStudentAttendanceID() == studentAttendanceID){
-                return studentAttendance;
+    private boolean checkIfAlreadyExists(StudentAttendance sa){
+        for(StudentAttendance current: allStudentAttendances){
+            if(current.getStudentID() == sa.getStudentID() && utils.checkIfDatesMatch(current.getAttendanceDate(), sa.getAttendanceDate())){
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public ObservableList<StudentAttendance> getStudentAttendancesFromStudentID(int studentID){

@@ -28,24 +28,13 @@ public class ScheduleRepository {
 
             while(resultSet.next()){
                 Schedule s = new Schedule(resultSet.getString("scheduleName"));
-                if(String.valueOf(resultSet.getInt("monday")) != null){
-                    s.setMonday(resultSet.getInt("monday"));
-                }
-                if(String.valueOf(resultSet.getInt("tuesday")) != null){
-                    s.setTuesday(resultSet.getInt("tuesday"));
-                }
-                if(String.valueOf(resultSet.getInt("wednesday")) != null){
-                    s.setWednesday(resultSet.getInt("wednesday"));
-                }
-                if(String.valueOf(resultSet.getInt("thursday")) != null){
-                    s.setThursday(resultSet.getInt("thursday"));
-                }
-                if(String.valueOf(resultSet.getInt("friday")) != null){
-                    s.setFriday(resultSet.getInt("friday"));
-                }
-                if(String.valueOf(resultSet.getInt("scheduleID")) != null){
-                    s.setScheduleID(resultSet.getInt("scheduleID"));
-                }
+                s.setMonday(resultSet.getInt("monday"));
+                s.setTuesday(resultSet.getInt("tuesday"));
+                s.setWednesday(resultSet.getInt("wednesday"));
+                s.setThursday(resultSet.getInt("thursday"));
+                s.setFriday(resultSet.getInt("friday"));
+                s.setScheduleID(resultSet.getInt("scheduleID"));
+
                 schedules.add(s);
             }
             return schedules;

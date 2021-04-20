@@ -60,4 +60,8 @@ public class Utils {
     public Date dateFromLocalDate(LocalDate localDate){
         return new Date(localDate.getDayOfMonth(), localDate.getMonthValue(), localDate.getYear());
     }
+
+    public boolean isDateBetweenDates(Date startDate, Date endDate, Date betweenDate){
+        return (betweenDate.toLocalDate().isAfter(startDate.toLocalDate()) && betweenDate.toLocalDate().isBefore(endDate.toLocalDate()));
+    }
 }

@@ -2,12 +2,14 @@ package dk.voresgruppe.gui.StudentView;
 
 import dk.voresgruppe.be.Date;
 import dk.voresgruppe.be.Student;
+import dk.voresgruppe.be.StudentAttendance;
 import dk.voresgruppe.bll.ClassManager;
 import dk.voresgruppe.bll.CourseManager;
 import dk.voresgruppe.bll.ScheduleManager;
 import dk.voresgruppe.bll.StudentManager;
 import dk.voresgruppe.util.UserError;
 import dk.voresgruppe.util.Utils;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,6 +27,7 @@ import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
@@ -64,14 +67,18 @@ public class StudentViewController implements Initializable {
     public void setLoggedStudent(Student loggedStudent) {
         this.loggedStudent = loggedStudent;
         lblGreeting.setText(setLblGreeting());
-        txtFieldAbsencePercentage.setText(loggedStudent.getAbsencePercentage() + "%");
-        txtFieldAbsenceDays.setText(String.valueOf(loggedStudent.getAbsenceDays()));
-        bpAbsenceChart.setCenter(attendanceChart());
+        updateData();
         sMan = new StudentManager();
         courseMan = new CourseManager();
         scMan = new ScheduleManager();
         classMan = new ClassManager();
         setPics();
+    }
+
+    private void updateData(){
+        txtFieldAbsencePercentage.setText(loggedStudent.getAbsencePercentage() + "%");
+        txtFieldAbsenceDays.setText(String.valueOf(loggedStudent.getAbsenceDays()));
+        bpAbsenceChart.setCenter(attendanceChart());
     }
 
 
@@ -86,10 +93,11 @@ public class StudentViewController implements Initializable {
         XYChart.Series series = new XYChart.Series();
         series.setName("Fraværs Procent");
         //populating the series with data
+
         int i = 0;
         int x = 0;
         for (Date currentDate : loggedStudent.getToShowUp()) {
-            for (Date currentShowDate : loggedStudent.getShowedUp()) {
+            for (Date currentShowDate : loggedStudent.getValidShowedUp()) {
                 if (utils.checkIfDatesMatch(currentDate, currentShowDate)) {
                     i++;
                 }
@@ -133,7 +141,8 @@ public class StudentViewController implements Initializable {
 
     public void handleRegisterAttendance(ActionEvent actionEvent) {
         if (utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SATURDAY && utils.getWeekDayFromDate(utils.getCurrentDate()) != Calendar.SUNDAY) {
-            loggedStudent.addToShowedUp(new Date(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+            Date date = utils.dateFromLocalDate(LocalDate.now());
+            StudentAttendance newStudentAttendance =new StudentAttendance(loggedStudent.getStudentID(), date);
             int courseID = -1;
             if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.MONDAY){
                 courseID = scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getMonday();
@@ -146,13 +155,13 @@ public class StudentViewController implements Initializable {
             }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.FRIDAY){
                 courseID = scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getFriday();
             }
-            Date date = utils.dateFromLocalDate(LocalDate.now());
-            sMan.showedUpToday(loggedStudent, date,courseID);
+            newStudentAttendance.setCourseID(courseID);
+            loggedStudent.addToShowedUp(newStudentAttendance);
+            updateData();
         }
         else {
             String header = "dude gå hjem det ";
             if (utils.getWeekDayFromDate(utils.getCurrentDate()) == Calendar.SATURDAY) {
-                System.out.println(utils.getWeekDayFromDate(utils.getCurrentDate()));
                 header += "Lørdag";
             }
             if (utils.getWeekDayFromDate(utils.getCurrentDate()) == Calendar.SUNDAY) {

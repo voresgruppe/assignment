@@ -1,7 +1,10 @@
 package dk.voresgruppe.be;
 
+import dk.voresgruppe.bll.ClassManager;
+import dk.voresgruppe.bll.StudentAttendanceManager;
 import dk.voresgruppe.util.Utils;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 
 
 import java.lang.reflect.Array;
@@ -10,6 +13,8 @@ import java.time.YearMonth;
 import java.util.*;
 
 public class Student {
+    private StudentAttendanceManager  studentAttendanceManager= new StudentAttendanceManager();
+    private ClassManager classManager = new ClassManager();
 
     private int studentID;
     private String firstName;
@@ -19,9 +24,9 @@ public class Student {
     private User studentLogin;
     private String mostAbsentDay;
 
-    private List<Date> toShowUp = datesToShowUp();
-    private List<Date> showedUp = datesShowedUp();
-    private List<Schedule> weekSchedule = new ArrayList<>();
+    private List<Date> toShowUp;
+    private List<Date> validShowedUp;
+    private ObservableList<StudentAttendance> showedUp;
     private Double absencePercentage = 0.0;
 
     private Utils utils = new Utils();
@@ -32,20 +37,22 @@ public class Student {
         fullName = firstName + " " + lastName;
         this.classID = classID;
         this.studentLogin = studentLogin;
+        toShowUp = datesToShowUp();
     }
 
     private List<Date> datesToShowUp() {
         List<Date> datesToShowUp = new ArrayList<>();
-        int day = 1;
-        int month = 8;
-        int year = 2020;
 
-        while (!(day == 25 && month == 12 && year == 2020)) {
+        Date startDate = classManager.getClassFromID(classID).getStartDate();
+        Date endDate = classManager.getClassFromID(classID).getEndDate();
+        int day = startDate.getDay();
+        int month = startDate.getMonth();
+        int year = startDate.getYear();
+
+        while (!(day == endDate.getDay() && month == endDate.getMonth() && year == endDate.getYear())) {
             Date date = new Date(day, month, year);
             YearMonth YM = YearMonth.of(year, month);
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(year, month, day);
-            if (calendar.get(Calendar.DAY_OF_WEEK) < 6) {
+            if (utils.getWeekDayFromDate(date)>= Calendar.MONDAY && utils.getWeekDayFromDate(date)<= Calendar.FRIDAY) {
                 datesToShowUp.add(date);
             }
             if (day < YM.lengthOfMonth()) {
@@ -70,13 +77,28 @@ public class Student {
         return new SimpleStringProperty(String.valueOf(studentID));
     }
 
-    public void setStudentID(int studentID) {
-        this.studentID = studentID;
+    private void updateShowedUp(){
+        showedUp = studentAttendanceManager.getStudentAttendancesFromStudentID(studentID);
+        List<Date> returnList = new ArrayList<>();
+        for(StudentAttendance current: showedUp){
+            if(utils.isDateBetweenDates(classManager.getClassFromID(classID).getStartDate(),classManager.getClassFromID(classID).getEndDate(), current.getAttendanceDate())){
+                returnList.add(current.getAttendanceDate());
+            }
+        }
+        validShowedUp =returnList;
     }
 
-    //TODO: get the dates where students have showed up
-    private List<Date> datesShowedUp() {
-        return this.showedUp;
+    public List<Date> getValidShowedUp() {
+        return validShowedUp;
+    }
+
+    public void setValidShowedUp(List<Date> validShowedUp) {
+        this.validShowedUp = validShowedUp;
+    }
+
+    public void setStudentID(int studentID) {
+        this.studentID = studentID;
+        updateShowedUp();
     }
 
     public String getFirstName() {
@@ -118,12 +140,6 @@ public class Student {
         return studentLogin;
     }
 
-
-    public Schedule getScheduleFromDate(Date date) {
-        int weekday = utils.getWeekNumberFromDate(date);
-        return weekSchedule.get(weekday);
-    }
-
     public List<Date> getToShowUp() {
         return toShowUp;
     }
@@ -132,16 +148,41 @@ public class Student {
         this.toShowUp = toShowUp;
     }
 
-    public List<Date> getShowedUp() {
+    public StudentAttendanceManager getStudentAttendanceManager() {
+        return studentAttendanceManager;
+    }
+
+    public void setStudentAttendanceManager(StudentAttendanceManager studentAttendanceManager) {
+        this.studentAttendanceManager = studentAttendanceManager;
+    }
+
+    public void setMostAbsentDay(String mostAbsentDay) {
+        this.mostAbsentDay = mostAbsentDay;
+    }
+
+    public ObservableList<StudentAttendance> getShowedUp() {
         return showedUp;
     }
 
-    public void setShowedUp(List<Date> showedUp) {
+    public void setShowedUp(ObservableList<StudentAttendance> showedUp) {
         this.showedUp = showedUp;
     }
 
-    public void addToShowedUp(Date date) {
-        showedUp.add(date);
+    public void setAbsencePercentage(Double absencePercentage) {
+        this.absencePercentage = absencePercentage;
+    }
+
+    public Utils getUtils() {
+        return utils;
+    }
+
+    public void setUtils(Utils utils) {
+        this.utils = utils;
+    }
+
+    public void addToShowedUp(StudentAttendance studentAttendance) {
+        studentAttendanceManager.add(studentAttendance);
+        updateShowedUp();
     }
 
     public void setStudentLogin(User studentLogin) {
@@ -155,27 +196,20 @@ public class Student {
     }
 
     public double calcAbsencePercentage() {
-        if (showedUp.isEmpty()) {
+        if (validShowedUp.isEmpty()) {
             return 100;
         } else {
-            return ((this.toShowUp.size() - this.showedUp.size()) / (double) this.toShowUp.size() * 100);
+            System.out.println("totale mødedage: " + toShowUp.size());
+            return ((this.toShowUp.size() - this.validShowedUp.size()) / (double) this.toShowUp.size() * 100);
         }
     }
 
     public int getAbsenceDays() {
-        if (showedUp.isEmpty()) {
+        if (validShowedUp.isEmpty()) {
             return toShowUp.size();
         } else {
-            return toShowUp.size() - showedUp.size();
+            return toShowUp.size() - validShowedUp.size();
         }
-    }
-
-    public List<Schedule> getWeekSchedule() {
-        return weekSchedule;
-    }
-
-    public void setWeekSchedule(List<Schedule> weekSchedule) {
-        this.weekSchedule = weekSchedule;
     }
 
     @Override
@@ -189,8 +223,8 @@ public class Student {
         int wednesday = 0;
         int thursday = 0;
         int friday = 0;
-        for (Date currentDate : showedUp) {
-            int day = utils.getWeekDayFromDate(currentDate);
+        for (StudentAttendance currentDate : showedUp) {
+            int day = utils.getWeekDayFromDate(currentDate.getAttendanceDate());
             switch (day) {
                 case 1:
                     monday += 1;
