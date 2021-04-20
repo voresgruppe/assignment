@@ -145,7 +145,7 @@ public class StudentRepository {
                 String sql = "INSERT INTO StudentAttendance(studentID, courseID, attendaceDate) VALUES (?,?,'" + d + "');";
                 PreparedStatement preparedStatement = connect.prepareStatement(sql);
                 preparedStatement.setInt(1, s.getStudentID());
-                preparedStatement.setInt(2, courseID);  //lav lige det her om til hvilket fag eleven er mødt op til
+                preparedStatement.setInt(2, courseID);
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException throwables) {
@@ -153,10 +153,10 @@ public class StudentRepository {
         }
     }
 
-    private boolean doesAttendanceExist(Student s, Date d, int courseID){
+    public boolean doesAttendanceExist(Student s, Date d, int courseID){
         try{
             String sql = "SELECT * FROM StudentAttendance\n" +
-                    "WHERE studentID = " + s.getStudentID() + " AND courseID = " + courseID + " AND attendaceDate = '" + d + "';"; //lav lige det her 1 om til hvilket fag eleven er mødt op til
+                    "WHERE studentID = " + s.getStudentID() + " AND courseID = " + courseID + " AND attendaceDate = '" + d + "';";
             Statement statement = connect.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while(rs.next()){

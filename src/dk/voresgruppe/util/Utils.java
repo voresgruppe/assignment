@@ -35,7 +35,7 @@ public class Utils {
 
     public int getWeekDayFromDate (Date date) {
         Calendar c = Calendar.getInstance();
-        c.set(date.getYear(), date.getMonth(), date.getDay());
+        c.set(date.getYear(), date.getMonth() - 1, date.getDay());
         return c.get(Calendar.DAY_OF_WEEK);
     }
 
