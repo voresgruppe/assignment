@@ -44,7 +44,7 @@ public class Student {
         List<Date> datesToShowUp = new ArrayList<>();
 
         Date startDate = classManager.getClassFromID(classID).getStartDate();
-        Date endDate = classManager.getClassFromID(classID).getEndDate();
+        Date endDate = utils.dateFromLocalDate(LocalDate.now());
         int day = startDate.getDay();
         int month = startDate.getMonth();
         int year = startDate.getYear();
@@ -81,7 +81,7 @@ public class Student {
         showedUp = studentAttendanceManager.getStudentAttendancesFromStudentID(studentID);
         List<Date> returnList = new ArrayList<>();
         for(StudentAttendance current: showedUp){
-            if(utils.isDateBetweenDates(classManager.getClassFromID(classID).getStartDate(),classManager.getClassFromID(classID).getEndDate(), current.getAttendanceDate())){
+            if(utils.isDateBetweenDates(classManager.getClassFromID(classID).getStartDate(), utils.dateFromLocalDate(LocalDate.now()), current.getAttendanceDate())){
                 returnList.add(current.getAttendanceDate());
             }
         }
