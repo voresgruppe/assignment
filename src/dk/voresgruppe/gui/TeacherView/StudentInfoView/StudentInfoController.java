@@ -52,9 +52,10 @@ public class StudentInfoController implements Initializable {
     }
 
     public void editAttendance(ActionEvent actionEvent) {
-        if (datePicker.getValue() != null) {
-            Date date = utils.dateFromLocalDate(datePicker.getValue());
-            tMan.updateStudentAttendance(currentStudent, date, getTodaysCourse(currentStudent));
+        LocalDate selectedDate = datePicker.getValue();
+        if (selectedDate != null) {
+            Date date = utils.dateFromLocalDate(selectedDate);
+            tMan.updateStudentAttendance(currentStudent, date, getTodaysCourse(currentStudent, selectedDate));
             updateUpdatelbl();
         }
     }
@@ -83,17 +84,17 @@ public class StudentInfoController implements Initializable {
         txtfieldAttendanceDays.setText(currentStudent.getAbsenceDays() + "");
     }
 
-    private int getTodaysCourse(Student loggedStudent){
+    private int getTodaysCourse(Student loggedStudent, LocalDate date){
         int courseID = -1;
-        if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.MONDAY){
+        if(utils.getWeekDayFromDate(utils.dateFromLocalDate(date)) == Calendar.MONDAY){
             courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getMonday()).getCourseID();
-        }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.TUESDAY){
+        }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(date)) == Calendar.TUESDAY){
             courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getTuesday()).getCourseID();
-        }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.WEDNESDAY){
+        }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(date)) == Calendar.WEDNESDAY){
             courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getWednesday()).getCourseID();
-        }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.THURSDAY){
+        }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(date)) == Calendar.THURSDAY){
             courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getThursday()).getCourseID();
-        }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(LocalDate.now())) == Calendar.FRIDAY){
+        }else if(utils.getWeekDayFromDate(utils.dateFromLocalDate(date)) == Calendar.FRIDAY){
             courseID = courseMan.getCourseFromID(scMan.getScheduleFromId(classMan.getClassFromID(loggedStudent.getClassID()).getScheduleID()).getFriday()).getCourseID();
         }
         return courseID;
