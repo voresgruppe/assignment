@@ -1,12 +1,9 @@
 package dk.voresgruppe.gui.TeacherView.StudentInfoView;
 
-import dk.voresgruppe.be.Course;
 import dk.voresgruppe.be.Date;
 import dk.voresgruppe.be.Student;
-import dk.voresgruppe.bll.ClassManager;
-import dk.voresgruppe.bll.CourseManager;
-import dk.voresgruppe.bll.ScheduleManager;
-import dk.voresgruppe.bll.TeacherManager;
+import dk.voresgruppe.be.StudentAttendance;
+import dk.voresgruppe.bll.*;
 import dk.voresgruppe.util.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -34,6 +31,7 @@ public class StudentInfoController implements Initializable {
     private CourseManager courseMan;
     private ScheduleManager scMan;
     private ClassManager classMan;
+    private StudentAttendanceManager saMan;
     private Utils utils= new Utils();
 
     @Override
@@ -48,6 +46,7 @@ public class StudentInfoController implements Initializable {
         courseMan = new CourseManager();
         scMan = new ScheduleManager();
         classMan = new ClassManager();
+        saMan = new StudentAttendanceManager();
         updateUpdatelbl();
     }
 
@@ -55,7 +54,11 @@ public class StudentInfoController implements Initializable {
         LocalDate selectedDate = datePicker.getValue();
         if (selectedDate != null) {
             Date date = utils.dateFromLocalDate(selectedDate);
-            tMan.updateStudentAttendance(currentStudent, date, getTodaysCourse(currentStudent, selectedDate));
+            StudentAttendance newStudentAttendance = new StudentAttendance(currentStudent.getStudentID(), date);
+            newStudentAttendance.setCourseID(getTodaysCourse(currentStudent,selectedDate));
+            if(saMan.checkIfAlreadyExists(newStudentAttendance)){
+                currentStudent.delete(newStudentAttendance);
+            }else currentStudent.addToShowedUp(newStudentAttendance);
             updateUpdatelbl();
         }
     }
@@ -74,7 +77,7 @@ public class StudentInfoController implements Initializable {
         Date date = utils.dateFromLocalDate(datePicker.getValue());
         LocalDate day = datePicker.getValue();
         if (date != null) {
-            if(tMan.didStudentShowUpAt(currentStudent, date)){
+            if(saMan.didStudentShowUp(currentStudent, date)){
                 lblDidStudentShowUp.setText(formatter.format(day) + " mødt op");
             }else lblDidStudentShowUp.setText(formatter.format(day) + " fraværende");
         } else {

@@ -1,7 +1,5 @@
 package dk.voresgruppe.bll;
 
-import dk.voresgruppe.be.Date;
-import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.Teacher;
 import dk.voresgruppe.dal.TeacherRepository;
 import javafx.collections.ObservableList;
@@ -12,16 +10,6 @@ public class TeacherManager {
 
     public TeacherManager()  {
         this.allTeachers = tRepo.loadTeacher();
-    }
-
-    public void updateStudentAttendance(Student student, Date date, int courseID) {
-        if(tRepo.hasStudentShowedUp(student, date)){
-            tRepo.removeFromShowedUp(student, date, courseID);
-        }else tRepo.addToShowedUp(student,date, courseID);
-    }
-
-    public boolean didStudentShowUpAt(Student s, Date d){
-        return tRepo.hasStudentShowedUp(s, d);
     }
 
     public ObservableList<Teacher> getAllTeachers(){

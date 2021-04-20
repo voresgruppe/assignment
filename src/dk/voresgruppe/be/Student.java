@@ -185,6 +185,11 @@ public class Student {
         updateShowedUp();
     }
 
+    public void delete(StudentAttendance sa){
+        studentAttendanceManager.delete(sa);
+        updateShowedUp();
+    }
+
     public void setStudentLogin(User studentLogin) {
         this.studentLogin = studentLogin;
     }

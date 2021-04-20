@@ -1,6 +1,8 @@
 package dk.voresgruppe.dal;
 
 import dk.voresgruppe.be.Class;
+import dk.voresgruppe.be.Date;
+import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.StudentAttendance;
 import dk.voresgruppe.dal.db.DatabaseConnector;
 import dk.voresgruppe.util.Utils;
@@ -64,6 +66,22 @@ public class StudentAttendanceRepository {
             PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM StudentAttendance WHERE StudentAttendanceID = ?");
             preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();
+            System.out.println(id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    public void deleteFromStudentIDAndDate(StudentAttendance sa) {
+        try {
+            int studentID = sa.getStudentID();
+            int courseID = sa.getCourseID();
+            Date date = sa.getAttendanceDate();
+            PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM StudentAttendance WHERE studentID = ? AND courseID = ? AND attendaceDate = '" + date + "'");
+            preparedStatement.setInt(1,studentID);
+            preparedStatement.setInt(2,courseID);
+            preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -78,6 +96,26 @@ public class StudentAttendanceRepository {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public boolean hasStudentShowedUp(Student s, dk.voresgruppe.be.Date date) {
+        try{
+            String query = "SELECT s.Username, sa.courseID FROM StudentAttendance sa\n" +
+                    "JOIN Student s ON sa.studentID = s.StudentID\n" +
+                    "WHERE s.Username = '" + s.getStudentLogin().getUserName() + "' AND sa.attendaceDate = '" + date + "';";
+
+            Statement statement = connect.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()) {
+                if (rs.getString("Username").equals(s.getStudentLogin().getUserName())) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 
 }

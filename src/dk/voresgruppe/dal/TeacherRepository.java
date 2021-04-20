@@ -78,44 +78,6 @@ public class TeacherRepository {
         }
     }
 
-
-    public boolean hasStudentShowedUp(Student s, dk.voresgruppe.be.Date date) {
-        try{
-        String query = "SELECT s.Username, sa.courseID FROM StudentAttendance sa\n" +
-                "JOIN Student s ON sa.studentID = s.StudentID\n" +
-                "WHERE s.Username = '" + s.getStudentLogin().getUserName() + "' AND sa.attendaceDate = '" + date + "';";
-
-        Statement statement = connect.createStatement();
-        ResultSet rs = statement.executeQuery(query);
-        while(rs.next()) {
-            if (rs.getString("Username").equals(s.getStudentLogin().getUserName())) {
-                return true;
-            }
-        }
-        return false;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return false;
-    }
-
-    //returns an int to make it work!! 🤡🤡🤡
-    public int addToShowedUp(Student s, dk.voresgruppe.be.Date date, int courseID) {
-        int returnID = -1;
-        try {
-            String sql = "INSERT INTO StudentAttendance(studentID, courseID, attendaceDate) VALUES (" + getStudentIDFromDB(s) + ", " + courseID + ", '" + date + "');";
-            PreparedStatement preparedStatement = connect.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.executeUpdate();
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            if(generatedKeys.next()){
-                returnID = generatedKeys.getInt(1);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return returnID;
-    }
-
     private int getStudentIDFromDB(Student s) {
         try {
             String sql = "SELECT StudentID FROM Student\n" +
@@ -133,16 +95,5 @@ public class TeacherRepository {
         return -1;
     }
 
-    public void removeFromShowedUp(Student s, dk.voresgruppe.be.Date date, int courseID) {
-        try {
-            String sql = "DELETE FROM StudentAttendance WHERE studentID = ? AND attendaceDate = '" + date + "' AND courseID = " + courseID + ";";
-            int id = s.getStudentID();
-            PreparedStatement preparedStatement = connect.prepareStatement(sql);
-            preparedStatement.setInt(1,id);
-            preparedStatement.executeUpdate();
-            } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
 
 }

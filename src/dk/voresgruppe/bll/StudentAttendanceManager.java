@@ -1,5 +1,7 @@
 package dk.voresgruppe.bll;
 
+import dk.voresgruppe.be.Date;
+import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.StudentAttendance;
 import dk.voresgruppe.dal.StudentAttendanceRepository;
 import dk.voresgruppe.util.UserError;
@@ -31,8 +33,9 @@ public class StudentAttendanceManager {
     }
 
     public void delete(StudentAttendance sa){
+        saRepo.deleteFromStudentIDAndDate(sa);
         allStudentAttendances.remove(sa);
-        saRepo.delete(sa);
+        UserError.showError("fremmøde slettet", "gennemført");
     }
 
     public void replace(StudentAttendance a, StudentAttendance b){
@@ -41,7 +44,7 @@ public class StudentAttendanceManager {
         allStudentAttendances.set(allStudentAttendances.indexOf(a),b);
     }
 
-    private boolean checkIfAlreadyExists(StudentAttendance sa){
+    public boolean checkIfAlreadyExists(StudentAttendance sa){
         for(StudentAttendance current: allStudentAttendances){
             if(current.getStudentID() == sa.getStudentID() && utils.checkIfDatesMatch(current.getAttendanceDate(), sa.getAttendanceDate())){
                 return true;
@@ -58,5 +61,11 @@ public class StudentAttendanceManager {
             }
         }
         return returnList;
+    }
+
+    public boolean didStudentShowUp(Student s, Date d){
+        if( saRepo.hasStudentShowedUp(s,d)){
+            return true;
+        }else return false;
     }
 }
