@@ -199,7 +199,6 @@ public class Student {
         if (validShowedUp.isEmpty()) {
             return 100;
         } else {
-            System.out.println("totale mødedage: " + toShowUp.size());
             return ((this.toShowUp.size() - this.validShowedUp.size()) / (double) this.toShowUp.size() * 100);
         }
     }
