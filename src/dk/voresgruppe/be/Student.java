@@ -182,10 +182,8 @@ public class Student {
     }
 
     public void addToShowedUp(StudentAttendance studentAttendance) {
-        System.out.println("size a " + (toShowUp.size()-validShowedUp.size()));
         studentAttendanceManager.add(studentAttendance);
         updateShowedUp();
-        System.out.println("size b " + (toShowUp.size()-validShowedUp.size()));
     }
 
     public void delete(StudentAttendance sa){

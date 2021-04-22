@@ -31,7 +31,7 @@ public class StudentInfoController implements Initializable {
     private CourseManager courseMan;
     private ScheduleManager scMan;
     private ClassManager classMan;
-    private StudentAttendanceManager saMan;
+    private StudentAttendanceManager saMan = new StudentAttendanceManager();
     private Utils utils= new Utils();
 
     @Override
@@ -41,12 +41,12 @@ public class StudentInfoController implements Initializable {
 
     public void lookUpStudent(Student studentToLookup){
         this.currentStudent = studentToLookup;
+        currentStudent.setStudentAttendanceManager(saMan);
         lblGreeting.setText("Fraværs overblik for " + currentStudent.getFullName());
         tMan = new TeacherManager();
         courseMan = new CourseManager();
         scMan = new ScheduleManager();
         classMan = new ClassManager();
-        saMan = new StudentAttendanceManager();
         updateUpdatelbl();
     }
 
@@ -59,9 +59,7 @@ public class StudentInfoController implements Initializable {
             if(saMan.checkIfAlreadyExists(newStudentAttendance)){
                 currentStudent.delete(saMan.getStudentAttendance(newStudentAttendance.getStudentID(), newStudentAttendance.getAttendanceDate()));
             }else {
-                System.out.println(currentStudent.getAbsenceDays());
                 currentStudent.addToShowedUp(newStudentAttendance);
-                System.out.println(currentStudent.getAbsenceDays());
             }
             updateUpdatelbl();
         }
