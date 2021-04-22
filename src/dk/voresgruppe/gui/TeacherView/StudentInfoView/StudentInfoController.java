@@ -57,8 +57,12 @@ public class StudentInfoController implements Initializable {
             StudentAttendance newStudentAttendance = new StudentAttendance(currentStudent.getStudentID(), date);
             newStudentAttendance.setCourseID(getTodaysCourse(currentStudent,selectedDate));
             if(saMan.checkIfAlreadyExists(newStudentAttendance)){
-                currentStudent.delete(newStudentAttendance);
-            }else currentStudent.addToShowedUp(newStudentAttendance);
+                currentStudent.delete(saMan.getStudentAttendance(newStudentAttendance.getStudentID(), newStudentAttendance.getAttendanceDate()));
+            }else {
+                System.out.println(currentStudent.getAbsenceDays());
+                currentStudent.addToShowedUp(newStudentAttendance);
+                System.out.println(currentStudent.getAbsenceDays());
+            }
             updateUpdatelbl();
         }
     }
@@ -77,7 +81,8 @@ public class StudentInfoController implements Initializable {
         Date date = utils.dateFromLocalDate(datePicker.getValue());
         LocalDate day = datePicker.getValue();
         if (date != null) {
-            if(saMan.didStudentShowUp(currentStudent, date)){
+            StudentAttendance studentAttendance = new StudentAttendance(currentStudent.getStudentID(), date);
+            if(saMan.checkIfAlreadyExists(studentAttendance)){
                 lblDidStudentShowUp.setText(formatter.format(day) + " mødt op");
             }else lblDidStudentShowUp.setText(formatter.format(day) + " fraværende");
         } else {

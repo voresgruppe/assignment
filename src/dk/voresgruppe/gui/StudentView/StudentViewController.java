@@ -3,10 +3,7 @@ package dk.voresgruppe.gui.StudentView;
 import dk.voresgruppe.be.Date;
 import dk.voresgruppe.be.Student;
 import dk.voresgruppe.be.StudentAttendance;
-import dk.voresgruppe.bll.ClassManager;
-import dk.voresgruppe.bll.CourseManager;
-import dk.voresgruppe.bll.ScheduleManager;
-import dk.voresgruppe.bll.StudentManager;
+import dk.voresgruppe.bll.*;
 import dk.voresgruppe.util.UserError;
 import dk.voresgruppe.util.Utils;
 import javafx.collections.ObservableList;
@@ -38,6 +35,7 @@ public class StudentViewController implements Initializable {
     private Utils utils = new Utils();
     private UserError userError = new UserError();
     private CourseManager courseMan;
+    private StudentAttendanceManager saMan= new StudentAttendanceManager();
     private ScheduleManager scMan;
     private ClassManager classMan;
 

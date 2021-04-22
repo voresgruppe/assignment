@@ -33,8 +33,8 @@ public class StudentAttendanceManager {
     }
 
     public void delete(StudentAttendance sa){
-        saRepo.deleteFromStudentIDAndDate(sa);
         allStudentAttendances.remove(sa);
+        saRepo.delete(sa);
         UserError.showError("fremmøde slettet", "gennemført");
     }
 
@@ -51,6 +51,15 @@ public class StudentAttendanceManager {
             }
         }
         return false;
+    }
+
+    public StudentAttendance getStudentAttendance(int studentID, Date attendanceDate){
+        for(StudentAttendance current: allStudentAttendances){
+            if(current.getStudentID() == studentID && utils.checkIfDatesMatch(current.getAttendanceDate(), attendanceDate)){
+                return current;
+            }
+        }
+        return null;
     }
 
     public ObservableList<StudentAttendance> getStudentAttendancesFromStudentID(int studentID){

@@ -81,6 +81,7 @@ public class Student {
         showedUp = studentAttendanceManager.getStudentAttendancesFromStudentID(studentID);
         List<Date> returnList = new ArrayList<>();
         for(StudentAttendance current: showedUp){
+            if(utils.getWeekDayFromDate(current.getAttendanceDate())>= Calendar.MONDAY && utils.getWeekDayFromDate(current.getAttendanceDate())<= Calendar.FRIDAY)
             if(utils.isDateBetweenDates(classManager.getClassFromID(classID).getStartDate(), utils.dateFromLocalDate(LocalDate.now()), current.getAttendanceDate())){
                 returnList.add(current.getAttendanceDate());
             }
@@ -181,8 +182,10 @@ public class Student {
     }
 
     public void addToShowedUp(StudentAttendance studentAttendance) {
+        System.out.println("size a " + (toShowUp.size()-validShowedUp.size()));
         studentAttendanceManager.add(studentAttendance);
         updateShowedUp();
+        System.out.println("size b " + (toShowUp.size()-validShowedUp.size()));
     }
 
     public void delete(StudentAttendance sa){
