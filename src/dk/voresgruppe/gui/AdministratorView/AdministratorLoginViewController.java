@@ -35,8 +35,6 @@ public class AdministratorLoginViewController {
     private AdministratorManager aMan = new AdministratorManager();
 
     public void initialize(){
-        txtUsername.setText("EASV");
-        txtPassword.setText("EASV123");
         File logo = new File("image/logo.png");
         Image image1 = new Image(String.valueOf(logo));
         imgCompanyLogo.setImage(image1);
