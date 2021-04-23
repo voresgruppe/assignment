@@ -10,19 +10,15 @@ import java.sql.*;
 
 public class AdministratorRepository {
 
-    DatabaseConnector databaseConnector = new DatabaseConnector();
-    private Connection connect = null;
+    DatabaseConnector databaseConnector;
+
 
     public AdministratorRepository() {
-        try {
-            connect = databaseConnector.getConnection();
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+        databaseConnector = new DatabaseConnector();
     }
 
     public ObservableList<Administrator> loadAdministrators() {
-        try {
+        try (Connection connect = databaseConnector.getConnection()) {
             ObservableList<Administrator> administrators = FXCollections.observableArrayList();
             String query = "SELECT * FROM Administrator ORDER BY AdministratorId";
             Statement statement = connect.createStatement();
@@ -42,7 +38,7 @@ public class AdministratorRepository {
 
     public int addAdministrator(Administrator a) {
         int returnId = -1;
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "INSERT INTO Administrator(Fname, Lname, Username, [Password]) VALUES ('" + a.getFirstname() +"', '"+a.getLastname()+"', '"+a.getUsername()+"', '"+a.getPassword()+"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
@@ -57,7 +53,7 @@ public class AdministratorRepository {
     }
 
     public void delete(Administrator a) {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             int id = a.getId();
             PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM Administrator WHERE AdministratorId = ?");
             preparedStatement.setInt(1,id);
@@ -69,7 +65,7 @@ public class AdministratorRepository {
     }
 
     public void update(Administrator a){
-        try {
+        try(Connection connect = databaseConnector.getConnection()) {
             String query = "UPDATE Administrator SET Fname = '" +a.getFirstname()+"', Lname = '"+a.getLastname()+"', Username = '"+a.getUsername()+"', [Password]= '"+a.getPassword()+"' WHERE AdministratorId = '" +a.getId()+"'";
             PreparedStatement preparedStatement = connect.prepareStatement(query);
             preparedStatement.executeUpdate();

@@ -8,19 +8,15 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class ScheduleRepository {
-    private DatabaseConnector databaseConnector = new DatabaseConnector();
-    private Connection connect = null;
+    private DatabaseConnector databaseConnector;
+
 
     public ScheduleRepository() {
-        try {
-            connect = databaseConnector.getConnection();
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+       databaseConnector = new DatabaseConnector();
     }
 
     public ObservableList<Schedule> loadSchedules(){
-        try{
+        try(Connection connect = databaseConnector.getConnection()){
             ObservableList<Schedule> schedules = FXCollections.observableArrayList();
             String query = "SELECT * FROM Schedule ORDER BY scheduleID";
             Statement statement = connect.createStatement();
@@ -46,7 +42,7 @@ public class ScheduleRepository {
 
     public int addSchedule(Schedule s) {
         int returnId = -1;
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "INSERT INTO Schedule (monday, tuesday, wednesday, thursday, friday, scheduleName) VALUES ('" +s.getMonday()+"', '"+s.getTuesday()+"', '"+s.getWednesday()+"', '"+s.getThursday()+"', '"+s.getFriday()+"', '"+ s.getScheduleName()+"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
@@ -61,7 +57,7 @@ public class ScheduleRepository {
     }
 
     public void delete(Schedule s) {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             int id = s.getScheduleID();
             PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM Schedule WHERE scheduleID = ?");
             preparedStatement.setInt(1,id);
@@ -73,7 +69,7 @@ public class ScheduleRepository {
     }
 
     public void update(Schedule s){
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "UPDATE Schedule SET monday = '"+s.getMonday()+"', tuesday = '"+s.getTuesday()+"', wednesday= '"+s.getWednesday()+"', thursday= '"+s.getThursday()+"', friday= '"+s.getFriday()+"', scheduleName= '"+s.getScheduleName()+"' WHERE scheduleID = " +s.getScheduleID()+";";
             PreparedStatement preparedStatement = null;
             preparedStatement = connect.prepareStatement(query);

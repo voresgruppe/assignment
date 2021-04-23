@@ -8,19 +8,15 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class EducationRepository {
-    DatabaseConnector databaseConnector = new DatabaseConnector();
+    DatabaseConnector databaseConnector;
     private Connection connect = null;
 
     public EducationRepository() {
-        try {
-            connect = databaseConnector.getConnection();
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+         databaseConnector = new DatabaseConnector();
     }
 
     public ObservableList<Education> loadEducations() {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             ObservableList<Education> educations = FXCollections.observableArrayList();
             String query = "SELECT * FROM Education ORDER BY EducationId";
             Statement statement = connect.createStatement();
@@ -39,7 +35,7 @@ public class EducationRepository {
 
     public int addEducation(Education e) {
         int returnId = -1;
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "INSERT INTO Education(Name) VALUES ('" + e.getName() +"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
@@ -54,7 +50,7 @@ public class EducationRepository {
     }
 
     public void delete(Education e) {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             int id = e.getiD();
             PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM Education WHERE EducationID = ?");
             preparedStatement.setInt(1,id);
@@ -65,7 +61,7 @@ public class EducationRepository {
 
     }
     public void update(Education e){
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "UPDATE Education SET Name = '" + e.getName() +"' WHERE EducationID = '" + e.getiD() + "'";
             PreparedStatement preparedStatement = null;
             preparedStatement = connect.prepareStatement(query);

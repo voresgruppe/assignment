@@ -10,20 +10,15 @@ import java.sql.*;
 
 public class ClassRepository {
 
-    private DatabaseConnector databaseConnector = new DatabaseConnector();
-    private Connection connect = null;
+    private DatabaseConnector databaseConnector;
     private Utils utils = new Utils();
 
     public ClassRepository() {
-        try {
-            connect = databaseConnector.getConnection();
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+        databaseConnector = new DatabaseConnector();
     }
 
     public ObservableList<Class> loadClasses() {
-        try {
+        try (Connection connect = databaseConnector.getConnection()) {
             ObservableList<Class> classes = FXCollections.observableArrayList();
             String query = "SELECT * FROM Class ORDER BY ClassID";
             Statement statement = connect.createStatement();
@@ -55,7 +50,7 @@ public class ClassRepository {
 
     public int addClass(Class c) {
         int returnId = -1;
-        try {
+        try (Connection connect = databaseConnector.getConnection()) {
             String query = "INSERT INTO Class (EducationID, ClassName, EndDate, StartDate, scheduleID) VALUES ('" +c.getEducationID()+"', '"+c.getClassName()+"', '"+c.getEndDate()+"', '"+c.getStartDate()+"', '"+c.getScheduleID()+"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
@@ -70,7 +65,7 @@ public class ClassRepository {
     }
 
     public void delete(Class c) {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             int id = c.getClassID();
             PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM Class WHERE ClassID = ?");
             preparedStatement.setInt(1,id);
@@ -82,7 +77,7 @@ public class ClassRepository {
     }
 
     public void update(Class c){
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "UPDATE Class SET EducationID = '" +c.getEducationID()+"', ClassName = '"+c.getClassName()+"', EndDate = '"+c.getEndDate()+"', StartDate= '"+c.getStartDate()+"', scheduleID= '"+c.getScheduleID()+"' WHERE ClassID = '" +c.getClassID()+"'";
             PreparedStatement preparedStatement = connect.prepareStatement(query);
             preparedStatement.executeUpdate();

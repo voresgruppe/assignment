@@ -10,20 +10,16 @@ import java.sql.*;
 
 public class TeacherRepository {
 
-    DatabaseConnector dbConnector = new DatabaseConnector();
+    DatabaseConnector databaseConnector;
     private Connection connect;
 
     public TeacherRepository() {
-        try {
-            connect = dbConnector.getConnection();
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+        databaseConnector = new DatabaseConnector();
     }
 
     public ObservableList<Teacher> loadTeacher() {
 
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             ObservableList<Teacher> allTeachers = FXCollections.observableArrayList();
             String query = "SELECT * FROM Teacher ORDER BY TeacherID";
             Statement statement = connect.createStatement();
@@ -43,7 +39,7 @@ public class TeacherRepository {
 
     public int addTeacher(Teacher t){
         int returnID = -1;
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "INSERT INTO Teacher(Fname, Lname, Username, [Password]) VALUES ('" + t.getFirstName() +"', '"+t.getLastName()+"', '"+t.getTeacherLogin().getUserName()+"', '"+t.getTeacherLogin().getPassword()+"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
@@ -58,7 +54,7 @@ public class TeacherRepository {
     }
 
     public void delete(Teacher t) {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             int id = t.getTeacherID();
             PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM Teacher WHERE TeacherID = ?");
             preparedStatement.setInt(1,id);
@@ -69,7 +65,7 @@ public class TeacherRepository {
     }
 
     public void update(Teacher t){
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "UPDATE Teacher SET Fname = '" +t.getFirstName()+"', Lname = '"+t.getLastName()+"', Username = '"+t.getTeacherLogin().getUserName()+"', [Password]= '"+t.getTeacherLogin().getPassword()+"' WHERE TeacherID = '" +t.getTeacherID()+"'";
             PreparedStatement preparedStatement = connect.prepareStatement(query);
             preparedStatement.executeUpdate();
@@ -79,7 +75,7 @@ public class TeacherRepository {
     }
 
     private int getStudentIDFromDB(Student s) {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String sql = "SELECT StudentID FROM Student\n" +
                     "WHERE Username = '" + s.getStudentLogin().getUserName() + "';";
             Statement st = connect.createStatement();

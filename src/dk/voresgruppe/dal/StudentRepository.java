@@ -14,16 +14,11 @@ import java.util.List;
 
 public class StudentRepository {
 
-    DatabaseConnector dbConnector = new DatabaseConnector();
-    private Connection connect;
+    DatabaseConnector databaseConnector;
     private Utils utils =  new Utils();
 
     public StudentRepository() {
-        try {
-            connect = dbConnector.getConnection();
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+        databaseConnector = new DatabaseConnector();
     }
 
     public ObservableList<Student> loadStudents() {
@@ -43,7 +38,7 @@ public class StudentRepository {
     }
 
     private ObservableList<Student> getStudents(ObservableList<Student> returnList, String sql) {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             Statement statement = connect.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
@@ -68,7 +63,7 @@ public class StudentRepository {
 
     public int addStudent(Student s) {
         int returnId = -1;
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "INSERT INTO Student(Fname, Lname, Username, [Password], ClassID) VALUES ('"+ s.getFirstName() +"', '"+s.getLastName()+"', '"+s.getStudentLogin().getUserName()+"', '"+s.getStudentLogin().getPassword()+"', '"+s.getClassID()+"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
@@ -83,7 +78,7 @@ public class StudentRepository {
     }
 
     public void delete(Student s) {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             int id = s.getStudentID();
             PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM Student WHERE StudentID = ?");
             preparedStatement.setInt(1,id);
@@ -94,7 +89,7 @@ public class StudentRepository {
     }
 
     public void update(Student s){
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "UPDATE Student SET Fname = '" +s.getFirstName()+"', Lname = '"+s.getLastName()+"', Username = '"+s.getStudentLogin().getUserName()+"', [Password]= '"+s.getStudentLogin().getPassword()+"', ClassID= '"+s.getClassID()+"' WHERE StudentID = '" +s.getStudentID()+"'";
             PreparedStatement preparedStatement = connect.prepareStatement(query);
             preparedStatement.executeUpdate();
@@ -109,7 +104,7 @@ public class StudentRepository {
      * @return List of days student has been at the establishment
      */
     private List<Date> getStudentDaysShowedUp(Student student) {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "SELECT * FROM StudentAttendance WHERE StudentID=?";
             PreparedStatement pstmt = connect.prepareStatement(query);
             pstmt.setInt(1, student.getStudentID());
@@ -125,22 +120,9 @@ public class StudentRepository {
         return null;
     }
 
-    private String getEducationNameFromStudentID(int studentID) throws SQLException {
-        String sql = "SELECT\te.Name\n" +
-                "FROM Education e\n" +
-                "\t JOIN Class c ON e.EducationID = c.EducationID\n" +
-                "\t JOIN Student s ON c.ClassID = s.ClassID\n" +
-                "WHERE s.StudentID = " + studentID;
-        Statement statement = connect.createStatement();
-        ResultSet rs = statement.executeQuery(sql);
-        while(rs.next()){
-            return rs.getString("Name");
-        }
-        return "-1";
-    }
 
     public void showedUpThisDay(Student s, Date d, int courseID){
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             if(!doesAttendanceExist(s,d,courseID)) {
                 String sql = "INSERT INTO StudentAttendance(studentID, courseID, attendaceDate) VALUES (?,?,'" + d + "');";
                 PreparedStatement preparedStatement = connect.prepareStatement(sql);
@@ -154,7 +136,7 @@ public class StudentRepository {
     }
 
     public boolean doesAttendanceExist(Student s, Date d, int courseID){
-        try{
+        try(Connection connect = databaseConnector.getConnection()){
             String sql = "SELECT * FROM StudentAttendance\n" +
                     "WHERE studentID = " + s.getStudentID() + " AND courseID = " + courseID + " AND attendaceDate = '" + d + "';";
             Statement statement = connect.createStatement();

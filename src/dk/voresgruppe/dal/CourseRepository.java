@@ -12,21 +12,16 @@ import java.sql.*;
 
 public class CourseRepository {
 
-    private DatabaseConnector databaseConnector = new DatabaseConnector();
-    private Connection connect = null;
+    private DatabaseConnector databaseConnector;
     private Utils utils = new Utils();
 
 
     public CourseRepository() {
-        try {
-            connect = databaseConnector.getConnection();
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+        databaseConnector = new DatabaseConnector();
     }
 
     public ObservableList<Course> loadCourses() {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             ObservableList<Course> courses = FXCollections.observableArrayList();
             String query = "SELECT * FROM Course ORDER BY CourseID";
             Statement statement = connect.createStatement();
@@ -52,7 +47,7 @@ public class CourseRepository {
 
     public int addCourse(Course c) {
         int returnId = -1;
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "INSERT INTO Course (TeacherID, Name, EndDate, StartDate) VALUES ('" +c.getTeacherID()+"', '"+c.getName()+"', '"+c.getEndDate()+"', '"+c.getStartDate()+"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
@@ -67,7 +62,7 @@ public class CourseRepository {
     }
 
     public void delete(Course c) {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             int id = c.getCourseID();
             PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM Course WHERE CourseId = ?");
             preparedStatement.setInt(1,id);
@@ -79,7 +74,7 @@ public class CourseRepository {
     }
 
     public void update(Course c){
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "UPDATE Course SET TeacherID = '" +c.getTeacherID()+"', Name = '"+c.getName()+"', EndDate = '"+c.getEndDate()+"', StartDate= '"+c.getStartDate()+"' WHERE CourseId = " +c.getCourseID()+";";
             PreparedStatement preparedStatement = null;
             preparedStatement = connect.prepareStatement(query);

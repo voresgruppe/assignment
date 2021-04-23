@@ -12,20 +12,15 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class StudentAttendanceRepository {
-    private DatabaseConnector databaseConnector = new DatabaseConnector();
-    private Connection connect = null;
+    private DatabaseConnector databaseConnector;
     private Utils utils = new Utils();
 
     public StudentAttendanceRepository() {
-        try {
-            connect = databaseConnector.getConnection();
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+        databaseConnector = new DatabaseConnector();
     }
 
     public ObservableList<StudentAttendance> loadStudentAttendances(){
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             ObservableList<StudentAttendance> studentAttendances = FXCollections.observableArrayList();
             String query = "SELECT * FROM StudentAttendance ORDER BY StudentAttendanceID";
             Statement statement = connect.createStatement();
@@ -45,7 +40,7 @@ public class StudentAttendanceRepository {
 
     public int add(StudentAttendance sa) {
         int returnId = -1;
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "INSERT INTO StudentAttendance (studentID, courseID, AttendaceDate) VALUES ('" +sa.getStudentID()+"', '"+sa.getCourseID()+"', '"+sa.getAttendanceDate()+"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
@@ -60,7 +55,7 @@ public class StudentAttendanceRepository {
     }
 
     public void delete(StudentAttendance sa) {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             int id = sa.getStudentAttendanceID();
             PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM StudentAttendance WHERE StudentAttendanceID = ?");
             preparedStatement.setInt(1,id);
@@ -73,7 +68,7 @@ public class StudentAttendanceRepository {
     }
 
     public void deleteFromStudentIDAndDate(StudentAttendance sa) {
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             int studentID = sa.getStudentID();
             int courseID = sa.getCourseID();
             Date date = sa.getAttendanceDate();
@@ -88,7 +83,7 @@ public class StudentAttendanceRepository {
     }
 
     public void update(StudentAttendance sa){
-        try {
+        try (Connection connect = databaseConnector.getConnection()){
             String query = "UPDATE StudentAttendance SET studentID = '" +sa.getStudentID()+"', AttendaceDate = '"+sa.getAttendanceDate()+"' WHERE StudentAttendanceID = '" +sa.getStudentAttendanceID()+"'";
             PreparedStatement preparedStatement = connect.prepareStatement(query);
             preparedStatement.executeUpdate();
@@ -98,7 +93,7 @@ public class StudentAttendanceRepository {
     }
 
     public boolean hasStudentShowedUp(Student s, dk.voresgruppe.be.Date date) {
-        try{
+        try(Connection connect = databaseConnector.getConnection()){
             String query = "SELECT s.Username, sa.courseID FROM StudentAttendance sa\n" +
                     "JOIN Student s ON sa.studentID = s.StudentID\n" +
                     "WHERE s.Username = '" + s.getStudentLogin().getUserName() + "' AND sa.attendaceDate = '" + date + "';";
