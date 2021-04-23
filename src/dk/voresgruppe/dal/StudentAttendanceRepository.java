@@ -46,7 +46,6 @@ public class StudentAttendanceRepository {
     public int add(StudentAttendance sa) {
         int returnId = -1;
         try {
-            System.out.println(sa.getCourseID());
             String query = "INSERT INTO StudentAttendance (studentID, courseID, AttendaceDate) VALUES ('" +sa.getStudentID()+"', '"+sa.getCourseID()+"', '"+sa.getAttendanceDate()+"' );";
             PreparedStatement preparedStatement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
